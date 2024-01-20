@@ -1,22 +1,22 @@
 {
-  "BOILERPLATE.AbilityStr": "Strength",
-  "BOILERPLATE.AbilityCon": "Constitution",
-  "BOILERPLATE.AbilityDex": "Dexterity",
-  "BOILERPLATE.AbilityInt": "Intelligence",
-  "BOILERPLATE.AbilityWis": "Wisdom",
-  "BOILERPLATE.AbilityCha": "Charisma",
+  "KNAVE2E.AbilityStr": "Strength",
+  "KNAVE2E.AbilityCon": "Constitution",
+  "KNAVE2E.AbilityDex": "Dexterity",
+  "KNAVE2E.AbilityInt": "Intelligence",
+  "KNAVE2E.AbilityWis": "Wisdom",
+  "KNAVE2E.AbilityCha": "Charisma",
 
-  "BOILERPLATE.AbilityStrAbbr": "str",
-  "BOILERPLATE.AbilityConAbbr": "con",
-  "BOILERPLATE.AbilityDexAbbr": "dex",
-  "BOILERPLATE.AbilityIntAbbr": "int",
-  "BOILERPLATE.AbilityWisAbbr": "wis",
-  "BOILERPLATE.AbilityChaAbbr": "cha",
+  "KNAVE2E.AbilityStrAbbr": "str",
+  "KNAVE2E.AbilityConAbbr": "con",
+  "KNAVE2E.AbilityDexAbbr": "dex",
+  "KNAVE2E.AbilityIntAbbr": "int",
+  "KNAVE2E.AbilityWisAbbr": "wis",
+  "KNAVE2E.AbilityChaAbbr": "cha",
 
-  "BOILERPLATE.EffectCreate": "Create Effect",
-  "BOILERPLATE.EffectToggle": "Toggle Effect",
-  "BOILERPLATE.EffectEdit": "Edit Effect",
-  "BOILERPLATE.EffectDelete": "Delete Effect",
+  "KNAVE2E.EffectCreate": "Create Effect",
+  "KNAVE2E.EffectToggle": "Toggle Effect",
+  "KNAVE2E.EffectEdit": "Edit Effect",
+  "KNAVE2E.EffectDelete": "Delete Effect",
 
-  "BOILERPLATE.Add": "Add"
+  "KNAVE2E.Add": "Add"
 }
