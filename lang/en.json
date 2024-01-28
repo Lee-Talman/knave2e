@@ -6,13 +6,21 @@
   "KNAVE2E.AbilityWis": "Wisdom",
   "KNAVE2E.AbilityCha": "Charisma",
 
+  "KNAVE2E.ArmorClass": "Armor Class",
+  "KNAVE2E.ArmorPoints": "Armor Points",
+  "KNAVE2E.HitPoints": "Hit Points",
+  "KNAVE2E.Level": "Level",
+  "KNAVE2E.Slots": "Slots",
+  "KNAVE2E.Wounds": "Wounds",
+  "KNAVE2E.XP": "XP",
+
   "KNAVE2E.AbilityStrAbbr": "str",
   "KNAVE2E.AbilityConAbbr": "con",
   "KNAVE2E.AbilityDexAbbr": "dex",
   "KNAVE2E.AbilityIntAbbr": "int",
   "KNAVE2E.AbilityWisAbbr": "wis",
   "KNAVE2E.AbilityChaAbbr": "cha",
-
+  
   "KNAVE2E.EffectCreate": "Create Effect",
   "KNAVE2E.EffectToggle": "Toggle Effect",
   "KNAVE2E.EffectEdit": "Edit Effect",

@@ -1,4 +1,4 @@
-import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
+import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -13,7 +13,7 @@ export class Knave2eActorSheet extends ActorSheet {
       template: "systems/knave2e/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }]
     });
   }
 
@@ -60,7 +60,7 @@ export class Knave2eActorSheet extends ActorSheet {
   }
 
   /**
-   * Organize and classify Items for Character sheets.
+   * Organize and classify Character-specific data for Character sheets.
    *
    * @param {Object} actorData The actor to prepare.
    *
@@ -113,6 +113,15 @@ export class Knave2eActorSheet extends ActorSheet {
         if (i.system.spellLevel != undefined) {
           spells[i.system.spellLevel].push(i);
         }
+      }
+    }
+
+    if (gear.length > context.system.slots.value) {
+      console.log("Over slot limit!");
+      let droppedSlots = (gear.length - context.system.slots.value);
+      for (let i = 0; i < gear.length && i < droppedSlots; i++) {
+        let item = gear[i];
+        item.dropped = true;
       }
     }
 
@@ -191,7 +200,7 @@ export class Knave2eActorSheet extends ActorSheet {
     delete itemData.system["type"];
 
     // Finally, create the item!
-    return await Item.create(itemData, {parent: this.actor});
+    return await Item.create(itemData, { parent: this.actor });
   }
 
   /**

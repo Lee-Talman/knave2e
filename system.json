@@ -43,6 +43,6 @@
   "background": "systems/knave2e/assets/anvil-impact.png",
   "gridDistance": 5,
   "gridUnits": "ft",
-  "primaryTokenAttribute": "health",
-  "secondaryTokenAttribute": "power"
+  "primaryTokenAttribute": "hitPoints",
+  "secondaryTokenAttribute": "wounds"
 }

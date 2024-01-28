@@ -7,7 +7,6 @@
   return loadTemplates([
 
     // Actor partials.
-    "systems/knave2e/templates/actor/parts/actor-features.html",
     "systems/knave2e/templates/actor/parts/actor-items.html",
     "systems/knave2e/templates/actor/parts/actor-spells.html",
     "systems/knave2e/templates/actor/parts/actor-effects.html",

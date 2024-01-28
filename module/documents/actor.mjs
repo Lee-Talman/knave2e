@@ -48,11 +48,17 @@ export class Knave2eActor extends Actor {
     // Make modifications to data here. For example:
     const systemData = actorData.system;
 
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(systemData.abilities)) {
-      // Calculate the modifier using d20 rules.
-      ability.mod = Math.floor((ability.value - 10) / 2);
-    }
+    /*     // Loop through ability scores, and add their modifiers to our sheet output.
+        for (let [key, ability] of Object.entries(systemData.abilities)) {
+          // Calculate the modifier using d20 rules.
+          ability.mod = Math.floor((ability.value - 10) / 2);
+        } */
+
+    systemData.armorClass.value = (systemData.armorPoints.value + 11);
+    systemData.wounds.max, 
+    systemData.slots.max = (systemData.abilities.con.value + 10);
+    systemData.slots.value = (systemData.slots.max - systemData.wounds.value);
+    
   }
 
   /**
@@ -94,8 +100,8 @@ export class Knave2eActor extends Actor {
     }
 
     // Add level for easier access, or fall back to 0.
-    if (data.attributes.level) {
-      data.lvl = data.attributes.level.value ?? 0;
+    if (data.level) {
+      data.lvl = data.level.value ?? 0;
     }
   }
 

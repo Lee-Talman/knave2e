@@ -7,10 +7,12 @@
   background: rgba(0, 0, 0, 0.05);
   border: $border-groove;
   font-weight: bold;
-  > * {
+
+  >* {
     font-size: 14px;
     text-align: center;
   }
+
   .item-name {
     font-weight: bold;
     padding-left: 5px;
@@ -48,10 +50,15 @@
     text-align: left;
     align-items: center;
     display: flex;
-    h3, h4 {
+
+    h3,
+    h4 {
       margin: 0;
       white-space: nowrap;
       overflow-x: hidden;
+    }
+    &.item-dropped {
+      text-decoration: line-through;
     }
   }
 
@@ -60,6 +67,7 @@
     display: flex;
     flex: 0 0 100px;
     justify-content: flex-end;
+
     a {
       font-size: 12px;
       text-align: center;
@@ -72,9 +80,14 @@
     align-items: center;
     padding: 0 2px; // to align with the header border
     border-bottom: 1px solid $c-faint;
-    &:last-child { border-bottom: none; }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
     .item-name {
       color: $c-dark;
+
       .item-image {
         flex: 0 0 30px;
         height: 30px;
@@ -83,38 +96,40 @@
         margin-right: 5px;
       }
     }
-  }
 
-  .item-prop {
-    text-align: center;
-    border-left: 1px solid #c9c7b8;
-    border-right: 1px solid #c9c7b8;
-    font-size: 12px;
-  }
-
-  // Section Header
-  .items-header {
-    height: 28px;
-    margin: 2px 0;
-    padding: 0;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.05);
-    border: $border-groove;
-    font-weight: bold;
-    > * {
-      font-size: 12px;
+    .item-prop {
       text-align: center;
+      border-left: 1px solid #c9c7b8;
+      border-right: 1px solid #c9c7b8;
+      font-size: 12px;
     }
-    .item-name {
-      padding-left: 5px;
-      text-align: left;
-      // font-size: 16px;
+
+    // Section Header
+    .items-header {
+      height: 28px;
+      margin: 2px 0;
+      padding: 0;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.05);
+      border: $border-groove;
+      font-weight: bold;
+
+      >* {
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .item-name {
+        padding-left: 5px;
+        text-align: left;
+        // font-size: 16px;
+      }
     }
   }
-}
 
-/* Example style for Knave2e (can be removed if not needed) */
-.item-formula {
-  flex: 0 0 200px;
-  padding: 0 8px;
+  /* Example style for Knave2e (can be removed if not needed) */
+  .item-formula {
+    flex: 0 0 200px;
+    padding: 0 8px;
+  }
 }
