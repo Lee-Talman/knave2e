@@ -6,9 +6,9 @@
       <a class="item-control item-create" title="Create item" data-type="item"><i class="fas fa-plus"></i> Add item</a>
     </div>
   </li>
-  {{#each gear as |item id|}}
+  {{#each items as |item id|}}
     <li class="item flexrow" data-item-id="{{item._id}}">
-      <div class="item-name {{#if dropped}}item-dropped{{/if}}">
+      <div class="item-name {{#if system.dropped}}item-dropped{{/if}}">
         <div class="item-image">
           <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a>
         </div>

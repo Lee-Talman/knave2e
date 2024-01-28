@@ -31,6 +31,7 @@ export class Knave2eActorSheet extends ActorSheet {
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
     const context = super.getData();
+    console.log(context);
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.actor.toObject(false);
@@ -81,54 +82,22 @@ export class Knave2eActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareItems(context) {
-    // Initialize containers.
-    const gear = [];
-    const features = [];
-    const spells = {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: []
-    };
-
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || DEFAULT_TOKEN;
-      // Append to gear.
-      if (i.type === 'item') {
-        gear.push(i);
-      }
-      // Append to features.
-      else if (i.type === 'feature') {
-        features.push(i);
-      }
-      // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
+    // Sum the slots for every item to compare to slots.value
+    const usedSlots = context.items.reduce((sum, { system: { slots: { value = 0 } } }) => sum + value, 0);
+    
+    // Derive the dropped slots due to too many items or wounds removing slots
+    let droppedSlots = usedSlots - context.system.slots.value;
+    if (droppedSlots > 0){
+      let slotCounter = 0; // count up to droppedSlots to derive how many items to drop regardless of their slots
+      for (let i = 0; i < Math.min(droppedSlots, context.items.length); i++) {
+        const currentItem = context.items[i];
+        currentItem.system.dropped = true;
+        slotCounter = slotCounter + currentItem.system.slots.value;
+        if (slotCounter >= droppedSlots){
+          break;
         }
       }
     }
-
-    if (gear.length > context.system.slots.value) {
-      console.log("Over slot limit!");
-      let droppedSlots = (gear.length - context.system.slots.value);
-      for (let i = 0; i < gear.length && i < droppedSlots; i++) {
-        let item = gear[i];
-        item.dropped = true;
-      }
-    }
-
-    // Assign and return
-    context.gear = gear;
-    context.features = features;
-    context.spells = spells;
   }
 
   /* -------------------------------------------- */

@@ -75,7 +75,8 @@
     "templates": {
       "base": {
         "description": "",
-        "dropped": false
+        "dropped": false,
+        "slots": 1
       }
     },
     "item": {
