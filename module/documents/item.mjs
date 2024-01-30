@@ -12,6 +12,62 @@ export class Knave2eItem extends Item {
     super.prepareData();
   }
 
+  prepareDerivedData(){
+    const itemData = this;
+    const systemData = itemData.system;
+    const flags = itemData.flags.knave2e || {};
+
+    // Make separate methods for each Item type (weapon, armor, etc.) to keep
+    // things organized.
+    this._prepareWeaponData(itemData);
+    this._prepareArmorData(itemData);
+    this._prepareSpellbookData(itemData);
+    this._prepareEquipmentData(itemData);
+    this._prepareAmmoData(itemData);
+    this._prepareCoinData(itemData);
+  }
+
+  _prepareWeaponData(itemData){
+    if (itemData.type !== 'weapon') return;
+
+    const systemData = itemData.system;
+
+      systemData.subTypeOptions = {
+        melee: "Melee",
+        ranged: "Ranged"
+      };
+
+      systemData.damageOptions = {
+        d2: "d2",
+        d4: "d4",
+        d6: "d6",
+        d8: "d8",
+        d10: "d10",
+        d12: "d12"
+      };
+
+      systemData.ammoTypeOptions = {
+        none: "None",
+        sling: "Sling",
+        bow: "Bow"
+      };
+
+      if (systemData.subType.value == "melee") {
+        systemData.toHitBonus = "str";
+      }
+      else {
+        systemData.toHitBonus = "wis";
+      };
+
+  }
+
+  _prepareArmorData(itemData){}
+  _prepareSpellbookData(itemData){}
+  _prepareSpellbookData(itemData){}
+  _prepareEquipmentData(itemData){}
+  _prepareAmmoData(itemData){}
+  _prepareCoinData(itemData){}
+
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
    * @private

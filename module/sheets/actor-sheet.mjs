@@ -10,7 +10,7 @@ export class Knave2eActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "actor"],
-      template: "systems/knave2e/templates/actor/actor-sheet.html",
+      template: "systems/knave2e/templates/actor/actor-sheet.hbs",
       width: 600,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }]
@@ -19,7 +19,7 @@ export class Knave2eActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/knave2e/templates/actor/actor-${this.actor.type}-sheet.html`;
+    return `systems/knave2e/templates/actor/actor-${this.actor.type}-sheet.hbs`;
   }
 
   /* -------------------------------------------- */
@@ -46,9 +46,15 @@ export class Knave2eActorSheet extends ActorSheet {
       this._prepareCharacterData(context);
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == 'npc') {
+    // Prepare recruit data and items.
+    if (actorData.type == 'recruit') {
       this._prepareItems(context);
+      this._prepareRecruitData(context);
+    }
+
+    // Prepare monster data (no items).
+    if (actorData.type == 'monster') {
+      this._prepareMonsterData(context);
     }
 
     // Add roll data for TinyMCE editors.
@@ -68,7 +74,7 @@ export class Knave2eActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareCharacterData(context) {
-    // Handle ability scores.
+    // Handle ability score localization for the loop in actor-character-sheet.
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.KNAVE2E.abilities[k]) ?? k;
     }
@@ -85,10 +91,10 @@ export class Knave2eActorSheet extends ActorSheet {
     // Sum the slots for every item to compare to slots.value
     const usedSlots = context.items.reduce((sum, { system: { slots: { value = 0 } } }) => sum + value, 0);
     
-    // Derive the dropped slots due to too many items or wounds removing slots
+    // Derive the dropped slots resulting from excess items or wounds
     let droppedSlots = usedSlots - context.system.slots.value;
     if (droppedSlots > 0){
-      let slotCounter = 0; // count up to droppedSlots to derive how many items to drop regardless of their slots
+      let slotCounter = 0; // count up to droppedSlots to derive how many discrete items to drop
       for (let i = 0; i < Math.min(droppedSlots, context.items.length); i++) {
         const currentItem = context.items[i];
         currentItem.system.dropped = true;

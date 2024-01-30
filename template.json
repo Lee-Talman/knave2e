@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc", "monster"],
+    "types": ["character", "monster", "recruit", "vehicle"],
     "templates": {
       "base": {
         "armorClass": {
@@ -65,32 +65,84 @@
         "value": 0
       }
     },
-    "npc": {
+    "recruit": {
       "templates": ["base"],
-      "cr": 0
+      "subType": ["hireling", "mercenary", "expertCommon", "expertUncommon", "expertRare"],
+      "cost": 300,
+      "slots": 10,
+      "morale": 7
+    },
+    "monster": {
+      "templates": ["base"],
+      "attacks": [
+        {
+        "name": "weapon", 
+        "damageDice": "d6",
+        "description": ""
+        }
+      ],
+      "morale": 7
+    },
+    "vehicle":{
+      "subType": ["mule", "ridingHorse", "warHorse", "cart", "carriage", "wagon", "rowboat", "fishingBoat", "sloop", "caravel", "galleon"],
+      "slots": 50,
+      "crew": 0
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell"],
+    "types": ["weapon", "armor", "spellbook", "ammo", "equipment", "coin"],
     "templates": {
       "base": {
         "description": "",
         "dropped": false,
-        "slots": 1
+        "itemSlots": {
+          "value": 1
+        },
+        "cost": 0,
+        "isRelic": false,
+        "activeBlessing": false
+      },
+      "consumable":{
+        "quantityPerSlot": 500
       }
     },
-    "item": {
+    "weapon": {
       "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+      "subType": {
+        "value": "melee"
+      },
+      "toHitBonus": {
+        "value": "str"
+      },
+      "damage": {
+        "value": "d6"
+      },
+      "ammoRequired": false,
+      "ammoType": {
+        "value": "none"
+      },
+      "range":{
+        "value": 5
+      }
     },
-    "feature": {
+    "armor": {
+      "templates": ["base"],
+      "subType": ["shield", "helmet", "gambeson", "mailShirt", "breastplate", "armPlate", "legPlate"]
+    },
+    "spellbook": {
       "templates": ["base"]
     },
-    "spell": {
-      "templates": ["base"],
-      "spellLevel": 1
+    "equipment": {
+      "templates": ["base"]
+    },
+    "ammo": {
+      "templates": ["consumable"],
+      "subType": ["sling", "bow"],
+      "quantity": 1
+    },
+    "coin": {
+      "templates": ["consumable"],
+      "quantity": 1
     }
   }
 }

@@ -1,10 +1,5 @@
-/**
- * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
- * @extends {Actor}
- */
 export class Knave2eActor extends Actor {
 
-  /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
     // the following, in order: data reset (to clear active effects),
@@ -13,7 +8,6 @@ export class Knave2eActor extends Actor {
     super.prepareData();
   }
 
-  /** @override */
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
@@ -33,44 +27,139 @@ export class Knave2eActor extends Actor {
     const systemData = actorData.system;
     const flags = actorData.flags.knave2e || {};
 
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
+    // Make separate methods for each Actor type (character, recruit, etc.) to keep
     // things organized.
     this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
+    this._prepareRecruitData(actorData);
+
   }
 
   /**
-   * Prepare Character type specific data
+   * Prepare Character-type specific data
    */
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
 
-    // Make modifications to data here. For example:
     const systemData = actorData.system;
 
-    /*     // Loop through ability scores, and add their modifiers to our sheet output.
-        for (let [key, ability] of Object.entries(systemData.abilities)) {
-          // Calculate the modifier using d20 rules.
-          ability.mod = Math.floor((ability.value - 10) / 2);
-        } */
-
     systemData.armorClass.value = (systemData.armorPoints.value + 11);
-    systemData.wounds.max, 
-    systemData.slots.max = (systemData.abilities.con.value + 10);
+    systemData.wounds.max, systemData.slots.max = (systemData.abilities.con.value + 10);
     systemData.slots.value = (systemData.slots.max - systemData.wounds.value);
-    
+
   }
 
   /**
-   * Prepare NPC type specific data.
+   * Prepare Recruit-type specific data.
    */
-  _prepareNpcData(actorData) {
-    if (actorData.type !== 'npc') return;
+  _prepareRecruitData(actorData) {
+    if (actorData.type !== 'recruit') return;
 
-    // Make modifications to data here. For example:
     const systemData = actorData.system;
-    systemData.xp = (systemData.cr * systemData.cr) * 100;
+    systemData.hitPoints.max = 3;
+    systemData.armorClass.value = 11;
+
+    let subType = systemData.subType;
+    switch (subType) {
+      case "hireling":
+        systemData.cost = 300;
+        break;
+      case "mercenary":
+        systemData.cost = 600;
+        systemData.morale = 8;
+        systemData.hitPoints.max = 3;
+        systemData.armorClass.value = 15;
+        break;
+      case "expertCommon":
+        systemData.cost = 600;
+        break;
+      case "expertUncommon":
+        systemData.cost = 1200;
+        break;
+      case "expertRare":
+        systemData.cost = 2400;
+        break;
+    }
   }
+
+    /**
+   * Prepare Monster-type specific data.
+   */
+    _prepareMonsterData(actorData) {
+      if (actorData.type !== 'monster') return;
+  
+      const systemData = actorData.system;
+
+      }
+
+  /**
+ * Prepare Vehicle-type specific data.
+ */
+  _prepareVehicleData(actorData) {
+    if (actorData.type !== 'vehicle') return;
+
+    const systemData = actorData.system;
+
+    let subType = systemData.subType;
+    switch (subType) {
+      case "mule":
+        systemData.cost = 30;
+        systemData.slots = 50;
+        systemData.crew = 0;
+        break;
+      case "ridingHorse":
+        systemData.cost = 200;
+        systemData.slots = 80;
+        systemData.crew = 0;
+        break;
+      case "warHorse":
+        systemData.cost = 10000;
+        systemData.slots = 80;
+        systemData.crew = 0;
+        break;
+      case "cart":
+        systemData.cost = 50;
+        systemData.slots = 200;
+        systemData.crew = 0;
+        break;
+      case "carriage":
+        systemData.cost = 320;
+        systemData.slots = 200;
+        systemData.crew = 0;
+        break;
+      case "wagon":
+        systemData.cost = 120;
+        systemData.slots = 800;
+        systemData.crew = 0;
+        break;
+      case "rowboat":
+        systemData.cost = 50;
+        systemData.slots = 320;
+        systemData.crew = 0;
+        break;
+      case "fishingBoat":
+        systemData.cost = 500;
+        systemData.slots = 2000;
+        systemData.crew = 2;
+        break;
+      case "sloop":
+        systemData.cost = 5000;
+        systemData.slots = 8000;
+        systemData.crew = 10;
+        break;
+      case "caravel":
+        systemData.cost = 25000;
+        systemData.slots = 40000;
+        systemData.crew = 50;
+        break;
+      case "galleon":
+        systemData.cost = 125000;
+        systemData.slots = 200000;
+        systemData.crew = 200;
+        break;
+    }
+  }
+
+
 
   /**
    * Override getRollData() that's supplied to rolls.
@@ -80,7 +169,7 @@ export class Knave2eActor extends Actor {
 
     // Prepare character roll data.
     this._getCharacterRollData(data);
-    this._getNpcRollData(data);
+    this._getRecruitRollData(data);
 
     return data;
   }
@@ -106,12 +195,12 @@ export class Knave2eActor extends Actor {
   }
 
   /**
-   * Prepare NPC roll data.
+   * Prepare Recruit roll data.
    */
-  _getNpcRollData(data) {
-    if (this.type !== 'npc') return;
+  _getRecruitRollData(data) {
+    if (this.type !== 'recruit') return;
 
-    // Process additional NPC data here.
+    // Process additional Recruit data here.
   }
 
 }

@@ -28,7 +28,7 @@
         <div class="resource flex-group-center">
           <label for="system.armorClass.value" class="resource-label">{{localize 'KNAVE2E.ArmorClass'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.armorClass.value" value="{{system.armorClass.value}}" data-dtype="Number" />
+            <span type="armor-class">{{system.armorClass.value}}</span>
           </div>
         </div>
 
@@ -51,8 +51,7 @@
         <div class="resource flex-group-center">
           <label for="system.armorPoints.value" class="resource-label">{{localize 'KNAVE2E.ArmorPoints'}}</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.armorPoints.value" value="{{system.armorPoints.value}}"
-              data-dtype="Number" />
+            <span class="armor-points">{{numberInput system.armorPoints.value name="system.armorPoints.value" step=1 min=0 max=7}}</span>
           </div>
         </div>
 
