@@ -123,7 +123,7 @@ export class Knave2eActorSheet extends ActorSheet {
     }];
     for (let item of context.items) {
       if (item.type === "weapon" && item.system.dropped.value == false) {
-        let derivedAttackValue = item.attackBonus === "str" ? melee : item.attackBonus === "wis" ? ranged : 0;
+        let derivedAttackValue = item.system.attackBonus === "str" ? melee : item.system.attackBonus === "wis" ? ranged : 0;
 
         context.system.preparedWeapons.push({
           id: item._id,
@@ -133,7 +133,7 @@ export class Knave2eActorSheet extends ActorSheet {
             type: derivedAttackValue,
             roll: `1d20 + ${derivedAttackValue}`,
           },
-          damage: item.damage.value
+          damage: item.system.damage.value
         });
       }
     }

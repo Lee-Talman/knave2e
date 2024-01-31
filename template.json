@@ -94,7 +94,7 @@
       "attacks": [
         {
           "name": "weapon",
-          "damageDice": "d6",
+          "damage": "d6",
           "description": ""
         }
       ],
