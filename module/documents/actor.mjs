@@ -159,8 +159,6 @@ export class Knave2eActor extends Actor {
     }
   }
 
-
-
   /**
    * Override getRollData() that's supplied to rolls.
    */

@@ -1,6 +1,11 @@
 {
   "Actor": {
-    "types": ["character", "monster", "recruit", "vehicle"],
+    "types": [
+      "character",
+      "monster",
+      "recruit",
+      "vehicle"
+    ],
     "templates": {
       "base": {
         "armorClass": {
@@ -22,27 +27,29 @@
       }
     },
     "character": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "abilities": {
         "str": {
           "value": 0,
           "description": "Melee attacks, lifting, climbing, breaking free"
         },
-        "int": {
-          "value": 0,
-          "description": "Lockpicking, alchemy, spells per day"
-        },
         "dex": {
           "value": 0,
           "description": "Dodging, sneaking, sleight of hand"
         },
-        "wis": {
-          "value": 0,
-          "description": "Ranged attacks, foraging, navigation, spell resistance"
-        },
         "con": {
           "value": 0,
           "description": "Physical resistance, item slots, wounds"
+        },
+        "int": {
+          "value": 0,
+          "description": "Lockpicking, alchemy, spells per day"
+        },
+        "wis": {
+          "value": 0,
+          "description": "Ranged attacks, foraging, navigation, spell resistance"
         },
         "cha": {
           "value": 0,
@@ -66,83 +73,141 @@
       }
     },
     "recruit": {
-      "templates": ["base"],
-      "subType": ["hireling", "mercenary", "expertCommon", "expertUncommon", "expertRare"],
+      "templates": [
+        "base"
+      ],
+      "subType": [
+        "hireling",
+        "mercenary",
+        "expertCommon",
+        "expertUncommon",
+        "expertRare"
+      ],
       "cost": 300,
       "slots": 10,
       "morale": 7
     },
     "monster": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "attacks": [
         {
-        "name": "weapon", 
-        "damageDice": "d6",
-        "description": ""
+          "name": "weapon",
+          "damageDice": "d6",
+          "description": ""
         }
       ],
       "morale": 7
     },
-    "vehicle":{
-      "subType": ["mule", "ridingHorse", "warHorse", "cart", "carriage", "wagon", "rowboat", "fishingBoat", "sloop", "caravel", "galleon"],
+    "vehicle": {
+      "subType": [
+        "mule",
+        "ridingHorse",
+        "warHorse",
+        "cart",
+        "carriage",
+        "wagon",
+        "rowboat",
+        "fishingBoat",
+        "sloop",
+        "caravel",
+        "galleon"
+      ],
       "slots": 50,
       "crew": 0
     }
   },
   "Item": {
-    "types": ["weapon", "armor", "spellbook", "ammo", "equipment", "coin"],
+    "types": [
+      "weapon",
+      "armor",
+      "spellbook",
+      "ammo",
+      "equipment",
+      "coin"
+    ],
     "templates": {
       "base": {
         "description": "",
-        "dropped": false,
+        "dropped": {
+          "value": false
+        },
         "itemSlots": {
           "value": 1
         },
-        "cost": 0,
-        "isRelic": false,
-        "activeBlessing": false
-      },
-      "consumable":{
-        "quantityPerSlot": 500
+        "cost": {
+          "value": 1
+        },
+        "isRelic": {
+          "value": false
+        },
+        "activeBlessing": {
+          "value": false
+        },
+        "quantity": {
+          "value": 1
+        },
+        "quantityPerSlot": {
+          "value": 1
+        }
       }
     },
     "weapon": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "subType": {
         "value": "melee"
       },
-      "toHitBonus": {
+      "attackBonus": {
         "value": "str"
       },
       "damage": {
         "value": "d6"
       },
-      "ammoRequired": false,
+      "ammoRequired": {
+        "value": false
+      },
       "ammoType": {
         "value": "none"
       },
-      "range":{
+      "range": {
         "value": 5
       }
     },
     "armor": {
-      "templates": ["base"],
-      "subType": ["shield", "helmet", "gambeson", "mailShirt", "breastplate", "armPlate", "legPlate"]
-    },
-    "spellbook": {
-      "templates": ["base"]
-    },
-    "equipment": {
-      "templates": ["base"]
-    },
-    "ammo": {
-      "templates": ["consumable"],
-      "subType": ["sling", "bow"],
-      "quantity": 1
-    },
-    "coin": {
-      "templates": ["consumable"],
-      "quantity": 1
+      "templates": [
+        "base"
+      ],
+      "subType": {
+        "value": "shield"
+      },
+      "spellbook": {
+        "templates": [
+          "base"
+        ]
+      },
+      "equipment": {
+        "templates": [
+          "base"
+        ]
+      },
+      "ammo": {
+        "templates": [
+          "base"
+        ],
+        "subType": "bow",
+        "quantityPerSlot": 20,
+        "quantity": 1
+      },
+      "coin": {
+        "templates": [
+          "base"
+        ],
+        "quantityPerSlot": 500,
+        "quantity": 1
+      }
     }
   }
 }

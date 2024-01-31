@@ -53,15 +53,19 @@ export class Knave2eItem extends Item {
       };
 
       if (systemData.subType.value == "melee") {
-        systemData.toHitBonus = "str";
+        systemData.attackBonus = "str";
       }
       else {
-        systemData.toHitBonus = "wis";
+        systemData.attackBonus = "wis";
       };
 
   }
 
-  _prepareArmorData(itemData){}
+  _prepareArmorData(itemData){
+    if (itemData.type !== 'armor') return;
+
+    const systemData = itemData.system;
+  }
   _prepareSpellbookData(itemData){}
   _prepareSpellbookData(itemData){}
   _prepareEquipmentData(itemData){}

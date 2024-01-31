@@ -21,3 +21,18 @@ KNAVE2E.abilityAbbreviations = {
   "wis": "KNAVE2E.AbilityWisAbbr",
   "cha": "KNAVE2E.AbilityChaAbbr"
 };
+
+KNAVE2E.armorTypeOptions = {
+  "shield": "KNAVE2E.Shield",
+  "helmet": "KNAVE2E.Helmet",
+  "gambeson": "KNAVE2E.Gambeson",
+  "mailShirt": "KNAVE2E.MailShirt",
+  "breastplate": "KNAVE2E.Breastplate",
+  "armPlate": "KNAVE2E.ArmPlate",
+  "legPlate": "KNAVE2E.LegPlate"
+};
+
+KNAVE2E.weaponTypeOptions = {
+  "melee": "KNAVE2E.Melee",
+  "ranged": "KNAVE2E.Ranged"
+};

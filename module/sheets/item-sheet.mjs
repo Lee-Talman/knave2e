@@ -46,7 +46,41 @@ export class Knave2eItemSheet extends ItemSheet {
     context.system = itemData.system;
     context.flags = itemData.flags;
 
+    // Prepare weapon data and items.
+    if (itemData.type == "weapon") {
+      this._prepareWeaponData(context);
+    }
+
+    // Prepare armor data and items.
+    if (itemData.type == "armor") {
+      this._prepareArmorData(context);
+    }
+
+    // Prepare spellbook data and items.
+    if (itemData.type == "spellbook") {
+      this._prepareSpellbookData(context);
+    }
+
+    // Prepare equipment data (no items).
+    if (itemData.type == "equipment") {
+      this._prepareEquipmentData(context);
+    }
+
+    // Prepare ammo data and items.
+    if (itemData.type == "ammo") {
+      this._prepareAmmoData(context);
+    }
+
+    // Prepare coin data (no items).
+    if (itemData.type == "coin") {
+      this._prepareCoinData(context);
+    }
+
     return context;
+  }
+
+  _prepareWeaponData(context) {
+    
   }
 
   /* -------------------------------------------- */

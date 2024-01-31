@@ -7,7 +7,7 @@
       <div class="resources grid grid-3col">
 
         <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'KNAVE2E.WeaponType'}}</label>
+          <label class="resource-label">{{localize "KNAVE2E.WeaponType"}}</label>
           <div class="resource-content flexrow flex-center flex-between">
             <select name="system.subType.value">
               {{selectOptions system.subTypeOptions selected=system.subType.value}}
@@ -67,4 +67,5 @@
     </div>
   </section>
 </form>
+{{log item.type}}
 {{log system}}

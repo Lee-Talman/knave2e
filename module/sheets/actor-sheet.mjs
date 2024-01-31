@@ -12,7 +12,7 @@ export class Knave2eActorSheet extends ActorSheet {
       classes: ["knave2e", "sheet", "actor"],
       template: "systems/knave2e/templates/actor/actor-sheet.hbs",
       width: 600,
-      height: 600,
+      height: 800,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }]
     });
   }
@@ -89,19 +89,52 @@ export class Knave2eActorSheet extends ActorSheet {
    */
   _prepareItems(context) {
     // Sum the slots for every item to compare to slots.value
-    const usedSlots = context.items.reduce((sum, { system: { slots: { value = 0 } } }) => sum + value, 0);
-    
+    const usedSlots = context.items.reduce((sum, { system: { itemSlots: { value = 0 } } }) => sum + value, 0);
+
     // Derive the dropped slots resulting from excess items or wounds
     let droppedSlots = usedSlots - context.system.slots.value;
-    if (droppedSlots > 0){
+    if (droppedSlots > 0) {
       let slotCounter = 0; // count up to droppedSlots to derive how many discrete items to drop
       for (let i = 0; i < Math.min(droppedSlots, context.items.length); i++) {
         const currentItem = context.items[i];
-        currentItem.system.dropped = true;
-        slotCounter = slotCounter + currentItem.system.slots.value;
-        if (slotCounter >= droppedSlots){
+        currentItem.system.dropped.value = true;
+        slotCounter = slotCounter + currentItem.system.itemSlots.value;
+        if (slotCounter >= droppedSlots) {
           break;
         }
+      }
+    }
+    this._prepareWeapons(context);
+  }
+
+  _prepareWeapons(context) {
+    const melee = context.system.abilities.str.value;
+    const ranged = context.system.abilities.wis.value;
+
+    context.system.preparedWeapons = [{
+        id: "p01",
+        img: "icons/svg/item-bag.svg",
+        name: "Punch",
+        attackBonus: {
+          type: melee,
+          roll: `1d20 + ${melee}`
+        },
+        damage: "d2"
+    }];
+    for (let item of context.items) {
+      if (item.type === "weapon" && item.system.dropped.value == false) {
+        let derivedAttackValue = item.attackBonus === "str" ? melee : item.attackBonus === "wis" ? ranged : 0;
+
+        context.system.preparedWeapons.push({
+          id: item._id,
+          img: item.img,
+          name: item.name,
+          attackBonus:{
+            type: derivedAttackValue,
+            roll: `1d20 + ${derivedAttackValue}`,
+          },
+          damage: item.damage.value
+        });
       }
     }
   }
