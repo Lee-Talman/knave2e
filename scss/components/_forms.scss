@@ -18,7 +18,7 @@
   }
 
   .logo-img {
-    border-color:rgba(255, 255, 255, 0);
+    border-color:#ffffff00;
     margin-right: 20px;
     height: 96px;
     min-width: 180px;
@@ -41,15 +41,19 @@
 }
 
 input.transparent {
-  background-color: rgba(255, 255, 255, 0);
-  border-color: rgba(255, 255, 255, 0);
+  background-color: #ffffff00;
+  border-color: #ffffff00;
 }
 
 #circle-form {
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  margin: 3px;
+  border: 2px dotted black;
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  margin: 2px;
+  text-align: center;
 }
 
 .sheet-tabs {

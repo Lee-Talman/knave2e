@@ -33,14 +33,56 @@
   justify-content: space-around;
 }
 
-.progress.xp {
+progress#xp {
+  margin-top: 5%;
   min-width: 100px;
   height: 25px;
+  accent-color: yellow;
+}
+
+progress#hp {
+  width: 100%;
+  height: 100%;
   accent-color: red;
 }
 
-.progress.wounds {
-  min-width: 100px;
-  height: 25px;
-  accent-color: green;
+.bar-container {
+  background-color: white;
+  width: 50px;
+  height: 320px;
+}
+
+.bar-container-horizontal {
+  @extend .bar-container;
+  width: 25px;
+  height: 200px;
+}
+
+.bar-container-vertical {
+  @extend .bar-container;
+  width: 25px;
+  height: 200px;
+}
+
+.bar {
+  background-color: #9BC9C7;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  //border-top: 6px solid #FFF;
+  box-sizing: border-box;
+}
+
+.bar-horizontal {
+  @extend .bar;
+}
+
+.bar-vertical {
+  @extend .bar;
+  width: 50%;
+}
+
+.bar#hp {
+  background-color: red;
 }

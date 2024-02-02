@@ -8,7 +8,8 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
             description: new fields.StringField(),
             hitPoints: new fields.SchemaField({
                 value: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 }),
-                max: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 })
+                max: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 }),
+                progress: new fields.NumberField({...requiredInteger, initial: 100, min: 0})
             }),
             level: new fields.NumberField({ ...requiredInteger, initial: 1, min: 1 }),
             movement: new fields.NumberField({ ...requiredInteger, initial: 40, min: 0 }),
@@ -18,7 +19,7 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
     prepareBaseData() {
 
     }
-    _prepareDerivedData() {
 
+    _prepareDerivedData() {
     }
 }

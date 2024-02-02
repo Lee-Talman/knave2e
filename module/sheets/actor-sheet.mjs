@@ -45,6 +45,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         const { currentLevel, progress } = this._calculateLevelAndProgress(systemData.xp.value);
         systemData.level = currentLevel;
         systemData.xp.progress = progress;
+        systemData.hitPoints.progress = Math.floor((systemData.hitPoints.value / systemData.hitPoints.max) * 100);
     }
 
     _calculateLevelAndProgress(xp) {
