@@ -2,6 +2,45 @@
   font-weight: bold;
 }
 
-.resource-detail {
-  font-size: smaller;
+.small {
+  font-weight: normal;
+  font-size: small;
+}
+
+.detail {
+  font-size: x-small;
+  font-weight: lighter;
+  font-style: italic;
+}
+
+#circle-resource {
+  display: inline-flex;
+  border: 2px solid black;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#shield-resource {
+  display: inline-flex;
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+  border-radius: 50% 50% 50% 50% / 12% 12% 88% 88%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.progress.xp {
+  min-width: 100px;
+  height: 25px;
+  accent-color: red;
+}
+
+.progress.wounds {
+  min-width: 100px;
+  height: 25px;
+  accent-color: green;
 }

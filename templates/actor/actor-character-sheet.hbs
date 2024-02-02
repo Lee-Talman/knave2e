@@ -24,23 +24,71 @@
         </div>
     </header>
     <section class="sheet-body">
-        <section class="character-abilities">
-            {{#each system.abilities as |ability key|}}
-            <div class="ability flexrow flex-group-center">
-                <div id="ability-values">
-                    <input class="ability-circle" type="text" name="system.abilities.{{key}}.value"
-                        value="{{ability.value}}" data-dtype="Number" />
-                </div>
-                <div id="ability-text">
-                    <div class="ability flexcol flex-group-left items-start">
-                        <div class="resource-label rollable" data-roll="d20+@system.abilities.{{key}}.value"
-                            data-label="{{ability.label}}">{{localize ability.label}}</div>
-                        <div class="resource-detail">{{localize ability.detail}}</div>
+        <div class="flexrow">
+            {{!-- Left Pane --}}
+            <section class="flex2" id="character-body-left">
+                {{#each system.abilities as |ability key|}}
+                <div class="ability flexrow flex-group-center">
+                    <div id="ability-values">
+                        <input id="circle-form" type="text" name="system.abilities.{{key}}.value"
+                            value="{{ability.value}}" data-dtype="Number" />
+                    </div>
+                    <div id="ability-text">
+                        <div class="ability flexcol flex-group-left items-start">
+                            <div class="resource-label rollable" data-roll="d20+@abilities.{{key}}.value"
+                                data-label="{{ability.label}}">{{localize ability.label}}</div>
+                            <div class="resource-label detail">{{localize ability.detail}}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {{/each}}
-        </section>
+                {{/each}}
+            </section>
+
+            {{!-- Mid Pane --}}
+            <section class="flex1" id="character-body-mid">
+                <div class="flexrow">
+                    <div class="flex-group-center">
+                        <div id="ability-text">
+                            <div class="resource-label small">AC</div>
+                        </div>
+                        <div class="resource-label" id="shield-resource">
+                            {{system.armorClass}}
+                        </div>
+                    </div>
+                    <div class="flex-group-center">
+                        <div id="ability-text">
+                            <div class="resource-label small">AP</div>
+                        </div>
+                        <div class="resource-label" id="circle-resource">
+                            {{system.armorPoints}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {{!-- Right Pane --}}
+            <section class="flex2" id="character-body-right">
+                <div class="flexrow">
+                    <div class="flex-group-center">
+                        <div id="ability-text">
+                            <div class="resource-label small">Level</div>
+                        </div>
+                        <div class="resource-label" id="circle-resource">
+                            {{system.level}}
+                        </div>
+                    </div>
+                    <div class="flex-group-center">
+                        <div class="flexrow flex-group-left" id="dotted">
+                            <div class="resource-label small">XP: </div>
+                            <input class="transparent" type="text" name="system.xp.value" value="{{system.xp.value}}"
+                                data-dtype="Number" />
+                        </div>
+                        <progress class="progress xp" max="100" value="{{system.xp.progress}}">
+                        </progress>
+                    </div>
+                </div>
+            </section>
+        </div>
     </section>
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
     <footer>

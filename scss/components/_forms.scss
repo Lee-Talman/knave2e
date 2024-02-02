@@ -31,13 +31,13 @@
     #logo-container {
       max-width: 250px;
     }
-    
-    #dotted {
-      margin: 0 5px;
-      border-bottom: 2px dotted black;
-      align-content: flex-end;
-    }
   }
+}
+
+#dotted {
+  margin: 0 5px;
+  border-bottom: 2px dotted black;
+  align-content: flex-end;
 }
 
 input.transparent {
@@ -45,11 +45,11 @@ input.transparent {
   border-color: rgba(255, 255, 255, 0);
 }
 
-input.ability-circle {
+#circle-form {
   border-radius: 50%;
   height: 50px;
-  max-width: 50px;
-  margin: 5px;
+  width: 50px;
+  margin: 3px;
 }
 
 .sheet-tabs {
