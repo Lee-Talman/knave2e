@@ -25,6 +25,12 @@
   justify-content: space-between;
 }
 
+.flex-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
 .flexlarge {
   flex: 2;
 }
@@ -47,4 +53,12 @@
 .align-center {
   justify-content: center;
   text-align: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
 }

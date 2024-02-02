@@ -1,4 +1,4 @@
-export default class Knave2eKnave2eBaseItemData extends foundry.abstract.TypeDataModel{
+export default class Knave2eItemType extends foundry.abstract.TypeDataModel{
     
     static defineSchema(){
         const fields = foundry.data.fields;

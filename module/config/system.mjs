@@ -23,7 +23,7 @@ export const SYSTEM = {
     AMMO,
     ARMOR,
     COIN,
-    DAMAGE_DICE,
+    DAMAGE_DIE_SIZES,
     EQUIPMENT,
     SPELLBOOK,
     WEAPON

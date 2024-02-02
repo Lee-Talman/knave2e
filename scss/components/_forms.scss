@@ -17,21 +17,39 @@
     margin-right: 10px;
   }
 
-  .header-fields {
-    flex: 1;
+  .logo-img {
+    border-color:rgba(255, 255, 255, 0);
+    margin-right: 20px;
+    height: 96px;
+    min-width: 180px;
   }
 
-  h1.charname {
-    height: 50px;
-    padding: 0px;
-    margin: 5px 0;
-    border-bottom: 0;
-    input {
-      width: 100%;
-      height: 100%;
-      margin: 0;
+  .header-fields {
+    flex: 1;
+    align-items: flex-end;
+
+    #logo-container {
+      max-width: 250px;
+    }
+    
+    #dotted {
+      margin: 0 5px;
+      border-bottom: 2px dotted black;
+      align-content: flex-end;
     }
   }
+}
+
+input.transparent {
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0);
+}
+
+input.ability-circle {
+  border-radius: 50%;
+  height: 50px;
+  max-width: 50px;
+  margin: 5px;
 }
 
 .sheet-tabs {

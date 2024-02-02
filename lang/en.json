@@ -13,6 +13,13 @@
   "ABILITIES.WisdomAbbr": "WIS",
   "ABILITIES.CharismaAbbr": "CHA",
 
+  "ABILITIES.StrengthDescription": "Melee attacks, lifting, climbing, breaking free",
+  "ABILITIES.DexterityDescription": "Dodging, sneaking, sleight of hand",
+  "ABILITIES.ConstitutionDescription": "Physical resistance, item slots, wounds",
+  "ABILITIES.IntelligenceDescription": "Lockpicking, alchemy, spells per day",
+  "ABILITIES.WisdomDescription": "Ranged attacks, foraging, navigation, spell resistance",
+  "ABILITIES.CharismaDescription": "Initiative, persuasion, companions, blessings",
+
   "ACTOR.AmmoBow": "Arrows",
   "ACTOR.AmmoSling": "Sling Bullets",
   "ACTOR.ArmorClass": "Armor Class",
@@ -41,7 +48,6 @@
   "ITEM.LightSource": "Light Source",
   "ITEM.None": "None",
   "ITEM.Relic": "Relic",
-  
 
   "MONSTER.Attacks": "Attacks",
   "MONSTER.NumAppearDng": "Number Appearing (Dungeon)",
@@ -66,5 +72,6 @@
   "KNAVE2E.EffectEdit": "Edit Effect",
   "KNAVE2E.EffectDelete": "Delete Effect",
 
-  "KNAVE2E.Add": "Add"
+  "KNAVE2E.Add": "Add",
+  "KNAVE2E.Check": "Check"
 }

@@ -1,7 +1,7 @@
-import Knave2eBaseItemData from "./base-item.mjs";
+import Knave2eItemType from "./item-type.mjs";
 import {SYSTEM} from "../config/system.mjs";
 
-export default class Knave2eAmmo extends Knave2eBaseItemData {
+export default class Knave2eAmmo extends Knave2eItemType {
     
     static DEFAULT_CATEGORY = "arrow";
 

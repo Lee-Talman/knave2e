@@ -1,18 +1,43 @@
 // Import document classes.
-import { Knave2eActor } from "./documents/actor.mjs";
-import { Knave2eItem } from "./documents/item.mjs";
+//import { Knave2eActor } from "./documents/actor.mjs";
+//import { Knave2eItem } from "./documents/item.mjs";
 // Import sheet classes.
-import { Knave2eActorSheet } from "./sheets/actor-sheet.mjs";
-import { Knave2eItemSheet } from "./sheets/item-sheet.mjs";
+//import { Knave2eActorSheet } from "./sheets/actor-sheet.mjs";
+//import { Knave2eItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
-import { KNAVE2E } from "./helpers/config.mjs";
+// Import DataModel classes.
+
+import { Knave2eCharacter } from "./data/_module.mjs"
+import { Knave2eActor, Knave2eItem } from "./documents/_module.mjs";
+import { Knave2eActorSheet, Knave2eItemSheet } from "./sheets/_module.mjs";
+import { SYSTEM } from "./config/system.mjs";
+
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', function() {
+Hooks.on("init", () => {
+  CONFIG.Actor.dataModels.character = Knave2eCharacter;
+});
+
+Hooks.once("i18nInit", function() {
+
+  // Apply localizations
+  const toLocalize = [
+    "ABILITIES", "AMMO", "ARMOR", "COIN", "EQUIPMENT", "SPELLBOOK", "WEAPON"];
+  for ( let c of toLocalize ) {
+    const conf = foundry.utils.getProperty(SYSTEM, c);
+    for ( let [k, v] of Object.entries(conf) ) {
+      if ( v.label ) v.label = game.i18n.localize(v.label);
+      if ( v.abbreviation) v.abbreviation = game.i18n.localize(v.abbreviation);
+      if ( typeof v === "string" ) conf[k] = game.i18n.localize(v);
+    }
+  }
+});
+
+Hooks.once('init', function () {
 
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
@@ -22,15 +47,12 @@ Hooks.once('init', function() {
     rollItemMacro
   };
 
-  // Add custom constants for configuration.
-  CONFIG.KNAVE2E = KNAVE2E;
-
   /**
    * Set an initiative formula for the system
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: "1d20 + @abilities.cha",
+    formula: "1d20 + @abilities.charisma.value",
     decimals: 2
   };
 
@@ -53,7 +75,7 @@ Hooks.once('init', function() {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here are a few useful examples:
-Handlebars.registerHelper('concat', function() {
+Handlebars.registerHelper('concat', function () {
   var outStr = '';
   for (var arg in arguments) {
     if (typeof arguments[arg] != 'object') {
@@ -63,7 +85,7 @@ Handlebars.registerHelper('concat', function() {
   return outStr;
 });
 
-Handlebars.registerHelper('toLowerCase', function(str) {
+Handlebars.registerHelper('toLowerCase', function (str) {
   return str.toLowerCase();
 });
 
@@ -71,7 +93,7 @@ Handlebars.registerHelper('toLowerCase', function(str) {
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 
-Hooks.once("ready", function() {
+Hooks.once("ready", function () {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
   Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
 });

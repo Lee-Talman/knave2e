@@ -1,0 +1,140 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+    <div class="header-fields">
+      <div class="flexrow">
+        <section class="flex3">
+        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+        </section>
+        <section class="flex1">
+        <button type="button" onclick="alert('Hello world!')">Rest</button>
+        </section>
+      </div>
+      {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+      use both the "grid" and "grid-Ncol" class where "N" can be any number
+      from 1 to 12 and will create that number of columns. --}}
+      <div class="resources grid grid-3col">
+
+        {{!-- "flex-group-center" is also defined in the _grid.scss file
+        and it will add a small amount of padding, a border, and will
+        center all of its child elements content and text. --}}
+        <div class="resource flex-group-center">
+          <label for="system.hitPoints.value" class="resource-label">{{localize 'KNAVE2E.HitPoints'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.hitPoints.value" value="{{system.hitPoints.value}}" data-dtype="Number" />
+            <span> / </span>
+            <input type="text" name="system.hitPoints.max" value="{{system.hitPoints.max}}" data-dtype="Number" />
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.armorClass.value" class="resource-label">{{localize 'KNAVE2E.ArmorClass'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <span type="armor-class">{{system.armorClass.value}}</span>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.level.value" class="resource-label">{{localize 'KNAVE2E.Level'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <div class="progress-container">
+              <div class="progress-bar" id="levelProgressBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.wounds.value" class="resource-label">{{localize 'KNAVE2E.Wounds'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.wounds.value" value="{{system.wounds.value}}" data-dtype="Number" />
+            <span> / </span>
+            <input type="text" name="system.wounds.max" value="{{system.wounds.max}}" data-dtype="Number" />
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.armorPoints.value" class="resource-label">{{localize 'KNAVE2E.ArmorPoints'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <span class="armor-points">{{numberInput system.armorPoints.value name="system.armorPoints.value" step=1
+              min=0 max=7}}</span>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.xp.value" class="resource-label">{{localize 'KNAVE2E.XP'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.xp.value" value="{{system.xp.value}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="abilities">
+    <hr>
+    <div class="abilities grid grid-3col">
+      {{#each system.abilities as |ability key|}}
+      <div class="ability flexrow flex-group-center">
+        <label for="system.abilities.{{key}}.value" class="resource-label rollable"
+          data-roll="d20+@abilities.{{key}}.value" data-label="{{ability.label}}">{{ability.label}}</label>
+        <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+      </div>
+      {{/each}}
+    </div>
+  </section>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="combat">Combat</a>
+    <a class="item" data-tab="items">Item Slots</a>
+    <a class="item" data-tab="biography">Biography</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    
+    <div class="tab combat" data-group="primary" data-tab="combat">
+      <ol class="items-list">
+        <li class="item flexrow items-header">
+          <div class="item-name">Weapon</div>
+          <div class="item-attack">Attack</div>
+          <div class="item-damage">Damage</div>
+        </li>
+
+        {{#each system.preparedWeapons as |weapon key|}}
+        <li class="item flexrow" data-item-id="{{weapon._id}}">
+          <div class="item-name">
+            <div class="item-image">
+              <a class="rollable" data-roll-type="item"><img src="{{weapon.img}}" title="{{weapon.name}}" width="24"
+                  height="24" /></a>
+            </div>
+            <h4>{{weapon.name}}</h4>
+          </div>
+          <div class="item-attack item-prop rollable" data-roll="{{weapon.attackBonus.roll}}">
+            +{{weapon.attackBonus.type}}</div>
+          <div class="item-damage item-prop rollable" data-roll="{{weapon.damage}}">{{weapon.damage}}</div>
+        </li>
+        {{log weapon}}
+        {{/each}}
+      </ol>
+    </div>
+
+    {{!-- Item Slots Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+      {{> "systems/knave2e/templates/actor/parts/actor-items.html"}}
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="biography">
+      {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data
+      to
+      the rollData property. --}}
+      {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner
+      editable=editable}}
+    </div>
+
+  </section>
+</form>

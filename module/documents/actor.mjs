@@ -5,48 +5,36 @@ export default class Knave2eActor extends Actor {
   }
 
   prepareBaseData() {
-    // Data modifications in this step occur before processing embedded
-    // documents or derived data.
   }
 
-  /**
-   * @override
-   * Augment the basic actor data with additional dynamic data. Typically,
-   * you'll want to handle most of your calculated/derived data in this step.
-   * Data calculated in this step should generally not exist in template.json
-   * (such as ability modifiers rather than ability scores) and should be
-   * available both inside and outside of character sheets (such as if an actor
-   * is queried and has a roll executed directly from it).
-   */
   prepareDerivedData() {
     const actorData = this;
-    const systemData = actorData.system;
-    const flags = actorData.flags.knave2e || {};
+    // const systemData = actorData.system;
+    // const flags = actorData.flags.knave2e || {};
 
-    // Make separate methods for each Actor type (character, recruit, etc.) to keep
-    // things organized.
     this._prepareCharacterData(actorData);
-    this._prepareRecruitData(actorData);
+    // this._prepareRecruitData(actorData);
 
   }
 
-  /**
-   * Prepare Character-type specific data
-   */
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
 
     const systemData = actorData.system;
 
-    systemData.armorClass.value = (systemData.armorPoints.value + 11);
-    systemData.wounds.max, systemData.slots.max = (systemData.abilities.con.value + 10);
+    // Define Maximum Values
+    systemData.armorClass = (systemData.armorPoints + 11);
+    systemData.blessings.max = systemData.abilities.charisma.value;
+    systemData.followers.max = systemData.abilities.charisma.value;
+    systemData.spells.max = systemData.abilities.intelligence.value;
+    systemData.slots.max, 
+    systemData.wounds.max = (systemData.abilities.constitution.value + 10);
+    
+    // Define Slots after Wounds
     systemData.slots.value = (systemData.slots.max - systemData.wounds.value);
 
   }
 
-  /**
-   * Prepare Recruit-type specific data.
-   */
   _prepareRecruitData(actorData) {
     if (actorData.type !== 'recruit') return;
 
@@ -163,7 +151,7 @@ export default class Knave2eActor extends Actor {
 
     // Prepare character roll data.
     this._getCharacterRollData(data);
-    this._getRecruitRollData(data);
+    //this._getRecruitRollData(data);
 
     return data;
   }
@@ -174,8 +162,7 @@ export default class Knave2eActor extends Actor {
   _getCharacterRollData(data) {
     if (this.type !== 'character') return;
 
-    // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
+    // Copy the ability scores to the top level, so that rolls can use formulas like `d20 + @strength.value`.
     if (data.abilities) {
       for (let [k, v] of Object.entries(data.abilities)) {
         data[k] = foundry.utils.deepClone(v);
