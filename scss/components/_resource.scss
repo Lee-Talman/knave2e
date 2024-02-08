@@ -15,10 +15,10 @@
 
 #circle-resource {
   display: inline-flex;
-  border: 2px solid black;
-  border-radius: 50%;
   height: 50px;
   width: 50px;
+  border: 2px solid black;
+  border-radius: 50%;
   align-items: center;
   justify-content: space-around;
 }
@@ -33,28 +33,24 @@
   justify-content: space-around;
 }
 
-progress#xp {
-  margin-top: 5%;
-  min-width: 100px;
-  height: 25px;
-  accent-color: yellow;
-}
-
-progress#hp {
-  width: 100%;
-  height: 100%;
-  accent-color: red;
+#rounded-resource {
+  display:inline-flex;
+  height: 50px;
+  width: 50px;
+  margin: 2px;
+  border: 2px solid black;
+  border-radius: 5%;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .bar-container {
-  background-color: white;
-  width: 50px;
-  height: 320px;
+  background-color: #ffffff00;
 }
 
 .bar-container-horizontal {
   @extend .bar-container;
-  width: 25px;
+  width: 100%;
   height: 200px;
 }
 
@@ -65,7 +61,7 @@ progress#hp {
 }
 
 .bar {
-  background-color: #9BC9C7;
+  background-color: yellow;
   position: absolute;
   bottom: 0;
   width: 100%;

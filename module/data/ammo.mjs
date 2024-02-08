@@ -8,7 +8,6 @@ export default class Knave2eAmmo extends Knave2eItemType {
     static defineSchema(){
         const fields = foundry.data.fields;
         return foundry.utils.mergeObject(super.defineSchema()), {
-            armorPoints: new fields.NumberField({integer: true, nullable: false, initial: 1, min: 0}),
         }
     }
 

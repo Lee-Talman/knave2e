@@ -22,10 +22,13 @@
 
   "ACTOR.AmmoBow": "Arrows",
   "ACTOR.AmmoSling": "Sling Bullets",
-  "ACTOR.ArmorClass": "Armor Class",
+  "ACTOR.ArmorClass": "AC",
   "ACTOR.Coins": "Coins",
-  "ACTOR.HitPoints": "Hit Points",
+  "ACTOR.Description": "DESCRIPTION",
+  "ACTOR.HitPoints": "HP",
+  "ACTOR.HitPointsMax": "Max HP",
   "ACTOR.Level": "Level",
+  "ACTOR.Name": "Name",
   "ACTOR.Morale": "Morale",
   "ACTOR.Slots": "Slots",
 
@@ -37,9 +40,15 @@
   "ARMOR.LegPlate": "Leg Plate",
   "ARMOR.Shield": "Shield",
 
-  "CHARACTER.ArmorPoints": "Armor Points",
-  "CHARACTER.MaxCompanions": "Maximum Companions",
+  "CHARACTER.ArmorPoints": "AP",
+  "CHARACTER.Blessings": "Blessings",
+  "CHARACTER.Careers": "Careers",
+  "CHARACTER.Character": "CHARACTER",
+  "CHARACTER.Companions": "Companions",
+  "CHARACTER.Inventory": "INVENTORY",
+  "CHARACTER.Spells": "Spells Cast",
   "CHARACTER.Wounds": "Wounds",
+  "CHARACTER.WoundsMax": "Max Wnd",
   "CHARACTER.XP": "XP",
 
   "ITEM.Cost": "Cost",
@@ -48,6 +57,7 @@
   "ITEM.LightSource": "Light Source",
   "ITEM.None": "None",
   "ITEM.Relic": "Relic",
+  "ITEM.Quantity": "Quantity",
 
   "MONSTER.Attacks": "Attacks",
   "MONSTER.NumAppearDng": "Number Appearing (Dungeon)",
@@ -60,11 +70,15 @@
   "SPELLBOOK.ChaosSpellbook": "Chaos Spellbook",
 
   "WEAPON.AmmoType": "Ammo Type",
+  "WEAPON.Arrow": "Arrow",
   "WEAPON.Broken": "Broken",
-  "WEAPON.DamageDie": "Damage Die",
+  "WEAPON.DamageDiceSize": "Die Size",
+  "WEAPON.DamageDiceAmount": "Damage Dice",
+  "WEAPON.DamageDiceBonus": "Damage Bonus",
   "WEAPON.Melee": "Melee",
   "WEAPON.Range": "Range",
   "WEAPON.Ranged": "Ranged",
+  "WEAPON.Sling": "Sling",
   "WEAPON.WeaponType": "Weapon Type",
 
   "KNAVE2E.EffectCreate": "Create Effect",

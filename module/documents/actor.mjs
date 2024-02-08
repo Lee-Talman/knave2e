@@ -25,7 +25,7 @@ export default class Knave2eActor extends Actor {
     // Define Maximum Values
     systemData.armorClass = (systemData.armorPoints + 11);
     systemData.blessings.max = systemData.abilities.charisma.value;
-    systemData.followers.max = systemData.abilities.charisma.value;
+    systemData.companions.max = systemData.abilities.charisma.value;
     systemData.spells.max = systemData.abilities.intelligence.value;
     systemData.slots.max, 
     systemData.wounds.max = (systemData.abilities.constitution.value + 10);

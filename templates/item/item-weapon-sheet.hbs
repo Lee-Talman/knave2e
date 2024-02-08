@@ -1,71 +1,74 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
-
-      <div class="resources grid grid-3col">
-
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{localize "KNAVE2E.WeaponType"}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <select name="system.subType.value">
-              {{selectOptions system.subTypeOptions selected=system.subType.value}}
-            </select>
+    <div id="item-header-grid">
+      <div id="item-img">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+      </div>
+      <div id="item-info">
+        <div class="flexrow">
+          <div class="flexcol flex-group-center">
+            <div class="resource-label">{{localize "WEAPON.WeaponType"}}</div>
+            <select name="system.category">{{selectOptions weaponCategories selected=system.category
+              localize=true}}</select>
+          </div>
+          <div class="flexcol flex-group-center">
+            <div class="resource-label">{{localize "WEAPON.Range"}}</div>
+            <input class="resource-label transparent small" name="system.range" value="{{system.range}}"
+              data-dtype="Number" />
+          </div>
+          <div class="flexcol flex-group-center">
+            <div class="resource-label">{{localize "WEAPON.AmmoType"}}</div>
+            <select name="system.ammoType">{{selectOptions ammoCategories selected=system.ammoType
+              localize=true}}</select>
           </div>
         </div>
-
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'KNAVE2E.Damage'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <select name="system.damage.value">
-              {{selectOptions system.damageOptions selected=system.damage.value}}
-            </select>
+        <div class="flexrow" style="padding-top:5px">
+          <div class="flexcol flex-group-center">
+            <div class="resource-label">{{localize "WEAPON.DamageDiceAmount"}}</div>
+            <input class="resource-label transparent small" name="system.damageDiceAmount"
+              value="{{system.damageDiceAmount}}" data-dtype="Number" />
           </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'KNAVE2E.AmmoType'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <select name="system.ammoType.value">
-              {{selectOptions system.ammoTypeOptions selected=system.ammoType.value}}
-            </select>
+          <div class="flexcol flex-group-center">
+            <div class="resource-label">{{localize "WEAPON.DamageDiceSize"}}</div>
+            <select name="system.damageDiceSize">{{selectOptions damageDiceCategories
+              selected=system.damageDiceSize localize=true}}</select>
           </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'KNAVE2E.Range'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.range.value" value="{{system.range.value}}" data-dtype="Number" />
-          </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'KNAVE2E.Slots'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.itemSlots.value" value="{{system.itemSlots.value}}" data-dtype="Number" />
-          </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label class="resource-label">{{localize 'KNAVE2E.Cost'}}</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="system.cost.value" value="{{system.cost.value}}" data-dtype="Number" />
+          <div class="flexcol flex-group-center">
+            <div class="resource-label">{{localize "WEAPON.DamageDiceBonus"}}</div>
+            <input class="resource-label transparent small" name="system.damageDiceBonus"
+              value="{{system.damageDiceBonus}}" data-dtype="Number" />
           </div>
         </div>
       </div>
-
-    </div>
   </header>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-    <h2>Description</h2>
-    <div class="description">
-    {{editor system.description target="system.description" rollData=rollData button=false owner=owner
-      editable=editable}}
+    <div id="item-body-grid">
+      <div id="item-aside">
+        <div class="flexcol">
+          <div class="flexrow flex-group-left">
+            <div class="resource-label">{{localize "ACTOR.Slots"}}</div>
+            <input class="resource-label transparent small" name="system.slots" value="{{system.slots}}"
+              data-dtype="Number" />
+          </div>
+          <div class="flexrow flex-group-left">
+            <div class="resource-label">{{localize "ITEM.Cost"}}</div>
+            <input class="resource-label transparent small" name="system.cost" value="{{system.cost}}"
+              data-dtype="Number" />
+          </div>
+          <div class="flexrow flex-group-left">
+            <div class="resource-label">{{localize "ITEM.Relic"}}</div>
+            <input type="checkbox" name="system.relic" {{checked system.relic}}>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="item-description">
+      {{editor world.description target="system.description" button=false engine="prosemirror" collaborate=false}}
+    </div>
     </div>
   </section>
 </form>
-{{log item.type}}
-{{log system}}
+
+{{log item}}

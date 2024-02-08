@@ -30,6 +30,7 @@ export default class Knave2eItemSheet extends ItemSheet {
 
     // Use a safe clone of the item data for further operations.
     const itemData = context.item;
+    context.system = itemData.system;
 
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = {};
@@ -76,7 +77,37 @@ export default class Knave2eItemSheet extends ItemSheet {
   }
 
   _prepareWeaponData(context) {
+    context.weaponCategories = this._labelOptions(CONFIG.SYSTEM.WEAPON.CATEGORIES);
+    context.ammoCategories = this._labelOptions(CONFIG.SYSTEM.AMMO.CATEGORIES);
+    context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
     
+    context.system.damageRoll = this._calculateDamageRoll(context);
+
+    return context;
+  }
+
+  // Convert CATEGORIES({id: "id", label: "label"}) to a selectOptions-compatible object
+  _labelOptions(categories) {
+    const returnObject = Object.keys(categories).reduce((result, key) => {
+      result[key] = categories[key].label;
+      return result;
+    }, {});
+    return returnObject;
+  }
+
+  _calculateDamageRoll(context){
+    const roll = context.system;
+    let damageRoll = "";
+    if (roll.damageDiceBonus > 0){
+      damageRoll = `${context.system.damageDiceAmount}${context.system.damageDiceSize}+${context.system.damageDiceBonus}`;
+    }
+    else if (roll.damageDiceBonus === 0){
+      damageRoll = `${context.system.damageDiceAmount}${context.system.damageDiceSize}`;
+    }
+    else {
+      damageRoll = `${context.system.damageDiceAmount}${context.system.damageDiceSize}${context.system.damageDiceBonus}`;
+    }
+    return damageRoll;
   }
 
   /* -------------------------------------------- */

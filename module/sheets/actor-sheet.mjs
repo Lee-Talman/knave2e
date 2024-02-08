@@ -5,7 +5,8 @@ export default class Knave2eActorSheet extends ActorSheet {
             classes: ["knave2e", "sheet", "actor"],
             template: "systems/knave2e/templates/actor/actor-sheet.hbs",
             width: 600,
-            height: 800
+            height: 800,
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
     }
 
@@ -46,6 +47,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.level = currentLevel;
         systemData.xp.progress = progress;
         systemData.hitPoints.progress = Math.floor((systemData.hitPoints.value / systemData.hitPoints.max) * 100);
+        systemData.wounds.progress = Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100);
     }
 
     _calculateLevelAndProgress(xp) {
@@ -101,9 +103,16 @@ export default class Knave2eActorSheet extends ActorSheet {
         return { currentLevel, progress };
     }
 
-    rest() {
-        this.hitPoints.value = this.hitPoints.max;
-        this.wounds.value = Math.min((this.wounds.value - 1), this.wounds.max);
+    _rest() {
+        // event.preventDefault();
+        const systemData = this.actor.system;
+        console.log("rest button clicked");
+
+        return this.actor.update(
+        {
+            "system.hitPoints.value": systemData.hitPoints.max,
+            "system.wounds.value": Math.max(systemData.wounds.value - 1, 0)
+        });
     }
 
     _updateXPProgressBar() {
@@ -147,6 +156,11 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Rollable abilities.
         html.find('.rollable').click(this._onRoll.bind(this));
+
+        // Rest button.
+        html.find('.rest-button').click(this._rest.bind(this));
+
+        
 
         // Drag events for macros.
         if (this.actor.isOwner) {
@@ -213,12 +227,12 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Handle plain-text roll formulas
         if (dataset.roll) {
-            if (event.shiftKey){
+            if (event.shiftKey) {
                 console.log("Shift Click!"); // @TODO: Add optional modifier pop-up
             }
-            else{
-                let label = dataset.label ? 
-                `[${game.i18n.localize("KNAVE2E.Check")}]
+            else {
+                let label = dataset.label ?
+                    `[${game.i18n.localize("KNAVE2E.Check")}]
                   ${game.i18n.localize(dataset.label)}` : '';
                 let roll = new Roll(dataset.roll, this.actor.getRollData());
 

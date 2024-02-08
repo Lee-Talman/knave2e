@@ -8,10 +8,11 @@
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 // Import DataModel classes.
 
-import { Knave2eCharacter } from "./data/_module.mjs"
+import { Knave2eCharacter, Knave2eWeapon } from "./data/_module.mjs"
 import { Knave2eActor, Knave2eItem } from "./documents/_module.mjs";
 import { Knave2eActorSheet, Knave2eItemSheet } from "./sheets/_module.mjs";
 import { SYSTEM } from "./config/system.mjs";
+// globalThis.SYSTEM = SYSTEM;
 
 
 /* -------------------------------------------- */
@@ -20,6 +21,11 @@ import { SYSTEM } from "./config/system.mjs";
 
 Hooks.on("init", () => {
   CONFIG.Actor.dataModels.character = Knave2eCharacter;
+  CONFIG.Item.dataModels.weapon = Knave2eWeapon;
+});
+
+Hooks.once("init", () => {
+  CONFIG.SYSTEM = SYSTEM;
 });
 
 Hooks.once("i18nInit", function() {
@@ -47,10 +53,9 @@ Hooks.once('init', function () {
     rollItemMacro
   };
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
+  // globalThis.knave2e = game.system;
+  // game.system.CONST = SYSTEM;
+
   CONFIG.Combat.initiative = {
     formula: "1d20 + @abilities.charisma.value",
     decimals: 2

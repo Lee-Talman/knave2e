@@ -2,6 +2,12 @@
   font-family: $font-primary;
 }
 
+.sheet-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
 .sheet-header {
   flex: 0 auto;
   overflow: hidden;
@@ -10,12 +16,6 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   margin-bottom: 10px;
-
-  .profile-img {
-    flex: 0 0 100px;
-    height: 100px;
-    margin-right: 10px;
-  }
 
   .logo-img {
     border-color:#ffffff00;
@@ -42,12 +42,19 @@
 
 input.transparent {
   background-color: #ffffff00;
-  border-color: #ffffff00;
+  border: 0px;
+}
+
+input.small {
+  max-width: 50px;
+  padding: 0px;
+  border: 0px;
+  text-align: center;
 }
 
 #circle-form {
   border-radius: 50%;
-  border: 2px dotted black;
+  border: 2px solid black;
   min-width: 50px;
   max-width: 50px;
   min-height: 50px;
@@ -56,14 +63,47 @@ input.transparent {
   text-align: center;
 }
 
+#rounded-form {
+  border-radius: 5%;
+  border: 2px solid black;
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  margin: 2px;
+  text-align: center;
+}
+
+.transparent-form label,
+.transparent-form input {
+  margin-right: 10px;
+}
+
 .sheet-tabs {
   flex: 0;
+}
+
+.sheet-tabs.tabs {
+  border: none;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--color-border-highlight);
+}
+
+.active#tab-color {
+  background-color: var(--color-border-highlight);
 }
 
 .sheet-body,
 .sheet-body .tab,
 .sheet-body .tab .editor {
-  height: 100%;
+  height: auto;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+  margin-top: auto;
 }
 
 .tox {

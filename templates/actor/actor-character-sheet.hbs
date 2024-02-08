@@ -1,60 +1,168 @@
-<form class="{{cssClass}}" autocomplete="off">
-    <div id="character-grid">
+<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="sheet-container">
+        {{!-- Sheet Header --}}
+        <header class="sheet-header">
+            <div id="character-header-grid">
 
-        {{!-- Knave Logo --}}
-        <div id="knave-logo" style="min-width:150px">
-            <img class="logo-img" src="systems/knave2e/assets/knave-2e-logo.png" title="Knave2eLogo" />
-        </div>
+                {{!-- Knave Logo --}}
+                <div id="knave-logo" style="min-width:150px">
+                    <img class="logo-img" src="systems/knave2e/assets/knave-2e-logo.png" />
+                </div>
 
-        {{!-- Name & Careers --}}
-        <div id="character-info">
-            <div class="flexrow flex-group-left" id="dotted">
-                <div class="resource-label flex1">Name</div>
-                <input class="transparent flex3" name="actor.name" type="text" value="{{actor.name}}"
-                    placeholder="{{actor.name}}" />
-            </div>
-            <div class="flexrow flex-group-left" id="dotted">
-                <div class="resource-label flex1">Careers</div>
-                <input class="transparent flex3" name="actor.careers" type="text" value="{{actor.careers}}"
-                    placeholder="Alchemist, Cook, Sailor, etc." />
-            </div>
-        </div>
+                {{!-- Character Header Info --}}
+                <div id="character-info">
+                    <div class="flexrow flex-group-left" id="dotted">
+                        <div class="resource-label flex1">{{localize "ACTOR.Name"}}</div>
+                        <input class="transparent flex3" name="actor.name" type="text" value="{{actor.name}}"
+                            placeholder="{{actor.name}}" />
+                    </div>
+                    <div class="flexrow flex-group-left" id="dotted">
+                        <div class="resource-label flex1">{{localize "CHARACTER.Careers"}}</div>
+                        <input class="transparent flex3" name="system.careers" type="text" value="{{system.careers}}"
+                            placeholder="Alchemist, Cook, Sailor, etc." />
+                    </div>
+                    <div class="flexrow flex-group-center flex-between">
+                        <div class="flexcol flex-group-center">
+                            <div title="&#8804 INT" class="resource-label small">{{localize "CHARACTER.Spells"}}</div>
+                            <div class="resource-label" name="system.spells.value">{{system.spells.value}}
+                            </div>
+                        </div>
+                        <div class="flexcol flex-group-center">
+                            <div title="&#8804 CHA" class="resource-label small">{{localize "CHARACTER.Blessings"}}
+                            </div>
+                            <div class="resource-label" name="system.blessings.value">{{system.blessings.value}}</div>
+                        </div>
+                        <div class="flexcol flex-group-center">
+                            <div title="&#8804 CHA" class="resource-label small">{{localize "CHARACTER.Companions"}}
+                            </div>
+                            <input class="resource-label transparent small"
+                                name="system.companions.value" value="{{system.companions.value}}"
+                                data-dtype="Number" />
+                        </div>
+                    </div>
+                </div>
+        </header>
+        {{!-- Sheet Tab Navigation --}}
+        <nav class="sheet-tabs tabs" data-group="primary">
+            {{!-- Default tab is specified in actor-sheet.mjs --}}
+            <a class="item" id="tab-color" data-tab="character">{{localize "CHARACTER.Character"}}</a>
+            <a class="item" id="tab-color" data-tab="items">{{localize "CHARACTER.Inventory"}}</a>
+            <a class="item" id="tab-color" data-tab="description">{{localize "ACTOR.Description"}}</a>
+        </nav>
 
-        {{!-- Abilities --}}
-        <div id="character-abilities">
-            {{#each system.abilities as |ability key|}}
-            <div class="flexrow">
-                <input class="flex1 flex-group-center" id="circle-form" type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}"
-                    data-dtype="Number" />
-                <div class="flexcol flex3">
-                    <div class="resource-label rollable" data-roll="d20+@abilities.{{key}}.value"
-                        data-label="{{ability.label}}" style="justify-content:left">{{localize ability.label}}</div>
-                    <div class="resource-label detail">{{localize ability.detail}}</div>
+        {{!-- Sheet Body --}}
+        <section class="sheet-body">
+            <div class="tab character" data-group="primary" data-tab="character">
+                <div id="character-body-grid">
+                    {{!-- Abilities --}}
+                    <div id="character-abilities">
+                        {{#each system.abilities as |ability key|}}
+                        <div class="flexrow">
+                            <input class="flex1 flex-group-center" id="circle-form" type="number"
+                                name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+                            <div class="flexcol flex3">
+                                <div class="resource-label rollable" data-roll="d20+@abilities.{{key}}.value"
+                                    data-label="{{ability.label}}" style="justify-content:left; font-size:larger">
+                                    {{localize
+                                    ability.label}}
+                                </div>
+                                <div class="resource-label small" style="font-style:italic">{{localize ability.detail}}
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                    {{!-- Armor --}}
+                    <div id="character-armor">
+                        <div class="flexrow">
+                            <div class="flex-group-center">
+                                <div class="resource-label small">{{localize "ACTOR.ArmorClass"}}</div>
+                                <div class="resource-label" id="shield-resource">
+                                    {{system.armorClass}}
+                                </div>
+                            </div>
+                            <div class="flex-group-center">
+                                <div class="resource-label small">{{localize "CHARACTER.ArmorPoints"}}</div>
+                                <div class="resource-label" id="circle-resource">
+                                    {{system.armorPoints}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{!-- Level & XP --}}
+                    <div id="character-level">
+                        <div class="flexrow flex-between">
+                            <div class="flex-group-center">
+                                <div class="resource-label small">{{localize "ACTOR.Level"}}</div>
+                                <div class="resource-label" id="rounded-resource">
+                                    {{system.level}}
+                                </div>
+                            </div>
+                            <div class="flex-group-left">
+                                <div class="resource-label small">{{localize "CHARACTER.XP"}}</div>
+                                <div class="progress-container" id="horizontal">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width:{{system.xp.progress}}%"></div>
+                                        <input class="progress-input resource-label" name="system.xp.value"
+                                            value="{{system.xp.value}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{!-- HP --}}
+                    <div id="character-health">
+                        <div class="flexrow">
+                            <div class="flex-group-center">
+                                <div class="resource-label small">{{localize "ACTOR.HitPointsMax"}}</div>
+                                <input class="resource-label transparent" id="rounded-resource"
+                                    name="system.hitPoints.max" value="{{system.hitPoints.max}}"
+                                    style="text-align:center" />
+                            </div>
+                            <div class="flex-group-center">
+                                <div class="resource-label small">{{localize "CHARACTER.WoundsMax"}}</div>
+                                <div class="resource-label" id="rounded-resource">{{system.wounds.max}}</div>
+                            </div>
+                        </div>
+                        <div class="flexrow">
+                            <div class="progress-container" id="vertical">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="height:{{system.hitPoints.progress}}%"></div>
+                                    <input class="progress-input resource-label" name="system.hitPoints.value"
+                                        value="{{system.hitPoints.value}}" />
+                                </div>
+                            </div>
+                            <div class="progress-container" id="vertical">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="height:{{system.wounds.progress}}%"></div>
+                                    <input class="progress-input resource-label" name="system.wounds.value"
+                                        value="{{system.wounds.value}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flexrow">
+                            <button type="button" class="rest-button">Rest</button>
+                        </div>
+                    </div>
+
+                    {{!-- Portrait --}}
+                    <div id="character-portrait">
+                        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="100%" />
+                    </div>
                 </div>
             </div>
-            {{/each}}
-        </div>
-
-        {{!-- HP --}}
-        <div id="character-health">character-health</div>
-
-        {{!-- Armor --}}
-        <div id="character-armor">character-armor</div>
-
-        {{!-- Level & XP --}}
-        <div id="character-level">character-level</div>
-
-        {{!-- Portrait --}}
-        <div id="character-portrait">character-portrait</div>
-
-        {{!-- Slots --}}
-        <div id="character-slots">character-slots</div>
+        </section>
+        <footer>
+            <div class="flexrow flex-group-center">
+                <p style="font-size:smaller">Copyright &#169; 2023 <a
+                        href="https://www.patreon.com/questingbeast/posts">Ben
+                        Milton and Questing Beast LLC.</a> Logo Design by <a
+                        href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+            </div>
+        </footer>
     </div>
-    <footer>
-        <div class="flexrow flex-group-center">
-            <p style="font-size:smaller">Copyright &#169; 2023 <a href="https://www.patreon.com/questingbeast/posts">Ben
-                    Milton and Questing Beast LLC.</a> Logo Design by <a
-                    href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
-        </div>
-    </footer>
+    {{log actor}}
 </form>

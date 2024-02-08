@@ -1,0 +1,71 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
+
+      <div class="resources grid grid-3col">
+
+        <div class="resource flex-group-center">
+          <label class="resource-label">{{localize "KNAVE2E.WeaponType"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <select name="system.subType.value">
+              {{selectOptions system.subTypeOptions selected=system.subType.value}}
+            </select>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label class="resource-label">{{localize 'KNAVE2E.Damage'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <select name="system.damage.value">
+              {{selectOptions system.damageOptions selected=system.damage.value}}
+            </select>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label class="resource-label">{{localize 'KNAVE2E.AmmoType'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <select name="system.ammoType.value">
+              {{selectOptions system.ammoTypeOptions selected=system.ammoType.value}}
+            </select>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label class="resource-label">{{localize 'KNAVE2E.Range'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.range.value" value="{{system.range.value}}" data-dtype="Number" />
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label class="resource-label">{{localize 'KNAVE2E.Slots'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.itemSlots.value" value="{{system.itemSlots.value}}" data-dtype="Number" />
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label class="resource-label">{{localize 'KNAVE2E.Cost'}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.cost.value" value="{{system.cost.value}}" data-dtype="Number" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    <h2>Description</h2>
+    <div class="description">
+    {{editor system.description target="system.description" rollData=rollData button=false owner=owner
+      editable=editable}}
+    </div>
+  </section>
+</form>
+{{log item.type}}
+{{log system}}
