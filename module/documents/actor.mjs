@@ -31,8 +31,24 @@ export default class Knave2eActor extends Actor {
     systemData.wounds.max = (systemData.abilities.constitution.value + 10);
     
     // Define Slots after Wounds
-    systemData.slots.value = (systemData.slots.max - systemData.wounds.value);
+    this._updateSlots(systemData);
 
+  }
+
+  _updateSlots(systemData) {
+    // Check max slots
+    systemData.slots.max = systemData.slots.max - systemData.wounds.value;
+
+    // Sum item slots...
+    const itemSlots = 0;
+
+    // Sum coin slots
+    const coinSlots = Math.ceil(systemData.coins / 500);
+
+    // Add up used slots
+    systemData.slots.used = itemSlots + coinSlots;
+
+    // If slots > max, start dropping items...
   }
 
   _prepareRecruitData(actorData) {

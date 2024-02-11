@@ -11,8 +11,8 @@ export default class Knave2eItem extends Item {
 
     this._prepareWeaponData(itemData);
     // this._prepareArmorData(itemData);
-    // this._prepareSpellbookData(itemData);
-    // this._prepareEquipmentData(itemData);
+    this._prepareSpellbookData(itemData);
+    this._prepareEquipmentData(itemData);
     // this._prepareAmmoData(itemData);
     // this._prepareCoinData(itemData);
   }
@@ -39,16 +39,30 @@ export default class Knave2eItem extends Item {
     }
 
     this.damageRoll = damageRoll;
+
   }
 
   _prepareArmorData(itemData) {
     if (itemData.type !== 'armor') return;
 
     const systemData = itemData.system;
+
   }
-  _prepareSpellbookData(itemData) { }
-  _prepareSpellbookData(itemData) { }
-  _prepareEquipmentData(itemData) { }
+
+  _prepareSpellbookData(itemData) {
+    if (itemData.type !== 'spellbook') return;
+
+    const systemData = itemData.system;
+
+  }
+
+  _prepareEquipmentData(itemData) {
+    if (itemData.type !== 'spellbook') return;
+
+    const systemData = itemData.system;
+
+  }
+
   _prepareAmmoData(itemData) { }
   _prepareCoinData(itemData) { }
 
@@ -80,7 +94,7 @@ export default class Knave2eItem extends Item {
     const label = `[${item.type}] ${item.name}`;
 
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
+    if (!this.system.damageRoll) {
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
@@ -94,7 +108,7 @@ export default class Knave2eItem extends Item {
       const rollData = this.getRollData();
 
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.item.formula, rollData);
+      const roll = new Roll(rollData.item.damageRoll, rollData);
       // If you need to store the value first, uncomment the next line.
       // let result = await roll.roll({async: true});
       roll.toMessage({

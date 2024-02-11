@@ -21,15 +21,16 @@ export default class Knave2eCharacter extends Knave2eActorType {
         schema.armorPoints = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, max: 7 });
         schema.blessings = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
-            max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+            max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
         });
         schema.careers = new fields.StringField({});
+        schema.coins = new fields.NumberField({...requiredInteger, initial: 0, min: 0});
         schema.companions = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
         });
         schema.slots = new fields.SchemaField({
-            value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
+            used: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 })
         });
         schema.spells = new fields.SchemaField({

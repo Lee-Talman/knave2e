@@ -1,7 +1,7 @@
 export const CATEGORIES = {
     coin: {
         id: "coin",
-        label: "ACTOR.Coins",
+        label: "KNAVE2E.Coins",
         quantityPerSlot: 500
     }
 }

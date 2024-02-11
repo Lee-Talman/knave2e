@@ -1,30 +1,30 @@
 export const CATEGORIES = {
     shield: {
         id: "shield",
-        label: "ARMOR.Shield"
+        label: "KNAVE2E.Shield"
     },
     helmet: {
         id: "helmet",
-        label: "ARMOR.Helmet"
+        label: "KNAVE2E.Helmet"
     },
     gambeson: {
         id: "gambeson",
-        label: "ARMOR.Gambeson"
+        label: "KNAVE2E.Gambeson"
     },
     mailShirt: {
         id: "mailShirt",
-        label: "ARMOR.MailShirt"
+        label: "KNAVE2E.MailShirt"
     },
     breastplate: {
         id: "breastplate",
-        label: "ARMOR.Breastplate"
+        label: "KNAVE2E.Breastplate"
     },
     armPlate: {
         id: "armPlate",
-        label: "ARMOR.ArmPlate",
+        label: "KNAVE2E.ArmPlate",
     },
     legPlate: {
         id: "legPlate",
-        label: "ARMOR.LegPlate"
+        label: "KNAVE2E.LegPlate"
     }
 }

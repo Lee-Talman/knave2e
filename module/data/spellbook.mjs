@@ -7,9 +7,12 @@ export default class Knave2eSpellbook extends Knave2eItemType {
 
     static defineSchema(){
         const fields = foundry.data.fields;
-        return foundry.utils.mergeObject(super.defineSchema()), {
-            equipped: new fields.BooleanField({initial: false}),
-        }
+        const requiredInteger = { required: true, nullable: false, integer: true };
+        const schema = super.defineSchema();
+
+        schema.cast = new fields.BooleanField({ initial: false });
+
+        return schema;
     }
 
     prepareBaseData(){

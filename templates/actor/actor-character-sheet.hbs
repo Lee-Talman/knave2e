@@ -12,32 +12,31 @@
                 {{!-- Character Header Info --}}
                 <div id="character-info">
                     <div class="flexrow flex-group-left" id="dotted">
-                        <div class="resource-label flex1">{{localize "ACTOR.Name"}}</div>
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
                         <input class="transparent flex3" name="actor.name" type="text" value="{{actor.name}}"
                             placeholder="{{actor.name}}" />
                     </div>
                     <div class="flexrow flex-group-left" id="dotted">
-                        <div class="resource-label flex1">{{localize "CHARACTER.Careers"}}</div>
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Careers"}}</div>
                         <input class="transparent flex3" name="system.careers" type="text" value="{{system.careers}}"
                             placeholder="Alchemist, Cook, Sailor, etc." />
                     </div>
                     <div class="flexrow flex-group-center flex-between">
                         <div class="flexcol flex-group-center">
-                            <div title="&#8804 INT" class="resource-label small">{{localize "CHARACTER.Spells"}}</div>
+                            <div title="&#8804 INT" class="resource-label small">{{localize "KNAVE2E.Spells"}}</div>
                             <div class="resource-label" name="system.spells.value">{{system.spells.value}}
                             </div>
                         </div>
                         <div class="flexcol flex-group-center">
-                            <div title="&#8804 CHA" class="resource-label small">{{localize "CHARACTER.Blessings"}}
+                            <div title="&#8804 CHA" class="resource-label small">{{localize "KNAVE2E.Blessings"}}
                             </div>
                             <div class="resource-label" name="system.blessings.value">{{system.blessings.value}}</div>
                         </div>
                         <div class="flexcol flex-group-center">
-                            <div title="&#8804 CHA" class="resource-label small">{{localize "CHARACTER.Companions"}}
+                            <div title="&#8804 CHA" class="resource-label small">{{localize "KNAVE2E.Companions"}}
                             </div>
-                            <input class="resource-label transparent small"
-                                name="system.companions.value" value="{{system.companions.value}}"
-                                data-dtype="Number" />
+                            <input class="resource-label transparent small" name="system.companions.value"
+                                value="{{system.companions.value}}" data-dtype="Number" />
                         </div>
                     </div>
                 </div>
@@ -45,9 +44,9 @@
         {{!-- Sheet Tab Navigation --}}
         <nav class="sheet-tabs tabs" data-group="primary">
             {{!-- Default tab is specified in actor-sheet.mjs --}}
-            <a class="item" id="tab-color" data-tab="character">{{localize "CHARACTER.Character"}}</a>
-            <a class="item" id="tab-color" data-tab="items">{{localize "CHARACTER.Inventory"}}</a>
-            <a class="item" id="tab-color" data-tab="description">{{localize "ACTOR.Description"}}</a>
+            <a class="item" id="tab-color" data-tab="character">{{localize "KNAVE2E.Character"}}</a>
+            <a class="item" id="tab-color" data-tab="items">{{localize "KNAVE2E.Inventory"}}</a>
+            <a class="item" id="tab-color" data-tab="description">{{localize "KNAVE2E.Description"}}</a>
         </nav>
 
         {{!-- Sheet Body --}}
@@ -77,13 +76,13 @@
                     <div id="character-armor">
                         <div class="flexrow">
                             <div class="flex-group-center">
-                                <div class="resource-label small">{{localize "ACTOR.ArmorClass"}}</div>
+                                <div class="resource-label small">{{localize "KNAVE2E.ArmorClass"}}</div>
                                 <div class="resource-label" id="shield-resource">
                                     {{system.armorClass}}
                                 </div>
                             </div>
                             <div class="flex-group-center">
-                                <div class="resource-label small">{{localize "CHARACTER.ArmorPoints"}}</div>
+                                <div class="resource-label small">{{localize "KNAVE2E.ArmorPoints"}}</div>
                                 <div class="resource-label" id="circle-resource">
                                     {{system.armorPoints}}
                                 </div>
@@ -95,13 +94,13 @@
                     <div id="character-level">
                         <div class="flexrow flex-between">
                             <div class="flex-group-center">
-                                <div class="resource-label small">{{localize "ACTOR.Level"}}</div>
+                                <div class="resource-label small">{{localize "KNAVE2E.Level"}}</div>
                                 <div class="resource-label" id="rounded-resource">
                                     {{system.level}}
                                 </div>
                             </div>
                             <div class="flex-group-left">
-                                <div class="resource-label small">{{localize "CHARACTER.XP"}}</div>
+                                <div class="resource-label small">{{localize "KNAVE2E.XP"}}</div>
                                 <div class="progress-container" id="horizontal">
                                     <div class="progress-bar">
                                         <div class="progress-fill" style="width:{{system.xp.progress}}%"></div>
@@ -117,13 +116,13 @@
                     <div id="character-health">
                         <div class="flexrow">
                             <div class="flex-group-center">
-                                <div class="resource-label small">{{localize "ACTOR.HitPointsMax"}}</div>
+                                <div class="resource-label small">{{localize "KNAVE2E.HitPointsMax"}}</div>
                                 <input class="resource-label transparent" id="rounded-resource"
                                     name="system.hitPoints.max" value="{{system.hitPoints.max}}"
                                     style="text-align:center" />
                             </div>
                             <div class="flex-group-center">
-                                <div class="resource-label small">{{localize "CHARACTER.WoundsMax"}}</div>
+                                <div class="resource-label small">{{localize "KNAVE2E.WoundsMax"}}</div>
                                 <div class="resource-label" id="rounded-resource">{{system.wounds.max}}</div>
                             </div>
                         </div>
@@ -154,6 +153,12 @@
                     </div>
                 </div>
             </div>
+            
+            {{!-- Item Slots Tab --}}
+            <div class="tab items" data-group="primary" data-tab="items">
+                {{> "systems/knave2e/templates/actor/parts/actor-items.html"}}
+            </div>
+
         </section>
         <footer>
             <div class="flexrow flex-group-center">
@@ -164,5 +169,4 @@
             </div>
         </footer>
     </div>
-    {{log actor}}
 </form>

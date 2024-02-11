@@ -1,17 +1,17 @@
 export const CATEGORIES = {
     arrow: {
         id: "arrow",
-        label: "ACTOR.AmmoBow",
+        label: "KNAVE2E.AmmoBow",
         quantityPerSlot: 20
     },
     slingBullet: {
-        id: "slingBullet",
-        label: "ACTOR.AmmoSling",
+        id: "bullet",
+        label: "KNAVE2E.AmmoSling",
         quantityPerSlot: 1
     },
     none: {
         id: "none",
-        label: "ITEM.None",
+        label: "KNAVE2E.None",
         quantityPerSlot: 1
     }
 }

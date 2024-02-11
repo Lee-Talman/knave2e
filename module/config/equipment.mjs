@@ -1,6 +1,6 @@
 export const CATEGORIES = {
     equipment: {
         id: "equipment",
-        label: "ITEM.Equipment"
+        label: "KNAVE2E.Equipment"
     }
 }

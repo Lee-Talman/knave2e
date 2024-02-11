@@ -1,6 +1,6 @@
 export const CATEGORIES = {
     lightSource: {
         id: "lightSource",
-        label: "ITEM.LightSource"
+        label: "KNAVE2E.LightSource"
     }
 }

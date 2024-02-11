@@ -7,9 +7,10 @@ export default class Knave2eEquipment extends Knave2eItemType {
 
     static defineSchema(){
         const fields = foundry.data.fields;
-        return foundry.utils.mergeObject(super.defineSchema()), {
+        // const requiredInteger = { required: true, nullable: false, integer: true };
+        const schema = super.defineSchema();
 
-        }
+        return schema;
     }
 
     prepareBaseData(){

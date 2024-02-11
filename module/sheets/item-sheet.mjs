@@ -4,8 +4,8 @@ export default class Knave2eItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "item"],
-      width: 520,
-      height: 480,
+      width: 600,
+      height: 400,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
@@ -58,10 +58,10 @@ export default class Knave2eItemSheet extends ItemSheet {
       this._prepareSpellbookData(context);
     }
 
-    // Prepare equipment data (no items).
-    if (itemData.type == "equipment") {
-      this._prepareEquipmentData(context);
-    }
+    // // Prepare equipment data (no items).
+    // if (itemData.type == "equipment") {
+    //   this._prepareEquipmentData(context);
+    // }
 
     // Prepare ammo data and items.
     if (itemData.type == "ammo") {
@@ -82,6 +82,12 @@ export default class Knave2eItemSheet extends ItemSheet {
     context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
     
     context.system.damageRoll = this._calculateDamageRoll(context);
+
+    return context;
+  }
+
+  _prepareSpellbookData(context) {
+    context.spellbookCategories = this._labelOptions(CONFIG.SYSTEM.SPELLBOOK.CATEGORIES);
 
     return context;
   }
@@ -121,4 +127,10 @@ export default class Knave2eItemSheet extends ItemSheet {
 
     // Roll handlers, click handlers, etc. would go here.
   }
+
+  // async _onSubmit(event) {
+  //   console.log(event)
+  //   super._onSubmit(event)
+  // }
+
 }

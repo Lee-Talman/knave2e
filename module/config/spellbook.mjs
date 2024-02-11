@@ -1,10 +1,10 @@
 export const CATEGORIES = {
     spellbook:{
         id: "spellbook",
-        label: "SPELLBOOK.Spellbook"
+        label: "KNAVE2E.Spellbook"
     },
     chaosSpellbook:{
         id: "chaosSpellbook",
-        label: "SPELLBOOK.ChaosSpellbook"
+        label: "KNAVE2E.ChaosSpellbook"
     }
 }

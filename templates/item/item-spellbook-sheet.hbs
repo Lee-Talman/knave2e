@@ -42,44 +42,18 @@
         <div class="flexrow flex-group-left flex-between">
           <div class="resource-label">{{localize "KNAVE2E.Type"}}</div>
           <select name="system.category">
-            {{selectOptions weaponCategories selected=system.category localize=true}}</select>
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.AmmoType"}}</div>
-          <select name="system.ammoType">
-            {{selectOptions ammoCategories selected=system.ammoType localize=true}}</select>
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Range"}}</div>
-          <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number" />
+            {{selectOptions spellbookCategories selected=system.category localize=true}}</select>
         </div>
         <hr class="separator">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DamageDiceSize"}}</div>
-          <select name="system.damageDiceSize">
-            {{selectOptions damageDiceCategories selected=system.damageDiceSize localize=true}}</select>
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DamageDiceAmount"}}</div>
-          <input type="text" name="system.damageDiceAmount" value="{{system.damageDiceAmount}}" data-dtype="Number" />
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DamageDiceBonus"}}</div>
-          <input type="text" name="system.damageDiceBonus" value="{{system.damageDiceBonus}}" data-dtype="Number" />
-        </div>
-        <hr class="separator">
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Broken"}}</div>
-          <input type="checkbox" name="system.broken" value="{{system.broken}}" />
+          <div class="resource-label">{{localize "KNAVE2E.Cast"}}</div>
+          <input type="checkbox" name="system.cast" value="{{system.cast}}" />
         </div>
       </div>
 
       {{!-- Item Description --}}
       <div class="item-body-description">
-        <div class="editor">
-          <div class="editor-content" data-engine="prosemirror" data-collaborate="false"
-            data-edit="system.description"></div>
-        </div>
+        {{editor system.description target="system.description" button=false}}
       </div>
     </div>
   </section>

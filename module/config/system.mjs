@@ -20,7 +20,7 @@ export const DAMAGE_DICE_SIZES = {
 
 // export const AMMO_TYPES = {
 //     arrow: "Arrow",
-//     slingBullet: "Sling Bullet",
+//     slingBullet: "Bullet",
 //     none: "None",
 // }
 

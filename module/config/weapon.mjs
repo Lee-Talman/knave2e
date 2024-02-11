@@ -1,10 +1,10 @@
 export const CATEGORIES = {
     melee: {
         id: "melee",
-        label: "WEAPON.Melee"
+        label: "KNAVE2E.Melee"
     },
     ranged: {
         id: "ranged",
-        label: "WEAPON.Ranged"
+        label: "KNAVE2E.Ranged"
     }
 }

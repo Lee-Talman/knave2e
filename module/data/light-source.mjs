@@ -7,9 +7,12 @@ export default class Knave2eLightSource extends Knave2eItemType {
 
     static defineSchema(){
         const fields = foundry.data.fields;
-        return foundry.utils.mergeObject(super.defineSchema()), {
-            range: new fields.NumberField({integer: true, nullable: false, initial: 20, min: 1}),
-        }
+        const requiredInteger = { required: true, nullable: false, integer: true };
+        const schema = super.defineSchema();
+
+        schema.range = new fields.NumberField({ ...requiredInteger, min: 0});
+
+        return schema;
     }
 
     prepareBaseData(){
