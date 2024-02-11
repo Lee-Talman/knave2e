@@ -48,6 +48,8 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.xp.progress = progress;
         systemData.hitPoints.progress = Math.floor((systemData.hitPoints.value / systemData.hitPoints.max) * 100);
         systemData.wounds.progress = Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100);
+
+        this._updateSlots(context);
     }
 
     _calculateLevelAndProgress(xp) {
@@ -103,16 +105,54 @@ export default class Knave2eActorSheet extends ActorSheet {
         return { currentLevel, progress };
     }
 
+    _updateSlots(context) {
+
+        const systemData = context.system;
+
+        // Check max slots
+        systemData.slots.max = systemData.slots.max - systemData.wounds.value;
+
+        // Sum item slots...
+        const itemSlots = context.items.reduce((total, item) => {
+            return total + item.system.slots;
+        }, 0);
+        console.log(itemSlots);
+
+        // Sum coin slots
+        const coinSlots = Math.ceil(systemData.coins / 500);
+        console.log(coinSlots);
+
+        // Add up used slots
+        systemData.slots.used = itemSlots + coinSlots;
+        console.log(systemData.slots.used);
+
+        // If slots > max, start dropping items...
+        if (systemData.slots.used > systemData.slots.max) {
+            const overflowSlots = systemData.slots.used - systemData.slots.max;
+            let slotCounter = 0; // count up to systemData.slots.used to derive how many discrete items to drop
+            for (let i = 0; i < Math.min(overflowSlots, context.items.length); i++) {
+                const currentItem = context.items[i];
+                currentItem.system.dropped = true;
+
+                // Make sure to account for multi-slot items
+                slotCounter = slotCounter + currentItem.system.slots;
+                if (slotCounter >= overflowSlots) {
+                    break;
+                }
+            }
+        }
+    }
+
     _rest() {
         // event.preventDefault();
         const systemData = this.actor.system;
         console.log("rest button clicked");
 
         return this.actor.update(
-        {
-            "system.hitPoints.value": systemData.hitPoints.max,
-            "system.wounds.value": Math.max(systemData.wounds.value - 1, 0)
-        });
+            {
+                "system.hitPoints.value": systemData.hitPoints.max,
+                "system.wounds.value": Math.max(systemData.wounds.value - 1, 0)
+            });
     }
 
     _updateXPProgressBar() {
@@ -160,7 +200,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Rest button.
         html.find('.rest-button').click(this._rest.bind(this));
 
-        
+
 
         // Drag events for macros.
         if (this.actor.isOwner) {

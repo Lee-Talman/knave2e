@@ -8,7 +8,7 @@
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 // Import DataModel classes.
 
-import { Knave2eCharacter, Knave2eWeapon } from "./data/_module.mjs"
+import * as DataModels from "./data/_module.mjs"
 import { Knave2eActor, Knave2eItem } from "./documents/_module.mjs";
 import { Knave2eActorSheet, Knave2eItemSheet } from "./sheets/_module.mjs";
 import { SYSTEM } from "./config/system.mjs";
@@ -20,8 +20,10 @@ import { SYSTEM } from "./config/system.mjs";
 /* -------------------------------------------- */
 
 Hooks.on("init", () => {
-  CONFIG.Actor.dataModels.character = Knave2eCharacter;
-  CONFIG.Item.dataModels.weapon = Knave2eWeapon;
+  CONFIG.Actor.dataModels.character = DataModels.Knave2eCharacter;
+  CONFIG.Item.dataModels.weapon = DataModels.Knave2eWeapon;
+  CONFIG.Item.dataModels.spellbook = DataModels.Knave2eSpellbook;
+  CONFIG.Item.dataModels.equipment = DataModels.Knave2eEquipment;
 });
 
 Hooks.once("init", () => {

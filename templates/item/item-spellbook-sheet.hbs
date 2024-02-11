@@ -47,7 +47,7 @@
         <hr class="separator">
         <div class="flexrow flex-group-left flex-between">
           <div class="resource-label">{{localize "KNAVE2E.Cast"}}</div>
-          <input type="checkbox" name="system.cast" value="{{system.cast}}" />
+          <input type="checkbox" name="system.cast" {{checked system.cast}}>
         </div>
       </div>
 
@@ -57,4 +57,5 @@
       </div>
     </div>
   </section>
+  {{log item}}
 </form>
