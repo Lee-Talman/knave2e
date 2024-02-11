@@ -7,8 +7,8 @@
   return loadTemplates([
 
     // Actor partials.
-    "systems/knave2e/templates/actor/parts/actor-items.html",
-    "systems/knave2e/templates/actor/parts/actor-spells.html",
-    "systems/knave2e/templates/actor/parts/actor-effects.html",
+    "systems/knave2e/templates/actor/parts/actor-items.hbs",
+    "systems/knave2e/templates/actor/parts/actor-spells.hbs",
+    "systems/knave2e/templates/actor/parts/actor-effects.hbs",
   ]);
 };

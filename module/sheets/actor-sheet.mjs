@@ -116,15 +116,12 @@ export default class Knave2eActorSheet extends ActorSheet {
         const itemSlots = context.items.reduce((total, item) => {
             return total + item.system.slots;
         }, 0);
-        console.log(itemSlots);
 
         // Sum coin slots
         const coinSlots = Math.ceil(systemData.coins / 500);
-        console.log(coinSlots);
 
         // Add up used slots
         systemData.slots.used = itemSlots + coinSlots;
-        console.log(systemData.slots.used);
 
         // If slots > max, start dropping items...
         if (systemData.slots.used > systemData.slots.max) {
