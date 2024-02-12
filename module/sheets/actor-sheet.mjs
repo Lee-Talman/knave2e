@@ -50,6 +50,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.wounds.progress = Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100);
 
         this._updateSlots(context);
+        this._updateLight(context);
     }
 
     _calculateLevelAndProgress(xp) {
@@ -120,8 +121,11 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Sum coin slots
         const coinSlots = Math.ceil(systemData.coins / 500);
 
+        // Sum ammo slots
+        const ammoSlots = Math.ceil(systemData.ammo.bow / 20) + Math.ceil(systemData.ammo.sling / 1);
+
         // Add up used slots
-        systemData.slots.used = itemSlots + coinSlots;
+        systemData.slots.used = itemSlots + coinSlots + ammoSlots;
 
         // If slots > max, start dropping items...
         if (systemData.slots.used > systemData.slots.max) {
@@ -140,10 +144,38 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    _rest() {
-        // event.preventDefault();
+    _updateLight(context) {
+        const litItems = context.items.filter(i => i.type === 'lightSource' && i.system.lit === true);
+        const token = this.actor.getActiveTokens()[0];
+
+        if (token) {
+            if (litItems.length > 0) {
+                const brightestLight = litItems.reduce((prev, current) => (prev.system.dimRadius > current.system.dimRadius) ? prev : current);
+
+                token.document.update({
+                    "light.dim": brightestLight.dimRadius,
+                    "light.bright": brightestLight.brightRadius,
+                    "animation": { type: "torch", speed: brightestLight.speed, intensity: brightestLight.intensity },
+                });
+            }
+
+            else {
+
+                token.document.update({
+                    "light.dim": 0,
+                    "light.bright": 0,
+                    "animation": { type: "none" },
+                });
+            }
+        }
+    }
+
+    _rest(event) {
+        event.preventDefault();
         const systemData = this.actor.system;
-        console.log("rest button clicked");
+
+        let spellbookChanges = this.actor.items.filter(i => i.type === 'spellbook').map(i => ({ _id: i.id, 'system.cast': false }))
+        this.actor.updateEmbeddedDocuments('Item', spellbookChanges)
 
         return this.actor.update(
             {
@@ -191,13 +223,16 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Active Effect management
         html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
 
+        // Active Item management
+        html.find(".item-control").click(this._toggleItemIcon.bind(this));
+
         // Rollable abilities.
         html.find('.rollable').click(this._onRoll.bind(this));
 
         // Rest button.
         html.find('.rest-button').click(this._rest.bind(this));
 
-
+        html.find('.damage-roll').click(this._damageRoll.bind(this));
 
         // Drag events for macros.
         if (this.actor.isOwner) {
@@ -235,6 +270,54 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Finally, create the item!
         return await Item.create(itemData, { parent: this.actor });
+    }
+
+    _toggleItemIcon(event) {
+        event.preventDefault();
+        const a = event.currentTarget;
+
+        // Find closest <li> element containing a "data-item-id" attribute
+        const li = a.closest("li");
+        const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
+
+        console.log(item);
+
+        switch (a.dataset.action) {
+            case "toggle-break":
+                return item.update({ "system.broken": !item.system.broken })
+            case "toggle-cast":
+                return item.update({ "system.cast": !item.system.cast })
+            case "toggle-blessing":
+                return item.update({ "system.relic.isActive": !item.system.relic.isActive })
+            case "toggle-light":
+                return item.update({ "system.lit": !item.system.lit })
+            default:
+                break
+        }
+    }
+
+    _damageRoll(event) {
+        // event.preventDefault();
+        const element = event.currentTarget;
+        const dataset = element.dataset;
+
+        console.log("Roll Data:");
+        console.log(this.actor.getRollData());
+
+        console.log("dataset.roll");
+        console.log(dataset.roll);
+
+        console.log("dataset.rollType");
+        console.log(dataset.rollType);
+
+        // Handle item rolls.
+        if (dataset.rollType) {
+            if (dataset.rollType == 'item') {
+                const itemId = element.closest('.item').dataset.itemId;
+                const item = this.actor.items.get(itemId);
+                if (item) return item.damageRoll();
+            }
+        }
     }
 
     /**

@@ -58,19 +58,12 @@ export default class Knave2eItemSheet extends ItemSheet {
       this._prepareSpellbookData(context);
     }
 
-    // // Prepare equipment data (no items).
-    // if (itemData.type == "equipment") {
-    //   this._prepareEquipmentData(context);
-    // }
-
-    // Prepare ammo data and items.
-    if (itemData.type == "ammo") {
-      this._prepareAmmoData(context);
+    if (itemData.type == "lightSource") {
+      this._prepareLightSourceData(context);
     }
 
-    // Prepare coin data (no items).
-    if (itemData.type == "coin") {
-      this._prepareCoinData(context);
+    if (itemData.type == "equipment") {
+      this._prepareEquipmentData(context);
     }
 
     return context;
@@ -90,6 +83,16 @@ export default class Knave2eItemSheet extends ItemSheet {
     context.spellbookCategories = this._labelOptions(CONFIG.SYSTEM.SPELLBOOK.CATEGORIES);
 
     return context;
+  }
+
+  _prepareLightSourceData(context) {
+    context.lightSourceCategories = this._labelOptions(CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES);
+    
+    context.system.slots = (1 / context.system.quantityPerSlot);
+  }
+
+  _prepareLightSourceData(context) {
+    context.system.slots = (1 / context.system.quantityPerSlot);
   }
 
   // Convert CATEGORIES({id: "id", label: "label"}) to a selectOptions-compatible object
@@ -124,8 +127,6 @@ export default class Knave2eItemSheet extends ItemSheet {
 
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
-
-    // Roll handlers, click handlers, etc. would go here.
   }
 
   // async _onSubmit(event) {

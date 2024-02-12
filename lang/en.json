@@ -89,6 +89,22 @@
   "KNAVE2E.Name": "Name",
   "KNAVE2E.Slots": "Slots",
   "KNAVE2E.Range": "Range",
+  "KNAVE2E.Rest": "Rest",
+
+  "KNAVE2E.Candle": "Candle",
+  "KNAVE2E.Torch": "Torch",
+  "KNAVE2E.Lantern": "Lantern",
+
+  "KNAVE2E.DimRadius": "Dim Radius",
+  "KNAVE2E.BrightRadius": "Bright Radius",
+  "KNAVE2E.Intensity": "Intensity",
+  "KNAVE2E.Speed": "Speed",
+
+  "KNAVE2E.BreakWeaponDetail": "Toggle Broken Weapon",
+  "KNAVE2E.CastSpellbookDetail": "Toggle Cast Spellbook",
+  "KNAVE2E.ActiveBlessingDetail": "Toggle Active Blessing",
+
+
   "KNAVE2E.EffectCreate": "Create Effect",
   "KNAVE2E.EffectToggle": "Toggle Effect",
   "KNAVE2E.EffectEdit": "Edit Effect",

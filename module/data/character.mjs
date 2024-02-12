@@ -18,6 +18,10 @@ export default class Knave2eCharacter extends Knave2eActorType {
             return obj;
         }, {}));
 
+        schema.ammo = new fields.SchemaField({
+            bow: new fields.NumberField( {...requiredInteger, initial: 0, min: 0 }),
+            sling: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0})
+        })
         schema.armorPoints = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, max: 7 });
         schema.blessings = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),

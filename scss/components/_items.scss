@@ -34,6 +34,10 @@
   scrollbar-width: thin;
   color: $c-tan;
 
+  .item-info {
+    min-width: 200px;
+  }
+
   // Child lists
   .item-list {
     list-style: none;
@@ -43,7 +47,7 @@
 
   // Item Name
   .item-name {
-    flex: 2;
+    flex: 3;
     margin: 0;
     overflow: hidden;
     font-size: 13px;
@@ -56,6 +60,10 @@
       margin: 0;
       white-space: nowrap;
       overflow-x: hidden;
+    }
+
+    button {
+      align-items: end;
     }
   }
 
@@ -70,6 +78,28 @@
       text-align: center;
       margin: 0 6px;
     }
+  }
+
+  button.list-roll {
+    max-width: max-content;
+    padding: 0px 5px;
+    font-size: smaller;
+
+    // &.attack {
+    //   background-color: lightgreen;
+    // }
+
+    // &.damage {
+    //   background-color: lightblue;
+    // }
+
+    // &.direct {
+    //   background-color: lightsalmon;
+    // }
+
+    // &.cast {
+    //   background-color: lightgreen;
+    // }
   }
 
   // Individual Item

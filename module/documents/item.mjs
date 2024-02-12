@@ -5,66 +5,8 @@ export default class Knave2eItem extends Item {
   }
 
   prepareDerivedData() {
-    const itemData = this;
-    const systemData = itemData.system;
-    const flags = itemData.flags.knave2e || {};
-
-    this._prepareWeaponData(itemData);
-    // this._prepareArmorData(itemData);
-    this._prepareSpellbookData(itemData);
-    this._prepareEquipmentData(itemData);
-    // this._prepareAmmoData(itemData);
-    // this._prepareCoinData(itemData);
   }
 
-  _prepareWeaponData(itemData) {
-    if (itemData.type !== 'weapon') return;
-
-    const systemData = itemData.system;
-    this._prepareDamageRoll();
-
-  }
-
-  _prepareDamageRoll() {
-    let damageRoll = "d6";
-
-    if (this.damageDiceBonus > 0) {
-      damageRoll = `${this.damageDiceAmount}${this.damageDiceSize}+${this.damageDiceBonus}`;
-    }
-    else if (this.damageDiceBonus === 0) {
-      damageRoll = `${this.damageDiceAmount}${this.damageDiceSize}`;
-    }
-    else {
-      damageRoll = `${this.damageDiceAmount}${this.damageDiceSize}-${this.damageDiceBonus}`;
-    }
-
-    this.damageRoll = damageRoll;
-
-  }
-
-  _prepareArmorData(itemData) {
-    if (itemData.type !== 'armor') return;
-
-    const systemData = itemData.system;
-
-  }
-
-  _prepareSpellbookData(itemData) {
-    if (itemData.type !== 'spellbook') return;
-
-    const systemData = itemData.system;
-
-  }
-
-  _prepareEquipmentData(itemData) {
-    if (itemData.type !== 'spellbook') return;
-
-    const systemData = itemData.system;
-
-  }
-
-  _prepareAmmoData(itemData) { }
-  _prepareCoinData(itemData) { }
 
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item

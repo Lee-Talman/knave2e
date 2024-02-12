@@ -23,6 +23,7 @@ Hooks.on("init", () => {
   CONFIG.Actor.dataModels.character = DataModels.Knave2eCharacter;
   CONFIG.Item.dataModels.weapon = DataModels.Knave2eWeapon;
   CONFIG.Item.dataModels.spellbook = DataModels.Knave2eSpellbook;
+  CONFIG.Item.dataModels.lightSource = DataModels.Knave2eLightSource;
   CONFIG.Item.dataModels.equipment = DataModels.Knave2eEquipment;
 });
 
