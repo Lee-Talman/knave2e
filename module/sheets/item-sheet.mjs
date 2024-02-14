@@ -4,7 +4,7 @@ export default class Knave2eItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "item"],
-      width: 600,
+      width: 680,
       height: 400,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
@@ -13,12 +13,9 @@ export default class Knave2eItemSheet extends ItemSheet {
   /** @override */
   get template() {
     const path = "systems/knave2e/templates/item";
-    // Return a single sheet for all item types.
-    // return `${path}/item-sheet.html`;
-
-    // Alternatively, you could use the following return statement to do a
-    // unique item sheet by type, like `weapon-sheet.html`.
-    return `${path}/item-${this.item.type}-sheet.hbs`;
+    let specificPath = `${path}/item-${this.item.type}-sheet.hbs`;
+    
+    return specificPath;
   }
 
   /* -------------------------------------------- */
@@ -65,7 +62,7 @@ export default class Knave2eItemSheet extends ItemSheet {
     if (itemData.type == "equipment") {
       this._prepareEquipmentData(context);
     }
-
+    
     return context;
   }
 
@@ -87,12 +84,17 @@ export default class Knave2eItemSheet extends ItemSheet {
 
   _prepareLightSourceData(context) {
     context.lightSourceCategories = this._labelOptions(CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES);
-    
-    context.system.slots = (1 / context.system.quantityPerSlot);
+
+    return context;
   }
 
-  _prepareLightSourceData(context) {
-    context.system.slots = (1 / context.system.quantityPerSlot);
+  _prepareEquipmentData(context) {
+
+    return context;
+  }
+
+  _prepareArmorData(context) {
+    context.armorCategories = this._labelOptions(CONFIG.SYSTEM.ARMOR.CATEGORIES);
   }
 
   // Convert CATEGORIES({id: "id", label: "label"}) to a selectOptions-compatible object

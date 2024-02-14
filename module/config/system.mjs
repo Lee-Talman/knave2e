@@ -4,6 +4,7 @@ import * as ARMOR from "./armor.mjs"
 import * as COIN from "./coin.mjs"
 import * as EQUIPMENT from "./equipment.mjs"
 import * as LIGHTSOURCE from "./light-source.mjs"
+import * as RECRUIT from "./recruit.mjs"
 import * as SPELLBOOK from "./spellbook.mjs"
 import * as WEAPON from "./weapon.mjs"
 
@@ -33,6 +34,7 @@ export const SYSTEM = {
     DAMAGE_DICE_SIZES,
     EQUIPMENT,
     LIGHTSOURCE,
+    RECRUIT,
     SPELLBOOK,
     WEAPON
 }

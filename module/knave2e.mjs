@@ -1,11 +1,5 @@
-// Import document classes.
-//import { Knave2eActor } from "./documents/actor.mjs";
-//import { Knave2eItem } from "./documents/item.mjs";
-// Import sheet classes.
-//import { Knave2eActorSheet } from "./sheets/actor-sheet.mjs";
-//import { Knave2eItemSheet } from "./sheets/item-sheet.mjs";
-// Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
+
 // Import DataModel classes.
 
 import * as DataModels from "./data/_module.mjs"
@@ -21,10 +15,12 @@ import { SYSTEM } from "./config/system.mjs";
 
 Hooks.on("init", () => {
   CONFIG.Actor.dataModels.character = DataModels.Knave2eCharacter;
+  CONFIG.Actor.dataModels.recruit = DataModels.Knave2eRecruit;
   CONFIG.Item.dataModels.weapon = DataModels.Knave2eWeapon;
   CONFIG.Item.dataModels.spellbook = DataModels.Knave2eSpellbook;
   CONFIG.Item.dataModels.lightSource = DataModels.Knave2eLightSource;
   CONFIG.Item.dataModels.equipment = DataModels.Knave2eEquipment;
+  CONFIG.Item.dataModels.armor = DataModels.Knave2eArmor;
 });
 
 Hooks.once("init", () => {

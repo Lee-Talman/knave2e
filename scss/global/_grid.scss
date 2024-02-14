@@ -263,7 +263,7 @@
 
 // Item Sheet Body
 .item-body-grid {  display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 200px auto;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -271,7 +271,6 @@
 
 .item-body-aside { 
   grid-area: 1 / 1 / 2 / 2; 
-  min-width: 200px;
   padding-right: 10px;
 
   .separator {
@@ -280,6 +279,7 @@
 }
 
 .item-body-description {
+  min-width: 350px;
   grid-area: 1 / 2 / 2 / 3; 
 }
 

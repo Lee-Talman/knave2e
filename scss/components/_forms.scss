@@ -52,6 +52,11 @@ input.small {
   text-align: center;
 }
 
+button.small {
+  max-width: 50px;
+  text-align: center;
+}
+
 #circle-form {
   border-radius: 50%;
   border: 2px solid black;
@@ -98,6 +103,12 @@ input.small {
 .sheet-body .tab,
 .sheet-body .tab .editor {
   height: auto;
+  min-height: 200px;
+}
+
+.item-body-description .editor{
+  height: auto;
+  min-height: 200px;
 }
 
 footer {
@@ -109,9 +120,14 @@ footer {
 .tox {
   .tox-editor-container {
     background: $c-white;
+    min-height: 200px;
   }
 
   .tox-edit-area {
     padding: 0 8px;
+  }
+
+  &.tox-tinymce {
+    min-height:200px;
   }
 }

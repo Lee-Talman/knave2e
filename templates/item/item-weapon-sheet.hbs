@@ -11,19 +11,19 @@
       {{!-- Item Info --}}
       <div class="item-info-grid">
         <div class="item-header-name">
-          <input type="text" name="item.name" value="{{item.name}}" data-dtype="String" />
+          <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
         </div>
         <div class="item-header-info">
           <div class="flexrow flex-group-center">
-            <div class="flexrow">
+            <div class="flexrow flex-group-center">
               <div class="resource-label">{{localize "KNAVE2E.Slots"}}</div>
               <input type="text" name="system.slots" value="{{system.slots}}" data-dtype="Number" />
             </div>
-            <div class="flexrow">
+            <div class="flexrow flex-group-center">
               <div class="resource-label">{{localize "KNAVE2E.Cost"}}</div>
               <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
             </div>
-            <div class="flexrow">
+            <div class="flexrow flex-group-center">
               <div class="resource-label">{{localize "KNAVE2E.Relic"}}</div>
               <input type="checkbox" name="system.relic.isRelic" {{checked system.relic.isRelic}}>
             </div>
@@ -76,12 +76,10 @@
 
       {{!-- Item Description --}}
       <div class="item-body-description">
-        <div class="editor">
-          <div class="editor-content" data-engine="prosemirror" data-collaborate="false"
-            data-edit="system.description"></div>
-        </div>
+        <h2 class="light">Description</h2>
+        {{editor system.description target="system.description" button=true owner=owner
+        editable=editable}}
       </div>
     </div>
   </section>
-  {{log item}}
 </form>

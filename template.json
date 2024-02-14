@@ -1,15 +1,15 @@
 {
   "Actor": {
-    "types": ["character", "recruit"],
+    "types": ["character", "recruit", "monster"],
     "character": {},
-    "recruit": {}
+    "recruit": {},
+    "monster": {}
   },
   "Item": {
-    "types": ["ammo", "armor", "coin", "equipment", "spellbook", "weapon"],
-    "ammo": {},
+    "types": ["armor", "equipment", "lightSource", "spellbook", "weapon"],
     "armor": {},
-    "coin": {},
     "equipment": {},
+    "lightSource": {},
     "spellbook": {},
     "weapon": {}
   }

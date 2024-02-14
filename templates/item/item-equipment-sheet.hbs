@@ -1,9 +1,56 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <section class="sheet-header">
-        <p>Header</p>
-    </section>
+  {{!-- Item Sheet Header --}}
+  <header class="sheet-header">
+    <div class="item-header-grid">
 
-    <section class="sheet-body">
-        {{editor description target="system.description" button=false}}
-    </section>
+      {{!-- Item Image --}}
+      <div class="item-header-img">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+      </div>
+
+      {{!-- Item Info --}}
+      <div class="item-info-grid">
+        <div class="item-header-name">
+          <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
+        </div>
+        <div class="item-header-info">
+          <div class="flexrow flex-group-center">
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">{{localize "KNAVE2E.Slots"}}</div>
+              <input type="text" name="system.slots" value="{{system.slots}}" data-dtype="Number" />
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">{{localize "KNAVE2E.Cost"}}</div>
+              <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
+            </div>
+            <div class="flexrow flex-group-center">
+              <div class="resource-label">{{localize "KNAVE2E.Relic"}}</div>
+              <input type="checkbox" name="system.relic.isRelic" {{checked system.relic.isRelic}}>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Item Sheet Body --}}
+  <section class="sheet-body">
+    <div class="item-body-grid">
+
+      {{!-- Item Aside --}}
+      <div class="item-body-aside">
+        <div class="flexrow flex-group-left flex-between">
+          <div class="resource-label">{{localize "KNAVE2E.QuantityPerSlot"}}</div>
+          <input type="text" name="system.quantityPerSlot" value="{{system.quantityPerSlot}}" data-dtype="Number" />
+        </div>
+      </div>
+
+      {{!-- Item Description --}}
+      <div class="item-body-description">
+        <h2 class="light">Description</h2>
+        {{editor system.description target="system.description" button=true owner=owner
+        editable=editable}}
+      </div>
+    </div>
+  </section>
 </form>

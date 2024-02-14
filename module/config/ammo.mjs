@@ -4,10 +4,10 @@ export const CATEGORIES = {
         label: "KNAVE2E.AmmoBow",
         quantityPerSlot: 20
     },
-    slingBullet: {
+    bullet: {
         id: "bullet",
         label: "KNAVE2E.AmmoSling",
-        quantityPerSlot: 1
+        quantityPerSlot: 5
     },
     none: {
         id: "none",

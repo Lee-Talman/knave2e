@@ -1,10 +1,10 @@
 {
-  "ABILITIES.Strength": "Strength",
-  "ABILITIES.Dexterity": "Dexterity",
-  "ABILITIES.Constitution": "Constitution",
-  "ABILITIES.Intelligence": "Intelligence",
-  "ABILITIES.Wisdom": "Wisdom",
-  "ABILITIES.Charisma": "Charisma",
+  "ABILITIES.Strength": "STRENGTH",
+  "ABILITIES.Dexterity": "DEXTERITY",
+  "ABILITIES.Constitution": "CONSTITUTION",
+  "ABILITIES.Intelligence": "INTELLIGENCE",
+  "ABILITIES.Wisdom": "WISDOM",
+  "ABILITIES.Charisma": "CHARISMA",
 
   "ABILITIES.StrengthAbbr": "STR",
   "ABILITIES.DexterityAbbr": "DEX",
@@ -42,13 +42,17 @@
   "KNAVE2E.Shield": "Shield",
 
   "KNAVE2E.ArmorPoints": "AP",
-  "KNAVE2E.Blessings": "Blessings",
+  "KNAVE2E.Blessings": "Active Blessings",
   "KNAVE2E.Careers": "Careers",
   
   "KNAVE2E.Companions": "Companions",
   "KNAVE2E.Hireling": "Hireling",
   "KNAVE2E.Mercenary": "Mercenary",
-  "KNAVE2E.Specialist": "Specialist",
+  "KNAVE2E.Expert": "Expert",
+  "KNAVE2E.Common": "Common",
+  "KNAVE2E.Uncommon": "Uncommon",
+  "KNAVE2E.Rare": "Rare",
+  "KNAVE2E.Rarity": "Rarity",
   
   "KNAVE2E.Spells": "Spells Cast",
   "KNAVE2E.Wounds": "Wounds",
@@ -100,10 +104,16 @@
   "KNAVE2E.Intensity": "Intensity",
   "KNAVE2E.Speed": "Speed",
 
+  "KNAVE2E.QuantityPerSlot": "# per Slot",
+
   "KNAVE2E.BreakWeaponDetail": "Toggle Broken Weapon",
   "KNAVE2E.CastSpellbookDetail": "Toggle Cast Spellbook",
   "KNAVE2E.ActiveBlessingDetail": "Toggle Active Blessing",
+  "KNAVE2E.ActivateLightSourceDetail": "Toggle Light Source",
 
+  "KNAVE2E.AttackRoll": "Attack Roll",
+  "KNAVE2E.DamageRoll": "Damage Roll",
+  "KNAVE2E.DirectRoll": "Direct Damage Roll",
 
   "KNAVE2E.EffectCreate": "Create Effect",
   "KNAVE2E.EffectToggle": "Toggle Effect",

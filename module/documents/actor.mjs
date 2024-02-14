@@ -13,7 +13,7 @@ export default class Knave2eActor extends Actor {
     // const flags = actorData.flags.knave2e || {};
 
     this._prepareCharacterData(actorData);
-    // this._prepareRecruitData(actorData);
+    this._prepareRecruitData(actorData);
 
   }
 
@@ -23,7 +23,7 @@ export default class Knave2eActor extends Actor {
     const systemData = actorData.system;
 
     // Define Maximum Values
-    systemData.armorClass = (systemData.armorPoints + 11);
+    // systemData.armorClass = (systemData.armorPoints + 11);
     systemData.blessings.max = systemData.abilities.charisma.value;
     systemData.companions.max = systemData.abilities.charisma.value;
     systemData.spells.max = systemData.abilities.intelligence.value;
@@ -35,31 +35,6 @@ export default class Knave2eActor extends Actor {
   _prepareRecruitData(actorData) {
     if (actorData.type !== 'recruit') return;
 
-    const systemData = actorData.system;
-    systemData.hitPoints.max = 3;
-    systemData.armorClass.value = 11;
-
-    let subType = systemData.subType;
-    switch (subType) {
-      case "hireling":
-        systemData.cost = 300;
-        break;
-      case "mercenary":
-        systemData.cost = 600;
-        systemData.morale = 8;
-        systemData.hitPoints.max = 3;
-        systemData.armorClass.value = 15;
-        break;
-      case "expertCommon":
-        systemData.cost = 600;
-        break;
-      case "expertUncommon":
-        systemData.cost = 1200;
-        break;
-      case "expertRare":
-        systemData.cost = 2400;
-        break;
-    }
   }
 
     /**
@@ -148,7 +123,7 @@ export default class Knave2eActor extends Actor {
 
     // Prepare character roll data.
     this._getCharacterRollData(data);
-    //this._getRecruitRollData(data);
+    this._getRecruitRollData(data);
 
     return data;
   }
@@ -166,9 +141,9 @@ export default class Knave2eActor extends Actor {
       }
     }
 
-    // Add level for easier access, or fall back to 0.
+    // Add level for easier access, or fall back to 1.
     if (data.level) {
-      data.lvl = data.level.value ?? 0;
+      data.lvl = data.level.value ?? 1;
     }
   }
 
@@ -177,6 +152,10 @@ export default class Knave2eActor extends Actor {
    */
   _getRecruitRollData(data) {
     if (this.type !== 'recruit') return;
+
+    if (data.level) {
+      data.lvl = data.level.value ?? 1;
+    }
 
     // Process additional Recruit data here.
   }

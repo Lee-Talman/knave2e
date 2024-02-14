@@ -28,7 +28,6 @@ export default class Knave2eWeapon extends Knave2eItemType {
     }
 
     _prepareAttackBonus(){
-        console.log(this.category);
         const category = this.category;
         const actor = this.parent.actor;
 
