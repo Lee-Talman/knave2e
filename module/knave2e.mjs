@@ -16,11 +16,13 @@ import { SYSTEM } from "./config/system.mjs";
 Hooks.on("init", () => {
   CONFIG.Actor.dataModels.character = DataModels.Knave2eCharacter;
   CONFIG.Actor.dataModels.recruit = DataModels.Knave2eRecruit;
+  CONFIG.Actor.dataModels.monster = DataModels.Knave2eMonster;
   CONFIG.Item.dataModels.weapon = DataModels.Knave2eWeapon;
   CONFIG.Item.dataModels.spellbook = DataModels.Knave2eSpellbook;
   CONFIG.Item.dataModels.lightSource = DataModels.Knave2eLightSource;
   CONFIG.Item.dataModels.equipment = DataModels.Knave2eEquipment;
   CONFIG.Item.dataModels.armor = DataModels.Knave2eArmor;
+  CONFIG.Item.dataModels.monsterAttack = DataModels.Knave2eMonsterAttack;
 });
 
 Hooks.once("init", () => {

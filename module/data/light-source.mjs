@@ -4,10 +4,10 @@ import { SYSTEM } from "../config/system.mjs";
 export default class Knave2eLightSource extends Knave2eItemType {
 
     static DEFAULT_CATEGORY = "torch";
-    static DEFAULT_DIMRADIUS = 10;
-    static DEFAULT_BRIGHTRADIUS = 5;
+    static DEFAULT_DIMRADIUS = 20;
+    static DEFAULT_BRIGHTRADIUS = 10;
     static DEFAULT_QUANTITYPERSLOT = 1;
-
+    
     static defineSchema() {
         const fields = foundry.data.fields;
         const requiredInteger = { required: true, nullable: false, integer: true };
@@ -24,15 +24,9 @@ export default class Knave2eLightSource extends Knave2eItemType {
     }
 
     prepareBaseData() {
-        const categories = SYSTEM.LIGHTSOURCE.CATEGORIES;
-        const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
     }
 
     prepareDerivedData() {
-        const categories = SYSTEM.LIGHTSOURCE.CATEGORIES;
-        this.dimRadius = categories[this.category].dimRadius || categories[this.constructor.DEFAULT_DIMRADIUS];
-        this.brightRadius = categories[this.category].brightRadius || categories[this.constructor.DEFAULT_BRIGHTRADIUS];
-        this.quantityPerSlot = categories[this.category].quantityPerSlot || categories[this.constructor.DEFAULT_BRIGHTRADIUS];
         this.slots = (1 / this.quantityPerSlot);
     }
 }

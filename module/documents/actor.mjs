@@ -35,6 +35,9 @@ export default class Knave2eActor extends Actor {
   _prepareRecruitData(actorData) {
     if (actorData.type !== 'recruit') return;
 
+    const systemData = actorData.system;
+
+    systemData.hitPoints.max = 3;
   }
 
     /**

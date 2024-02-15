@@ -5,7 +5,6 @@ export const CATEGORIES = {
         costPerMonth: 300,
         morale: 4,
         rarity: { value: "common", label: "KNAVE2E.Common" },
-        requiresStarterItems: false
     },
     mercenary: {
         id: "mercenary",
@@ -13,7 +12,6 @@ export const CATEGORIES = {
         costPerMonth: 600,
         morale: 8,
         rarity: { value: "common", label: "KNAVE2E.Common" },
-        requiresStarterItems: true
     },
     expert: {
         id: "expert",
@@ -21,6 +19,5 @@ export const CATEGORIES = {
         costPerMonth: 600,
         morale: 7,
         rarity: { value: "common", label: "KNAVE2E.Common" },
-        requiresStarterItems: false
     }
 }

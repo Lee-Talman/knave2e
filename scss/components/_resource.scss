@@ -27,7 +27,7 @@ h2.light {
 
 #circle-resource {
   display: inline-flex;
-  height: 50px;
+  min-height: 50px;
   width: 50px;
   border: 2px solid black;
   border-radius: 50%;
@@ -37,7 +37,7 @@ h2.light {
 
 #shield-resource {
   display: inline-flex;
-  height: 50px;
+  min-height: 50px;
   width: 50px;
   border: 2px solid black;
   border-radius: 50% 50% 50% 50% / 12% 12% 88% 88%;
@@ -47,7 +47,7 @@ h2.light {
 
 #rounded-resource {
   display:inline-flex;
-  height: 50px;
+  min-height: 50px;
   width: 50px;
   margin: 2px;
   border: 2px solid black;

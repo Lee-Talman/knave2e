@@ -53,7 +53,7 @@ input.small {
 }
 
 button.small {
-  max-width: 50px;
+  max-width: 60px;
   text-align: center;
 }
 
@@ -109,6 +109,11 @@ button.small {
 .item-body-description .editor{
   height: auto;
   min-height: 200px;
+}
+
+.monster-body-description .editor{
+  height: auto;
+  min-height: 100px;
 }
 
 footer {

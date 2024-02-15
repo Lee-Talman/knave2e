@@ -8,6 +8,13 @@
   text-align: center;
 }
 
+.flexrow, 
+.flexcol {
+  .min-width {
+    min-width: 80px;
+  }
+}
+
 .flex-group-left {
   justify-content: flex-start;
   text-align: left;

@@ -5,6 +5,16 @@ export default class Knave2eItem extends Item {
   }
 
   prepareDerivedData() {
+    const itemData = this;
+
+    this._prepareWeaponData(itemData);
+    
+  }
+
+  _prepareWeaponData(itemData) {
+    if (itemData.type !== 'weapon') return;
+
+    // this.damageRoll = this._calculateDamageRoll(itemData);
   }
 
 

@@ -1,6 +1,6 @@
 export default class Knave2eItemSheet extends ItemSheet {
 
-  /** @override */
+
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "item"],
@@ -10,7 +10,7 @@ export default class Knave2eItemSheet extends ItemSheet {
     });
   }
 
-  /** @override */
+
   get template() {
     const path = "systems/knave2e/templates/item";
     let specificPath = `${path}/item-${this.item.type}-sheet.hbs`;
@@ -20,13 +20,13 @@ export default class Knave2eItemSheet extends ItemSheet {
 
   /* -------------------------------------------- */
 
-  /** @override */
+
   getData() {
     // Retrieve base data structure.
     const context = super.getData();
 
     // Use a safe clone of the item data for further operations.
-    const itemData = context.item;
+    const itemData = this.item.toObject(false);
     context.system = itemData.system;
 
     // Retrieve the roll data for TinyMCE editors.
@@ -62,19 +62,24 @@ export default class Knave2eItemSheet extends ItemSheet {
     if (itemData.type == "equipment") {
       this._prepareEquipmentData(context);
     }
+
+    if (itemData.type == "monsterAttack") {
+      this._prepareMonsterAttackData(context);
+    }
     
     return context;
   }
 
   _prepareWeaponData(context) {
+    const systemData = context.system;
+
     context.weaponCategories = this._labelOptions(CONFIG.SYSTEM.WEAPON.CATEGORIES);
     context.ammoCategories = this._labelOptions(CONFIG.SYSTEM.AMMO.CATEGORIES);
     context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
-    
-    context.system.damageRoll = this._calculateDamageRoll(context);
 
     return context;
   }
+
 
   _prepareSpellbookData(context) {
     context.spellbookCategories = this._labelOptions(CONFIG.SYSTEM.SPELLBOOK.CATEGORIES);
@@ -83,6 +88,8 @@ export default class Knave2eItemSheet extends ItemSheet {
   }
 
   _prepareLightSourceData(context) {
+    const systemData = context.system;
+
     context.lightSourceCategories = this._labelOptions(CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES);
 
     return context;
@@ -97,6 +104,10 @@ export default class Knave2eItemSheet extends ItemSheet {
     context.armorCategories = this._labelOptions(CONFIG.SYSTEM.ARMOR.CATEGORIES);
   }
 
+  _prepareMonsterAttackData(context) {
+    context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
+  }
+
   // Convert CATEGORIES({id: "id", label: "label"}) to a selectOptions-compatible object
   _labelOptions(categories) {
     const returnObject = Object.keys(categories).reduce((result, key) => {
@@ -105,23 +116,6 @@ export default class Knave2eItemSheet extends ItemSheet {
     }, {});
     return returnObject;
   }
-
-  _calculateDamageRoll(context){
-    const roll = context.system;
-    let damageRoll = "";
-    if (roll.damageDiceBonus > 0){
-      damageRoll = `${context.system.damageDiceAmount}${context.system.damageDiceSize}+${context.system.damageDiceBonus}`;
-    }
-    else if (roll.damageDiceBonus === 0){
-      damageRoll = `${context.system.damageDiceAmount}${context.system.damageDiceSize}`;
-    }
-    else {
-      damageRoll = `${context.system.damageDiceAmount}${context.system.damageDiceSize}${context.system.damageDiceBonus}`;
-    }
-    return damageRoll;
-  }
-
-  /* -------------------------------------------- */
 
   /** @override */
   activateListeners(html) {

@@ -23,6 +23,8 @@
   "KNAVE2E.Character": "CHARACTER",
   "KNAVE2E.Description": "DESCRIPTION",
   "KNAVE2E.Inventory": "INVENTORY",
+  "KNAVE2E.Standard": "Standard",
+  "KNAVE2E.SafeHaven": "Safe Haven",
 
   "KNAVE2E.AmmoBow": "Arrows",
   "KNAVE2E.AmmoSling": "Bullets",
@@ -32,6 +34,7 @@
   "KNAVE2E.HitPoints": "HP",
   "KNAVE2E.HitPointsMax": "Max HP",
   "KNAVE2E.Level": "Level",
+  "KNAVE2E.HalfLevel": "Half Level",
 
   "KNAVE2E.ArmPlate": "Arm Plate",
   "KNAVE2E.Breastplate": "Breastplate",
@@ -68,16 +71,18 @@
   "KNAVE2E.Quantity": "Quantity",
 
   "KNAVE2E.Attacks": "Attacks",
-  "KNAVE2E.NumAppearDng": "Number Appearing (Dungeon)",
-  "KNAVE2E.NumAppearWild": "Number Appearing (Wilderness)",
+  "KNAVE2E.NumberAppearingDungeon": "NA (Dungeon)",
+  "KNAVE2E.NumberAppearingWilderness": "NA (Wilderness)",
   
   "KNAVE2E.Morale": "Morale",
   "KNAVE2E.CostPerMonth": "Cost Per Month",
+  "KNAVE2E.Movement": "Movement",
 
   "KNAVE2E.Spellbook": "Spellbook",
   "KNAVE2E.ChaosSpellbook": "Chaos Spellbook",
 
   "KNAVE2E.AmmoType": "Ammo",
+  "KNAVE2E.Armor": "Armor",
   "KNAVE2E.Arrow": "Arrow",
   "KNAVE2E.Broken": "Broken",
   "KNAVE2E.Cast": "Cast",
@@ -88,6 +93,7 @@
   "KNAVE2E.Ranged": "Ranged",
   "KNAVE2E.Sling": "Sling",
   "KNAVE2E.WeaponType": "Weapon Type",
+  "KNAVE2E.Weapon": "Weapon",
 
   "KNAVE2E.Type": "Type",
   "KNAVE2E.Name": "Name",

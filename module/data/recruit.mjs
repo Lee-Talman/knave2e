@@ -21,7 +21,6 @@ export default class Knave2eRecruit extends Knave2eActorType {
         schema.costPerMonth = new fields.NumberField({ ...requiredInteger, initial: 300, min: 0});
         schema.morale = new fields.NumberField({ ...requiredInteger, initial: 4, min: 2, max: 12 });
         schema.rarity = new fields.StringField({ initial: this.DEFAULT_RARITY });
-        schema.requiresStarterItems = new fields.BooleanField({ initial: false });
         schema.spells = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
@@ -32,48 +31,4 @@ export default class Knave2eRecruit extends Knave2eActorType {
         });
         return schema;
     }
-
-    prepareBaseData() {
-        const categories = SYSTEM.RECRUIT.CATEGORIES;
-        const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
-
-        this.hitPoints.max = 3;
-        this.requiresStarterItems = category.requiresStarterItems;
-    }
-
-    prepareDerivedData() {
-        const categories = SYSTEM.RECRUIT.CATEGORIES;
-        const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
-    }
-
-    //     if (category === "hireling" || category === "mercenary") {
-    //         this.costPerMonth = category.costPerMonth;
-    //         this.morale = category.morale;
-    //         this.rarity = category.rarity.label;
-    //     }
-
-    //     if (category === "expert"){
-    //         switch (category.rarity.value) {
-    //             case "common":
-    //                 this.costPerMonth = 600;
-    //                 this.category.rarity.label = "KNAVE2E.Common";
-    //                 this.morale = category.morale;
-    //                 this.rarity = category.rarity.label;
-    //                 break;
-    //             case "uncommon":
-    //                 this.costPerMonth = 1200;
-    //                 this.category.rarity.label = "KNAVE2E.Uncommon";
-    //                 this.morale = category.morale;
-    //                 this.rarity = category.rarity.label;
-    //                 break;
-    //             case "rare":
-    //                 this.costPerMonth = 2400;
-    //                 this.category.rarity.label = "KNAVE2E.Rare";
-    //                 this.morale = category.morale;
-    //                 this.rarity = category.rarity.label;
-    //                 this.spells.max = 1;
-    //                 break;
-    //         }
-    //     }
-    // }
 }

@@ -17,11 +17,4 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
 
         return schema;
     }
-
-    prepareBaseData() {
-
-    }
-
-    _prepareDerivedData() {
-    }
 }

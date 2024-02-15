@@ -19,16 +19,16 @@ export default class Knave2eCharacter extends Knave2eActorType {
         }, {}));
 
         schema.ammo = new fields.SchemaField({
-            arrow: new fields.NumberField( {...requiredInteger, initial: 0, min: 0 }),
-            bullet: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0})
-        })
+            arrow: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+            bullet: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
+        });
         schema.armorPoints = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, max: 7 });
         schema.blessings = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
         });
         schema.careers = new fields.StringField({});
-        schema.coins = new fields.NumberField({...requiredInteger, initial: 0, min: 0});
+        schema.coins = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
         schema.companions = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
@@ -38,8 +38,8 @@ export default class Knave2eCharacter extends Knave2eActorType {
             max: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 })
         });
         schema.spells = new fields.SchemaField({
-            value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0}),
-            max: new fields.NumberField({...requiredInteger, initial: 0, min: 0})
+            value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+            max: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 })
         });
         schema.wounds = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
@@ -51,5 +51,9 @@ export default class Knave2eCharacter extends Knave2eActorType {
             progress: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, max: 100 })
         });
         return schema;
+    }
+
+    prepareBaseData(){
+
     }
 }

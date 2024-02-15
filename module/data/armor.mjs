@@ -14,9 +14,4 @@ export default class Knave2eArmor extends Knave2eItemType {
 
         return schema;
     }
-
-    prepareBaseData(){
-        const categories = SYSTEM.ARMOR.CATEGORIES;
-        const category = categories[this.category] || categories[this.constructor.DEFAULT_CATEGORY];
-    }
 }

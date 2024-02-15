@@ -1,11 +1,12 @@
 export default class Knave2eActorSheet extends ActorSheet {
 
     static get defaultOptions() {
+
         return mergeObject(super.defaultOptions, {
             classes: ["knave2e", "sheet", "actor"],
             template: "systems/knave2e/templates/actor/actor-sheet.hbs",
             width: 600,
-            height: 800,
+            height: 600,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
     }
@@ -33,13 +34,14 @@ export default class Knave2eActorSheet extends ActorSheet {
             this._prepareRecruitData(context);
         }
 
+        if (actorData.type == 'monster') {
+            this._prepareMonsterData(context);
+        }
+
         // Add roll data for TinyMCE editors.
         context.rollData = context.actor.getRollData();
 
-        // Prepare active effects
-        // context.effects = prepareActiveEffectCategories(this.actor.effects);
-
-
+        console.log(context);
         return context;
     }
 
@@ -75,17 +77,26 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         const { maxSlots, usedSlots } = this._updateSlots(context);
         const { armorPoints, armorClass } = this._updateArmor(context);
+        const hitPointsProgress = this._updateHealth(context);
         // const costPerMonthCategories = this._costOptions(CONFIG.SYSTEM.RECRUIT.CATEGORIES);
 
+        systemData.hitPoints.progress = hitPointsProgress;
         systemData.slots.max = maxSlots;
         systemData.slots.value = usedSlots;
         systemData.armorPoints = armorPoints;
         systemData.armorClass = armorClass;
 
         this._updateRecruitCategoryDetails(context);
-        this._updateStarterItems(context);
         this._updateLight(context);
 
+    }
+
+    _prepareMonsterData(context) {
+
+        const systemData = context.system;
+
+        const hitPointsProgress = this._updateHealth(context);
+        systemData.hitPoints.progress = hitPointsProgress;
     }
 
     _updateSlots(context) {
@@ -159,14 +170,17 @@ export default class Knave2eActorSheet extends ActorSheet {
         const systemData = context.system;
 
         const hitPointsProgress = Math.floor((systemData.hitPoints.value / systemData.hitPoints.max) * 100);
-        const woundsProgress = Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100);
 
-        return { hitPointsProgress, woundsProgress }
 
-        // this.actor.update({
-        //     "system.hitPoints.progress": Math.floor((systemData.hitPoints.value / systemData.hitPoints.max) * 100),
-        //     "system.wounds.progress": Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100)
-        // });
+        if (this.actor.type === 'recruit' || this.actor.type === 'monster') {
+            return hitPointsProgress
+        }
+
+        else if (this.actor.type === 'character') {
+            const woundsProgress = Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100);
+
+            return { hitPointsProgress, woundsProgress }
+        }
     }
 
     _updateBlessings(context) {
@@ -212,36 +226,17 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    _updateStarterItems(context) {
-        if (context.items.length !== 0 && context.system.requiresStarterItems === true) {
-            const starterHelmet = new CONFIG.Item.documentClass({ name: 'Helmet', type: 'armor', category: 'helmet' }); //@TODO: localize
-            const starterShield = new CONFIG.Item.documentClass({ name: 'Shield', type: 'armor', category: 'shield' });
-            const starterGambeson = new CONFIG.Item.documentClass({ name: 'Gambeson', type: 'armor', category: 'gambeson' });
-            const starterMailShirt = new CONFIG.Item.documentClass({ name: 'Mail Shirt', type: 'armor', category: 'mailShirt' });
-            const starterWeapon = new CONFIG.Item.documentClass({ name: 'Melee Weapon', type: 'weapon', category: 'melee' });
-
-            const starterItems = { starterHelmet, starterShield, starterGambeson, starterMailShirt, starterWeapon };
-            items = this.items.map(i => i.toObject());
-
-            for (let item of starterItems) {
-                items.push(item.toObject());
-            }
-            this.updateSource({ items });
-            context.system.requiresStarterItems === false;
-        }
-    }
-
     _updateRecruitCategoryDetails(context) {
         const systemData = context.system;
 
         const category = CONFIG.SYSTEM.RECRUIT.CATEGORIES[systemData.category];
 
-        if (systemData.category === "hireling" || systemData.category === "mercenary"){
+        if (systemData.category === "hireling" || systemData.category === "mercenary") {
             systemData.costPerMonth = category.costPerMonth;
             systemData.morale = category.morale;
             systemData.rarity = "KNAVE2E.Common";
         }
-        else if (systemData.category === "expert"){
+        else if (systemData.category === "expert") {
             switch (systemData.rarity) {
                 case "KNAVE2E.Common":
                     systemData.costPerMonth = 600;
@@ -312,11 +307,26 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Active Item management
         html.find(".item-control").click(this._toggleItemIcon.bind(this));
 
+        // Monster Attacks
+        html.find(".item-monster-roll").click(this._itemMonsterRoll.bind(this));
+
+        // Rollable monster abilities
+        html.find(".monster-roll").click(this._itemMonsterRoll.bind(this));
+
         // Rollable abilities.
         html.find('.rollable').click(this._onRoll.bind(this));
 
         // Rest button.
         html.find('.rest-button').click(this._rest.bind(this));
+
+        // Check button.
+        html.find('.check-button').click(this._check.bind(this));
+
+        // Morale button.
+        html.find('.morale-button').click(this._morale.bind(this));
+
+        // Appearing button.
+        html.find('.number-appearing-button').click(this._numberAppearing.bind(this));
 
         // Item Roll management
         html.find('.list-roll').click(this._itemRoll.bind(this));
@@ -332,30 +342,198 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    _updateXPProgressBar() {
-        const progress = this.getData().system.xp.progress;
-        const xpProgressBar = $('#xp-progress-bar');
-        const xpProgressValue = $('#xp-progress-value');
+    async _check(event) {
+        event.preventDefault();
+        const a = event.currentTarget;
+        const systemData = this.actor.system;
 
-        xpProgressValue.css({
-            'width': progress + '%',
-            'background-color': 'red'
+        let r = new Roll();
+        let rollMod = 0;
+
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+
+        rollMod = await Dialog.wait({
+            title: "Check",
+            content: "<h3 style=\"text-align:center;\">Add a bonus to this Check?</h3>", //todo: localize
+            buttons: {
+                standard: {
+                    label: game.i18n.localize("KNAVE2E.Level"),
+                    callback: () => { return systemData.level }
+                },
+                half: {
+                    label: game.i18n.localize("KNAVE2E.HalfLevel"),
+                    callback: () => { return Math.floor(systemData.level / 2) }
+                },
+                zero: {
+                    label: game.i18n.localize("KNAVE2E.None"),
+                    callback: () => { return 0 }
+                },
+            },
+            default: 'standard',
+            // close: () => { reject() },
         });
+
+        r = new Roll("1d20 + @mod", { mod: rollMod });
+        r.toMessage({
+            speaker: speaker,
+            flavor: `[Check] ${this.actor.name}: `, //@TODO: localize this
+            rollMode: rollMode
+        });
+        return r
     }
+
+    async _numberAppearing(event) {
+        event.preventDefault();
+        const a = event.currentTarget;
+        const systemData = this.actor.system;
+
+        let r = new Roll();
+
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+
+        
+        if (a.dataset.action === "dungeon") {
+            r = new Roll("@appearing", { appearing: systemData.numberAppearing.dungeon });
+            await r.evaluate();
+            r.toMessage({
+                speaker: speaker,
+                flavor: `${r.total} ${this.actor.name}(s) appear in the dungeon...`, //@TODO: localize this
+                rollMode: rollMode
+            });
+        }
+        else {
+            r = new Roll("@appearing", { appearing: systemData.numberAppearing.wilderness });
+            await r.evaluate();
+            r.toMessage({
+                speaker: speaker,
+                flavor: `${r.total} ${this.actor.name}(s) appear in the nearby wilderness...`, //@TODO: localize this
+                rollMode: rollMode
+            });
+        }
+    }
+
+    async _itemMonsterRoll(event) {
+        event.preventDefault();
+        const a = event.currentTarget;
+        const systemData = this.actor.system;
+
+        // Find closest <li> element containing a "data-item-id" attribute
+        const li = a.closest("li");
+        const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
+
+        // console.log(item);
+        let r = new Roll();
+        let rollMod = systemData.level;
+
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+
+        switch (a.dataset.action) {
+            case "attack-roll":
+                rollMod = await Dialog.wait({
+                    title: "Attack Bonus",
+                    content: "<h3 style=\"text-align:center;\">Add a bonus to this Attack?<h3>",//todo: localize
+                    buttons: {
+                        standard: {
+                            label: game.i18n.localize("KNAVE2E.Level"),
+                            callback: () => { return systemData.level }
+                        },
+                        half: {
+                            label: game.i18n.localize("KNAVE2E.HalfLevel"),
+                            callback: () => { return Math.floor(systemData.level / 2) }
+                        },
+                        zero: {
+                            label: game.i18n.localize("KNAVE2E.None"),
+                            callback: () => { return 0 }
+                        },
+                    },
+                    default: 'standard',
+                    // close: () => { reject() },
+                });
+
+                r = new Roll("1d20 + @mod", { mod: rollMod });
+                r.toMessage({
+                    speaker: speaker,
+                    flavor: `Attacking with ${item.name}: `, //@TODO: localize this
+                    rollMode: rollMode
+                });
+                return r
+            case "damage-roll":
+                r = new Roll("@damage", { damage: item.system.damageRoll });
+                r.toMessage({
+                    speaker: speaker,
+                    flavor: `Attacking with ${item.name}: `, //@TODO: localize this
+                    rollMode: rollMode
+                });
+                return r
+            default:
+                break
+        }
+    }
+
+    // _updateXPProgressBar() {
+    //     const progress = this.getData().system.xp.progress;
+    //     const xpProgressBar = $('#xp-progress-bar');
+    //     const xpProgressValue = $('#xp-progress-value');
+
+    //     xpProgressValue.css({
+    //         'width': progress + '%',
+    //         'background-color': 'red'
+    //     });
+    // }
 
     async _onItemCreate(event) {
         event.preventDefault();
+
+        let itemType;
+
+        if (this.actor.type === 'monster') {
+            itemType = "monsterAttack";
+        }
+
+        else {
+            // Get the type of item to create.
+            itemType = await Dialog.wait({
+                title: "Create New Item",
+                content: "Choose an Item Type:", //todo: localize
+                buttons: {
+                    armor: {
+                        label: game.i18n.localize("KNAVE2E.Armor"),
+                        callback: () => { return "armor" }
+                    },
+                    equipment: {
+                        label: game.i18n.localize("KNAVE2E.Equipment"),
+                        callback: () => { return "equipment" }
+                    },
+                    lightSource: {
+                        label: game.i18n.localize("KNAVE2E.LightSource"),
+                        callback: () => { return "lightSource" }
+                    },
+                    spellbook: {
+                        label: game.i18n.localize("KNAVE2E.Spellbook"),
+                        callback: () => { return "spellbook" }
+                    },
+                    weapon: {
+                        label: game.i18n.localize("KNAVE2E.Weapon"),
+                        callback: () => { return "weapon" }
+                    },
+                },
+                default: 'weapon',
+                // close: () => { reject() },
+            });
+        }
+
         const header = event.currentTarget;
-        // Get the type of item to create.
-        const type = header.dataset.type;
         // Grab any data associated with this control.
         const data = duplicate(header.dataset);
         // Initialize a default name.
-        const name = `New ${type.capitalize()}`;
+        const name = `New ${itemType.capitalize()}`;
         // Prepare the item object.
         const itemData = {
             name: name,
-            type: type,
+            type: itemType,
             system: data
         };
         // Remove the type from the dataset since it's in the itemData.type prop.
@@ -401,6 +579,62 @@ export default class Knave2eActorSheet extends ActorSheet {
                 return item.update({ "system.lit": !item.system.lit })
             default:
                 break
+        }
+    }
+
+    _levelCheck(event) {
+        event.preventDefault();
+        const systemData = this.actor.system;
+
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+
+        let r = new Roll();
+        let rollMod;
+
+        if (event.shiftKey) {
+            rollMod = Math.floor(systemData.level / 2);
+            r = new Roll("1d20 + @mod", { mod: rollMod });
+            r.toMessage({
+                speaker: speaker,
+                flavor: `Roll with half level:`, //@TODO: localize this
+                rollMode: rollMode
+            });
+        }
+        else {
+            rollMod = systemData.level;
+            r = new Roll("1d20 + @mod", { mod: rollMod });
+            r.toMessage({
+                speaker: speaker,
+                flavor: `Standard Check:<br/>
+                (Shift + Click to roll with half level)`, //@TODO: localize this
+                rollMode: rollMode
+            });
+        }
+    }
+
+    async _morale(event) {
+        event.preventDefault();
+        const systemData = this.actor.system;
+
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+
+        let r = new Roll("2d6");
+        await r.evaluate();
+        if (r.total > systemData.morale) {
+            r.toMessage({
+                speaker: speaker,
+                flavor: `Morale Test Failed!.`, //@TODO: localize this
+                rollMode: rollMode
+            });
+        }
+        else {
+            r.toMessage({
+                speaker: speaker,
+                flavor: `Morale Test Succeeded!.`, //@TODO: localize this
+                rollMode: rollMode
+            });
         }
     }
 
@@ -529,7 +763,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                         break
                     }
                     else {
-                        r = new Roll("@damage * 3", { damage: item.system.damageRoll });
+                        r = new Roll("(@damage) * 3", { damage: item.system.damageRoll });
                         r.toMessage({
                             speaker: speaker,
                             flavor: `Direct Damage from ${item.name}: `, //@TODO: localize this
@@ -562,7 +796,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                             else if (systemData.spells.value >= systemData.spells.max) {
                                 ChatMessage.create({
                                     speaker: speaker,
-                                    flavor: `${this.actor.name} cannot use another spellbook!`,
+                                    flavor: `Cannot use another spellbook!`,
                                     content: `${this.actor.name} can only cast up to ${systemData.spells.max} spells between rests.`, //@Todo: localize this
                                     rollMode: rollMode
                                 });
@@ -699,7 +933,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                         break
                     }
                     else {
-                        r = new Roll("@damage * 3", { damage: item.system.damageRoll });
+                        r = new Roll("(@damage) * 3", { damage: item.system.damageRoll });
                         r.toMessage({
                             speaker: speaker,
                             flavor: `Direct Damage from ${item.name}: `, //@TODO: localize this
@@ -732,7 +966,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                             else if (systemData.spells.value >= systemData.spells.max) {
                                 ChatMessage.create({
                                     speaker: speaker,
-                                    flavor: `${this.actor.name} cannot use another spellbook!`,
+                                    flavor: `Cannot use another spellbook!`,
                                     content: `${this.actor.name} can only cast up to ${systemData.spells.max} spells between rests.`, //@Todo: localize this
                                     rollMode: rollMode
                                 });
@@ -802,7 +1036,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    _rest(event) {
+    async _rest(event) {
         event.preventDefault();
         const systemData = this.actor.system;
 
@@ -822,36 +1056,35 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
 
         else {
-            if (event.shiftKey) {
-                ChatMessage.create({
-                    speaker: speaker,
-                    flavor: `${this.actor.name} eats a meal and sleeps for at least two watches in a safe haven...`,
-                    content: `• Restored ${restoredHP} Hit Points<br/>
-                • Restored ${systemData.spells.value} Spells<br/>
-                • Reduced Wounds to ${systemData.wounds.value - 1}`, //@Todo: localize this
-                    rollMode: rollMode
-                });
+            const restType = await Dialog.wait({
+                title: "Select Rest Option",
+                content: "<h3 style=\"text-align:center;\">To rest, eat a meal & sleep at least two watches.</h3><p style=\"text-align:center;\">Resting in a safe haven additionally restores 1 Wound.</p>", //todo: localize
+                buttons: {
+                    standard: {
+                        label: game.i18n.localize("KNAVE2E.Standard"),
+                        callback: () => { return "standard" }
+                    },
+                    safe: {
+                        label: game.i18n.localize("KNAVE2E.SafeHaven"),
+                        callback: () => { return "safe" }
+                    }
+                },
+                default: 'standard',
+                // close: () => { reject() },
+            });
 
+            if (restType === 'standard') {
+                return this.actor.update(
+                    {
+                        "system.hitPoints.value": systemData.hitPoints.max,
+                        "system.spells.value": 0,
+                    });
+            }
+            else if (restType === 'safe') {
                 return this.actor.update(
                     {
                         "system.hitPoints.value": systemData.hitPoints.max,
                         "system.wounds.value": Math.max(systemData.wounds.value - 1, 0),
-                        "system.spells.value": 0,
-                    });
-            }
-            else {
-                ChatMessage.create({
-                    speaker: speaker,
-                    flavor: `${this.actor.name} eats a meal and sleeps for at least two watches...`,
-                    content: `• Restored ${restoredHP} Hit Points<br/>
-                • Restored ${systemData.spells.value} Spells<br/>
-                To rest in a safe haven and remove 1 wound, Shift + Click the rest button.`, //@Todo: localize this
-                    rollMode: rollMode
-                });
-
-                return this.actor.update(
-                    {
-                        "system.hitPoints.value": systemData.hitPoints.max,
                         "system.spells.value": 0,
                     });
             }
