@@ -1,53 +1,68 @@
-# Boilerplate System
+# Knave Second Edition (Unofficial) - Game System for Foundry Virtual Tabletop
+![Foundry Virtual Tabletop](https://img.shields.io/badge/foundry-v11-green)
 
-![Foundry v11](https://img.shields.io/badge/foundry-v11-green)
+This game system for [Foundry Virtual Tabletop](https://foundryvtt.com/) provides character sheets and rule automation for [Knave Second Edition](https://www.kickstarter.com/projects/questingbeast/knave-rpg-second-edition) by [Ben Milton and Questing Beast LLC](https://questingbeast.substack.com/). 
 
-This system is a boilerplate system that you can use as a starting point for building your own custom systems. It's similar to Simple World-building, but has examples of creating attributes in code rather than dynamically through the UI.
+Knave Second Edition for FoundryVTT is an independent production of Lee Talman and is not affiliated with Questing Beast LLC. The game system is currently an early beta and is subject to change.
 
-## Usage
+## Installation
+1. In your Foundry UI, select "Install System" under "Game Systems".
+2. Copy and paste the following link into the "Manifest URL field", then click "Install":
+`https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json`
 
-Before installing this system, you should rename any files that have `boilerplate` in their filename to use whatever machine-safe name your system needs, such as `adnd2e` if you were building a system for 2nd edition Advanced Dungeons & Dragons. In addition, you should search through the files for `boilerplate` and `Boilerplate` and do the same for those, replacing them with appropriate names for your system.
 
-A system's ID _must_ match its containing folder, and once you've published your system it cannot be changed. It also must be unique within the foundry ecosystem. Choose wisely!
+## Features
+Knave Second Edition for FoundryVTT provides sheets for player characters, monster, recruits (hireling, mercenaries, and experts), and items (weapons, armor, light sources, spellbooks, and general equipment). 
 
-### System Generator
+In addition, the game system automates many of the Knave Second Edition rules, with more features to come:
 
-This project is also available as generator that can be run with npm: https://www.npmjs.com/package/generator-foundry
+### Rolls:
+- [x] Ability Checks
+- [x] Attack, Damage, and Direct Damage
+- [x] Checks adding Level, half Level, or zero
+- [x] Monster and Recruit Morale
+- [x] Weapons break on a natural 1
+- [x] Monsters roll number appearing in both wilderness and dungeons
+- [ ] Spell effects scale with INT
 
-### Vue 3 Boilerplate
+### Slots:
+- [x] Characters gain slots with CON
+- [x] Characters lose slots from Wounds, starting with the first slot
+- [x] Stacking items (coins, ammo) calculate total slot encumberance
+- [x] Items in wounded/overencumbered slots cannot be used
+- [x] Item order can be rearranged
+- [ ] Characters can assign coins/ammo to numbered slots to determine drop order
 
-Alternatively, there's another build of this system that supports using Vue 3 components (ES module build target) for character sheet templates.
+### Items:
 
-Head over to the [Vue3Boilerplate System](https://gitlab.com/asacolips-projects/foundry-mods/vue3boilerplate) repo if you're interested in using Vue!
+- [x] Items can be labeled as "Relics"
+- [x] Relics can be active or inactive, and add to total Active Blessings
+- [x] Characters gain maximum Active Blessings with CHA
+- [x] Spellbooks can only be cast once per rest
+- [x] Characters can only cast a number of spells based on INT
+- [x] Only certain recruits can cast spells
+- [x] Light sources can be customized and activated from a character's inventory
+- [x] Characters can perform a standard or "safe haven" rest to restore Wounds
+- [ ] GMs can perform a rest on all characters at once
+- [ ] Items can be assigned to macro bars for quick use
+- [ ] Items can be labeled as potions and given alchemical effects
+- [ ] Chaos spellbooks gain random effects
 
-### Getting Help
+### System:
 
-Check out the [Official Foundry VTT Discord](https://discord.gg/foundryvtt)! The #system-development channel has helpful pins and is a good place to ask questions about any part of the foundry application.
+- [ ] Characters/Recruits/Monsters can be randomly generated at any level
+- [ ] Configuration settings avaiable in Foundry system menu
+- [ ] Assign custom icons to Recruits & Monsters
 
-For more static references, the [Knowledge Base](https://foundryvtt.com/kb/) and [API Documentation](https://foundryvtt.com/api/) provide different levels of detail. For the most detail, you can find the client side code in your foundry installation location. Classes are documented in individual files under `resources/app/client` and `resources/app/common`, and the code is collated into a single file at `resources/app/public/scripts/foundry.js`.
+## Bug Reporting
+Knave Second Edition for FoundryVTT is still in a beta stage, and is likely to have many missing features, bugs, and edge cases. Report any issues (preferably with `F12 > Inspect Editor` screenshots) in the [Issues](https://github.com/Lee-Talman/knave2e/issues) page.
 
-#### Tutorial
+## Special Thanks
+This system would not have been possible without the following people:
+1. Ben Milton and Questing Beast LLC. Thank you for a fantastic follow-up to Knave First Edition, and thank you for the permission to distribute this system to other fans!
 
-For much more information on how to use this system as a starting point for making your own, see the [full tutorial on the Foundry Wiki](https://foundryvtt.wiki/en/development/guides/SD-tutorial)!
+2. The FoundryVTT Boilerplate System developer `asacolips`, who is responsible for indirectly birthing more FoundryVTT game systems than anyone.
 
-Note: Tutorial may be out of date
+3. `mxzf`, `chaosOS`, `Ethaks`, and the rest of the incredible FoundryVTT development gurus in the FoundryVTT Discord server. Partially for their wisdom, but mostly for their patience.
 
-## Sheet Layout
 
-This system includes a handful of helper CSS classes to help you lay out your sheets if you're not comfortable diving into CSS fully. Those are:
-
-- `flexcol`: Included by Foundry itself, this lays out the child elements of whatever element you place this on vertically.
-- `flexrow`: Included by Foundry itself, this lays out the child elements of whatever element you place this on horizontally.
-- `flex-center`: When used on something that's using flexrow or flexcol, this will center the items and text.
-- `flex-between`: When used on something that's using flexrow or flexcol, this will attempt to place space between the items. Similar to "justify" in word processors.
-- `flex-group-center`: Add a border, padding, and center all items.
-- `flex-group-left`: Add a border, padding, and left align all items.
-- `flex-group-right`: Add a border, padding, and right align all items.
-- `grid`: When combined with the `grid-Ncol` classes, this will lay out child elements in a grid.
-- `grid-Ncol`: Replace `N` with any number from 1-12, such as `grid-3col`. When combined with `grid`, this will layout child elements in a grid with a number of columns equal to the number specified.
-
-## Compiling the CSS
-
-This repo includes both CSS for the theme and SCSS source files. If you're new to CSS, it's probably easier to just work in those files directly and delete the SCSS directory. If you're interested in using a CSS preprocessor to add support for nesting, variables, and more, you can run `npm install` in this directory to install the dependencies for the scss compiler. After that, just run `npm run gulp` to compile the SCSS and start a process that watches for new changes.
-
-![image](http://mattsmith.in/images/boilerplate.png)

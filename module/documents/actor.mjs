@@ -1,84 +1,43 @@
-export class Knave2eActor extends Actor {
+export default class Knave2eActor extends Actor {
 
   prepareData() {
-    // Prepare data for the actor. Calling the super version of this executes
-    // the following, in order: data reset (to clear active effects),
-    // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
-    // prepareDerivedData().
     super.prepareData();
   }
 
   prepareBaseData() {
-    // Data modifications in this step occur before processing embedded
-    // documents or derived data.
   }
 
-  /**
-   * @override
-   * Augment the basic actor data with additional dynamic data. Typically,
-   * you'll want to handle most of your calculated/derived data in this step.
-   * Data calculated in this step should generally not exist in template.json
-   * (such as ability modifiers rather than ability scores) and should be
-   * available both inside and outside of character sheets (such as if an actor
-   * is queried and has a roll executed directly from it).
-   */
   prepareDerivedData() {
     const actorData = this;
-    const systemData = actorData.system;
-    const flags = actorData.flags.knave2e || {};
+    // const systemData = actorData.system;
+    // const flags = actorData.flags.knave2e || {};
 
-    // Make separate methods for each Actor type (character, recruit, etc.) to keep
-    // things organized.
     this._prepareCharacterData(actorData);
     this._prepareRecruitData(actorData);
 
   }
 
-  /**
-   * Prepare Character-type specific data
-   */
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
 
     const systemData = actorData.system;
 
-    systemData.armorClass.value = (systemData.armorPoints.value + 11);
-    systemData.wounds.max, systemData.slots.max = (systemData.abilities.con.value + 10);
-    systemData.slots.value = (systemData.slots.max - systemData.wounds.value);
+    // Define Maximum Values
+    // systemData.armorClass = (systemData.armorPoints + 11);
+    systemData.blessings.max = systemData.abilities.charisma.value;
+    systemData.companions.max = systemData.abilities.charisma.value;
+    systemData.spells.max = systemData.abilities.intelligence.value;
+    systemData.slots.max, 
+    systemData.wounds.max = (systemData.abilities.constitution.value + 10);
 
   }
 
-  /**
-   * Prepare Recruit-type specific data.
-   */
   _prepareRecruitData(actorData) {
     if (actorData.type !== 'recruit') return;
 
     const systemData = actorData.system;
-    systemData.hitPoints.max = 3;
-    systemData.armorClass.value = 11;
 
-    let subType = systemData.subType;
-    switch (subType) {
-      case "hireling":
-        systemData.cost = 300;
-        break;
-      case "mercenary":
-        systemData.cost = 600;
-        systemData.morale = 8;
-        systemData.hitPoints.max = 3;
-        systemData.armorClass.value = 15;
-        break;
-      case "expertCommon":
-        systemData.cost = 600;
-        break;
-      case "expertUncommon":
-        systemData.cost = 1200;
-        break;
-      case "expertRare":
-        systemData.cost = 2400;
-        break;
-    }
+    systemData.hitPoints.max = 3;
   }
 
     /**
@@ -178,17 +137,16 @@ export class Knave2eActor extends Actor {
   _getCharacterRollData(data) {
     if (this.type !== 'character') return;
 
-    // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
+    // Copy the ability scores to the top level, so that rolls can use formulas like `d20 + @strength.value`.
     if (data.abilities) {
       for (let [k, v] of Object.entries(data.abilities)) {
         data[k] = foundry.utils.deepClone(v);
       }
     }
 
-    // Add level for easier access, or fall back to 0.
+    // Add level for easier access, or fall back to 1.
     if (data.level) {
-      data.lvl = data.level.value ?? 0;
+      data.lvl = data.level.value ?? 1;
     }
   }
 
@@ -197,6 +155,10 @@ export class Knave2eActor extends Actor {
    */
   _getRecruitRollData(data) {
     if (this.type !== 'recruit') return;
+
+    if (data.level) {
+      data.lvl = data.level.value ?? 1;
+    }
 
     // Process additional Recruit data here.
   }

@@ -1,0 +1,130 @@
+<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="sheet-container">
+        {{!-- Sheet Header --}}
+        <header class="sheet-header">
+            <div id="character-header-grid">
+
+                {{!-- Knave Logo --}}
+                <div id="knave-logo" style="min-width:150px">
+                    <img class="logo-img" src="systems/knave2e/assets/knave-2e-logo.webp" />
+                </div>
+
+                {{!-- Character Header Info --}}
+                <div id="character-info">
+                    {{!-- Row 1 --}}
+
+                    <div class="flexrow flex-group-left">
+                        <div class="flexrow flex3 flex-group-left" id="dotted" style="margin-bottom: 5px;">
+                            <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
+                            <input class="transparent flex3" name="name" type="text" value="{{actor.name}}"
+                                placeholder="{{actor.name}}" />
+                        </div>
+                        <div class="flexcol flex-group-center">
+                            <button class="rest-button" type="button">{{localize "KNAVE2E.Rest"}}</button>
+                        </div>
+                    </div>
+
+                    {{!-- Row 2 --}}
+                    <div class="flexrow flex-group-center flex-between">
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Level"}}</div>
+                            <div class="flexrow flex-group-center">
+                                <input class="resource-label transparent small" name="system.level"
+                                    value="{{system.level}}" data-dtype="Number" />
+                                <a class="check-button" data-action="level-roll" title={{localize "KNAVE2E.Level" }}>
+                                    <i class="fas fa-dice-d20"></i></a>
+                            </div>
+                        </div>
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Morale"}}</div>
+                            <div class="flexrow flex-group-center">
+                                <input class="resource-label transparent small" name="system.morale"
+                                    value="{{system.morale}}" data-dtype="Number" />
+                                <a class="morale-button" data-action="morale-roll" title={{localize "KNAVE2E.Morale" }}>
+                                    <i class="fas fa-dice"></i></a>
+                            </div>
+                        </div>
+                        <div class="flexrow flex-group-center" style="margin-top: 5px">
+                            <div class="flexcol flex-group-center min-width">
+                                <div class="resource-label small">{{localize "KNAVE2E.Coins"}}: </div>
+                                <input class="resource-label transparent small" name="system.coins"
+                                    value="{{system.coins}}" data-dtype="Number" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {{!-- Row 3 --}}
+                    <div class="flexrow flex-group-center flex-between">
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Cost"}}</div>
+                            <div class="resource-label small">{{system.costPerMonth}}</div>
+                        </div>
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Type"}}</div>
+                            <select name="system.category">{{selectOptions recruitCategories selected=system.category
+                                localize=true}}</select>
+                        </div>
+                        {{#if (ne system.category "expert")}}
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Rarity"}}</div>
+                            <div class="resource-label small">{{localize system.rarity}}</div>
+                        </div>
+                        {{else}}
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Rarity"}}</div>
+                            <select name="system.rarity">{{selectOptions rarityCategories selected=system.rarity
+                                localize=true}}</select>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <section class="sheet body">
+            <div class="flexrow flex-group-center flex-between">
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.HitPoints"}}</div>
+                    <div class="progress-container" id="horizontal">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width:{{system.hitPoints.progress}}%"></div>
+                            <input class="progress-input resource-label" name="system.hitPoints.value"
+                                value="{{system.hitPoints.value}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.HitPointsMax"}}</div>
+                    <input class="resource-label transparent" id="rounded-resource" name="system.hitPoints.max"
+                        value="{{system.hitPoints.max}}" style="text-align:center" />
+                </div>
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.ArmorClass"}}</div>
+                    <div class="resource-label" id="shield-resource">
+                        {{system.armorClass}}
+                    </div>
+                </div>
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.ArmorPoints"}}</div>
+                    <div class="resource-label" id="circle-resource">
+                        {{system.armorPoints}}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div style="min-height:150px" ;>
+                {{> "systems/knave2e/templates/actor/parts/actor-recruit-items.hbs"}}
+            </div>
+        </section>
+
+        <footer>
+            <div class="flexrow flex-group-center">
+                <p style="font-size:smaller">Copyright &#169; 2023 <a
+                        href="https://www.patreon.com/questingbeast/posts">Ben
+                        Milton and Questing Beast LLC.</a> Logo Design by <a
+                        href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+            </div>
+        </footer>
+    </div>
+</form>

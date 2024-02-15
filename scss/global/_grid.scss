@@ -60,26 +60,308 @@
 }
 
 // Grid offset.
-.grid-start-2 { grid-column-start: 2 }
-.grid-start-3 { grid-column-start: 3 }
-.grid-start-4 { grid-column-start: 4 }
-.grid-start-5 { grid-column-start: 5 }
-.grid-start-6 { grid-column-start: 6 }
-.grid-start-7 { grid-column-start: 7 }
-.grid-start-8 { grid-column-start: 8 }
-.grid-start-9 { grid-column-start: 9 }
-.grid-start-10 { grid-column-start: 10 }
-.grid-start-11 { grid-column-start: 11 }
-.grid-start-12 { grid-column-start: 12 }
+.grid-start-2 {
+  grid-column-start: 2
+}
 
-.grid-span-2 { grid-column-end: span 2 }
-.grid-span-3 { grid-column-end: span 3 }
-.grid-span-4 { grid-column-end: span 4 }
-.grid-span-5 { grid-column-end: span 5 }
-.grid-span-6 { grid-column-end: span 6 }
-.grid-span-7 { grid-column-end: span 7 }
-.grid-span-8 { grid-column-end: span 8 }
-.grid-span-9 { grid-column-end: span 9 }
-.grid-span-10 { grid-column-end: span 10 }
-.grid-span-11 { grid-column-end: span 11 }
-.grid-span-12 { grid-column-end: span 12 }
+.grid-start-3 {
+  grid-column-start: 3
+}
+
+.grid-start-4 {
+  grid-column-start: 4
+}
+
+.grid-start-5 {
+  grid-column-start: 5
+}
+
+.grid-start-6 {
+  grid-column-start: 6
+}
+
+.grid-start-7 {
+  grid-column-start: 7
+}
+
+.grid-start-8 {
+  grid-column-start: 8
+}
+
+.grid-start-9 {
+  grid-column-start: 9
+}
+
+.grid-start-10 {
+  grid-column-start: 10
+}
+
+.grid-start-11 {
+  grid-column-start: 11
+}
+
+.grid-start-12 {
+  grid-column-start: 12
+}
+
+.grid-span-2 {
+  grid-column-end: span 2
+}
+
+.grid-span-3 {
+  grid-column-end: span 3
+}
+
+.grid-span-4 {
+  grid-column-end: span 4
+}
+
+.grid-span-5 {
+  grid-column-end: span 5
+}
+
+.grid-span-6 {
+  grid-column-end: span 6
+}
+
+.grid-span-7 {
+  grid-column-end: span 7
+}
+
+.grid-span-8 {
+  grid-column-end: span 8
+}
+
+.grid-span-9 {
+  grid-column-end: span 9
+}
+
+.grid-span-10 {
+  grid-column-end: span 10
+}
+
+.grid-span-11 {
+  grid-column-end: span 11
+}
+
+.grid-span-12 {
+  grid-column-end: span 12
+}
+
+// Character Header
+#character-header-grid {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0px;
+  align-self: start;
+}
+
+#knave-logo {
+  grid-area: 1 / 1 / 2 / 3;
+}
+
+#character-info {
+  grid-area: 1 / 3 / 2 / 6;
+}
+
+#character-body-grid {
+	display: grid;
+	grid-auto-rows: repeat(2, 1fr);
+	grid-template-columns: auto 120px 235px;
+	gap: 0;
+	width: 100%;
+	height: 100%;
+}
+#character-abilities {
+	grid-area: 1 / 1 / 4 / 2;
+  min-width: 215px;
+}
+#character-armor {
+	grid-area: 1/2/2/3;
+}
+#character-level {
+	grid-area: 1/3/2/4;
+	
+}
+#character-health {
+	grid-area: 2 / 2 / 4 / 3;
+	
+}
+#character-portrait {
+  display: grid;
+	grid-area: 2 / 3 / 4 / 4;
+  place-items: center;
+
+  img {
+    border: none;
+    padding: 5px;
+    width: 100%; /* Ensures the image fills the container horizontally */
+    height: auto; /* Allows the image to maintain its aspect ratio */
+    object-fit: cover; /* Ensures the image covers the entire container */
+  }
+
+}
+
+// Item Header Grid
+#item-header-grid {  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+#item-img { 
+  grid-area: 1 / 1 / 2 / 2; 
+  
+}
+
+#item-info { 
+  grid-area: 1 / 2 / 2 / 3; 
+  
+}
+
+// Item Body Grid
+#item-body-grid {  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+
+  #item-aside { 
+    grid-area: 1 / 1 / 2 / 2; 
+    
+    width: 300px;
+  }
+
+  #item-description { 
+    grid-area: 1 / 2 / 2 / 3; 
+    
+  }
+  
+}
+
+
+// Item Sheet Grid
+
+// Item Sheet Header
+.item-header-grid {  
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+.item-header-img { grid-area: 1 / 1 / 2 / 2; }
+
+.item-info-grid {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.item-header-info { grid-area: 2 / 1 / 3 / 2; }
+
+.item-header-name { grid-area: 1 / 1 / 2 / 2; }
+
+// Item Sheet Body
+.item-body-grid {  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+}
+
+.item-body-aside { 
+  grid-area: 1 / 1 / 2 / 2; 
+  padding-right: 10px;
+
+  .separator {
+    border-bottom: 1px solid lightgrey;
+  }
+}
+
+.item-body-description {
+  min-width: 350px;
+  grid-area: 1 / 2 / 2 / 3; 
+}
+
+
+
+.progress-.container {
+  display: grid; 
+  grid-template-columns: 1fr; 
+  grid-template-rows: 1fr;
+  gap: 0px 0px; 
+}
+
+.progress-container#horizontal {
+  width: 100%;
+  min-width: 150px;
+  height: 50px;
+  margin: 2px;
+  border: 2px solid black;
+
+  .progress-bar, .progress-fill, .progress-input {
+    height: 100%;
+    min-height: 46px;
+    position: relative;
+  }
+
+  .progress-fill, .progress-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .progress-fill{
+    background-color: var(--color-border-highlight);
+  }
+
+  .progress-input {
+    background-color: #ffffff00;
+    border-color: #ffffff00;
+    border: none;
+    text-align: center;
+  }
+}
+
+.progress-container#vertical {
+  width: 50px;
+  height: 150px;
+  margin: 2px;
+  border: 2px solid black;
+
+  .progress-bar, .progress-fill, .progress-input {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .progress-fill{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-border-highlight);
+    transform:rotate(180deg);
+  }
+
+  .progress-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff00;
+    border-color: #ffffff00;
+    border: none;
+    text-align: center;
+  }
+}
+

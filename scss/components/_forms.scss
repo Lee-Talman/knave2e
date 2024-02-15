@@ -2,6 +2,12 @@
   font-family: $font-primary;
 }
 
+.sheet-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
 .sheet-header {
   flex: 0 auto;
   overflow: hidden;
@@ -11,45 +17,122 @@
   justify-content: flex-start;
   margin-bottom: 10px;
 
-  .profile-img {
-    flex: 0 0 100px;
-    height: 100px;
-    margin-right: 10px;
+  .logo-img {
+    border-color:#ffffff00;
+    margin-right: 20px;
+    height: 96px;
+    min-width: 180px;
   }
 
   .header-fields {
     flex: 1;
-  }
+    align-items: flex-end;
 
-  h1.charname {
-    height: 50px;
-    padding: 0px;
-    margin: 5px 0;
-    border-bottom: 0;
-    input {
-      width: 100%;
-      height: 100%;
-      margin: 0;
+    #logo-container {
+      max-width: 250px;
     }
   }
+}
+
+#dotted {
+  margin: 0 5px;
+  border-bottom: 2px dotted black;
+  align-content: flex-end;
+}
+
+input.transparent {
+  background-color: #ffffff00;
+  border: 0px;
+}
+
+input.small {
+  max-width: 50px;
+  padding: 0px;
+  border: 0px;
+  text-align: center;
+}
+
+button.small {
+  max-width: 60px;
+  text-align: center;
+}
+
+#circle-form {
+  border-radius: 50%;
+  border: 2px solid black;
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  margin: 2px;
+  text-align: center;
+}
+
+#rounded-form {
+  border-radius: 5%;
+  border: 2px solid black;
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  margin: 2px;
+  text-align: center;
+}
+
+.transparent-form label,
+.transparent-form input {
+  margin-right: 10px;
 }
 
 .sheet-tabs {
   flex: 0;
 }
 
+.sheet-tabs.tabs {
+  border: none;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--color-border-highlight);
+}
+
+.active#tab-color {
+  background-color: var(--color-border-highlight);
+}
+
 .sheet-body,
 .sheet-body .tab,
 .sheet-body .tab .editor {
-  height: 100%;
+  height: auto;
+  min-height: 200px;
+}
+
+.item-body-description .editor{
+  height: auto;
+  min-height: 200px;
+}
+
+.monster-body-description .editor{
+  height: auto;
+  min-height: 100px;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+  margin-top: auto;
 }
 
 .tox {
   .tox-editor-container {
     background: $c-white;
+    min-height: 200px;
   }
 
   .tox-edit-area {
     padding: 0 8px;
+  }
+
+  &.tox-tinymce {
+    min-height:200px;
   }
 }

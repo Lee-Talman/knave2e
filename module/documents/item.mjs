@@ -1,84 +1,30 @@
-/**
- * Extend the basic Item with some very simple modifications.
- * @extends {Item}
- */
-export class Knave2eItem extends Item {
-  /**
-   * Augment the basic Item data model with additional dynamic data.
-   */
+export default class Knave2eItem extends Item {
+
   prepareData() {
-    // As with the actor class, items are documents that can have their data
-    // preparation methods overridden (such as prepareBaseData()).
     super.prepareData();
   }
 
-  prepareDerivedData(){
+  prepareDerivedData() {
     const itemData = this;
-    const systemData = itemData.system;
-    const flags = itemData.flags.knave2e || {};
 
-    // Make separate methods for each Item type (weapon, armor, etc.) to keep
-    // things organized.
     this._prepareWeaponData(itemData);
-    this._prepareArmorData(itemData);
-    this._prepareSpellbookData(itemData);
-    this._prepareEquipmentData(itemData);
-    this._prepareAmmoData(itemData);
-    this._prepareCoinData(itemData);
+    
   }
 
-  _prepareWeaponData(itemData){
+  _prepareWeaponData(itemData) {
     if (itemData.type !== 'weapon') return;
 
-    const systemData = itemData.system;
-
-      systemData.subTypeOptions = {
-        melee: "Melee",
-        ranged: "Ranged"
-      };
-
-      systemData.damageOptions = {
-        d2: "d2",
-        d4: "d4",
-        d6: "d6",
-        d8: "d8",
-        d10: "d10",
-        d12: "d12"
-      };
-
-      systemData.ammoTypeOptions = {
-        none: "None",
-        sling: "Sling",
-        bow: "Bow"
-      };
-
-      if (systemData.subType.value == "melee") {
-        systemData.attackBonus = "str";
-      }
-      else {
-        systemData.attackBonus = "wis";
-      };
-
+    // this.damageRoll = this._calculateDamageRoll(itemData);
   }
 
-  _prepareArmorData(itemData){
-    if (itemData.type !== 'armor') return;
-
-    const systemData = itemData.system;
-  }
-  _prepareSpellbookData(itemData){}
-  _prepareSpellbookData(itemData){}
-  _prepareEquipmentData(itemData){}
-  _prepareAmmoData(itemData){}
-  _prepareCoinData(itemData){}
 
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
    * @private
    */
-   getRollData() {
+  getRollData() {
     // If present, return the actor's roll data.
-    if ( !this.actor ) return null;
+    if (!this.actor) return null;
     const rollData = this.actor.getRollData();
     // Grab the item's system data as well.
     rollData.item = foundry.utils.deepClone(this.system);
@@ -100,7 +46,7 @@ export class Knave2eItem extends Item {
     const label = `[${item.type}] ${item.name}`;
 
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
+    if (!this.system.damageRoll) {
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
@@ -114,7 +60,7 @@ export class Knave2eItem extends Item {
       const rollData = this.getRollData();
 
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.item.formula, rollData);
+      const roll = new Roll(rollData.item.damageRoll, rollData);
       // If you need to store the value first, uncomment the next line.
       // let result = await roll.roll({async: true});
       roll.toMessage({

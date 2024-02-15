@@ -1,10 +1,18 @@
 // Flexbox.
+
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.flexrow, 
+.flexcol {
+  .min-width {
+    min-width: 80px;
+  }
 }
 
 .flex-group-left {
@@ -23,6 +31,12 @@
 
 .flex-between {
   justify-content: space-between;
+}
+
+.flex-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 .flexlarge {
@@ -47,4 +61,12 @@
 .align-center {
   justify-content: center;
   text-align: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
 }

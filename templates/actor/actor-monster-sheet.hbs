@@ -1,0 +1,109 @@
+<form class="{{cssClass}} {{actor.type}}" autocomplete="off">
+    <div class="sheet-container">
+        {{!-- Sheet Header --}}
+        <header class="sheet-header">
+            <div id="character-header-grid">
+
+                {{!-- Knave Logo --}}
+                <div id="knave-logo" style="min-width:150px">
+                    <img class="logo-img" src="systems/knave2e/assets/knave-2e-logo.webp" />
+                </div>
+
+                {{!-- Character Header Info --}}
+                <div id="character-info">
+                    <div class="flexrow flex-group-left" id="dotted">
+                        <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
+                        <input class="transparent flex3" name="name" type="text" value="{{actor.name}}"
+                            placeholder="{{actor.name}}" />
+                    </div>
+                    <div class="flexrow flex-group-center flex-between" style="margin-top: 5px;">
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Level"}}</div>
+                            <div class="flexrow flex-group-center">
+                                <input class="resource-label transparent small" name="system.level"
+                                    value="{{system.level}}" data-dtype="Number" />
+                                <a class="check-button" data-action="level-roll" title={{localize "KNAVE2E.Level" }}>
+                                    <i class="fas fa-dice-d20"></i></a>
+                            </div>
+                        </div>
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.Morale"}}</div>
+                            <div class="flexrow flex-group-center">
+                                <input class="resource-label transparent small" name="system.morale"
+                                    value="{{system.morale}}" data-dtype="Number" />
+                                <a class="morale-button" data-action="morale-roll" title={{localize "KNAVE2E.Morale" }}>
+                                    <i class="fas fa-dice"></i></a>
+                            </div>
+                        </div>
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.NumberAppearingDungeon"}}</div>
+                            <div class="flexrow flex-group-center">
+                                <input type="text" class="resource-label transparent small"
+                                    name="system.numberAppearing.dungeon" value="{{system.numberAppearing.dungeon}}"
+                                    data-dtype="String" />
+                                <a class="number-appearing-button" data-action="dungeon"
+                                    title={{localize "KNAVE2E.NumberAppearingDungeon" }}>
+                                    <i class="fas fa-dice"></i></a>
+                            </div>
+                        </div>
+                        <div class="flexcol flex-group-center min-width">
+                            <div class="resource-label small">{{localize "KNAVE2E.NumberAppearingWilderness"}}</div>
+                            <div class="flexrow flex-group-center">
+                                <input type="text" class="resource-label transparent small"
+                                    name="system.numberAppearing.wilderness"
+                                    value="{{system.numberAppearing.wilderness}}" data-dtype="String" />
+                                <a class="number-appearing-button" data-action="wilderness"
+                                    title={{localize "KNAVE2E.NumberAppearingWilderness" }}>
+                                    <i class="fas fa-dice"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="sheet body">
+            <div class="flexrow flex-group-center flex-between">
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.HitPoints"}}</div>
+                    <div class="progress-container" id="horizontal">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width:{{system.hitPoints.progress}}%"></div>
+                            <input class="progress-input resource-label" name="system.hitPoints.value"
+                                value="{{system.hitPoints.value}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.HitPointsMax"}}</div>
+                    <input class="resource-label transparent" id="rounded-resource" name="system.hitPoints.max"
+                        value="{{system.hitPoints.max}}" style="text-align:center" />
+                </div>
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.ArmorClass"}}</div>
+                    <input class="resource-label transparent" id="shield-resource" name="system.armorClass"
+                        value="{{system.armorClass}}" style="text-align:center" />
+                </div>
+                <div class="flexcol flex-group-center">
+                    <div class="resource-label small">{{localize "KNAVE2E.Movement"}}</div>
+                    <input class="resource-label transparent" id="rounded-resource" name="system.movement"
+                        value="{{system.movement}}" style="text-align:center" />
+                </div>
+            </div>
+            <div class="monster-body-description">
+            {{> "systems/knave2e/templates/actor/parts/actor-description.hbs"}}
+            </div>
+            <div style="min-height:150px;">
+            {{> "systems/knave2e/templates/actor/parts/actor-monster-items.hbs"}}
+            </div>
+        </section>
+
+        <footer>
+            <div class="flexrow flex-group-center">
+                <p style="font-size:smaller">Copyright &#169; 2023 <a
+                        href="https://www.patreon.com/questingbeast/posts">Ben
+                        Milton and Questing Beast LLC.</a> Logo Design by <a
+                        href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+            </div>
+        </footer>
+</form>
