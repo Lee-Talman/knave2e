@@ -3,7 +3,7 @@
 
 This game system for [Foundry Virtual Tabletop](https://foundryvtt.com/) provides character sheets and rule automation for [Knave Second Edition](https://www.kickstarter.com/projects/questingbeast/knave-rpg-second-edition) by [Ben Milton and Questing Beast LLC](https://questingbeast.substack.com/). 
 
-Knave Second Edition for FoundryVTT is an independent production of Lee Talman and is not affiliated with Questing Beast LLC. The game system is currently an early beta and is subject to change.
+Knave Second Edition for FoundryVTT is an independent production of Lee Talman and is not affiliated with Questing Beast LLC. The game system is currently an early beta and is subject to change. You can find the official package page [hosted by FoundryVTT here](https://foundryvtt.com/packages/knave2e).
 
 ## Installation
 1. In your Foundry UI, select "Install System" under "Game Systems".
