@@ -51,6 +51,7 @@ In addition, the game system automates many of the Knave Second Edition rules, w
 ### System:
 
 - [ ] Characters/Recruits/Monsters can be randomly generated at any level
+- [ ] Add modifiers and items based on Careers
 - [ ] Configuration settings avaiable in Foundry system menu
 - [ ] Assign custom icons to Recruits & Monsters
 

@@ -5,8 +5,8 @@ export default class Knave2eActorSheet extends ActorSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["knave2e", "sheet", "actor"],
             template: "systems/knave2e/templates/actor/actor-sheet.hbs",
-            width: 600,
-            height: 600,
+            width: 620,
+            height: 650,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
     }

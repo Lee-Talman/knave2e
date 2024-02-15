@@ -16,8 +16,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/knave2e/assets/knave-2e-repo.png",
-      "thumbnail": "systems/knave2e/assets/knave-2e-repo.png"
+      "url": "systems/knave2e/assets/knave-2e-repo.webp",
+      "thumbnail": "systems/knave2e/assets/knave-2e-repo.webp"
     }
   ],
   "version": "0.1.0",
