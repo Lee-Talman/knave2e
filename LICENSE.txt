@@ -12,9 +12,9 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-This license does not apply to the compendium content listed in this software's
-"packs" directory. Content in the "packs" directory is copyrighted by Ben Milton
-and Questing Beast, LLC.
+This license does not apply to the images and compendium content listed in this 
+software's "packs" and "assets" directories. Content in the "packs" and "assets" 
+directories is copyrighted by Ben Milton and Questing Beast, LLC.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,8 +23,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-IMAGE LICENSES
-
-anvil-impact.png by Lorc under CC BY 3.0 from game-icons.net
