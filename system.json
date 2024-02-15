@@ -16,8 +16,8 @@
   "media": [
     {
       "type": "setup",
-      "url": "systems/knave2e/assets/knave-2e-repo.webp",
-      "thumbnail": "systems/knave2e/assets/knave-2e-repo.webp"
+      "url": "systems/knave2e/assets/knave-2e-logo.png",
+      "thumbnail": "systems/knave2e/assets/knave-2e-logo.png"
     }
   ],
   "version": "0.1.0",
@@ -55,7 +55,7 @@
   "packFolders": [],
   "socket": false,
   "manifest": "https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json",
-  "download": "https://github.com/Lee-Talman/knave2e/archive/refs/tags/release-0.1.0.zip",
+  "download": "https://github.com/Lee-Talman/knave2e/archive/refs/tags/release-0.1.1.zip",
   "background": "systems/knave2e/assets/anvil-impact.png",
   "gridDistance": 5,
   "gridUnits": "ft",
