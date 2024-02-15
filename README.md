@@ -24,6 +24,7 @@ In addition, the game system automates many of the Knave Second Edition rules, w
 - [x] Weapons break on a natural 1
 - [x] Monsters roll number appearing in both wilderness and dungeons
 - [ ] Spell effects scale with INT
+- [ ] Rolls of 21+ trigger maneuvers
 
 ### Slots:
 - [x] Characters gain slots with CON
