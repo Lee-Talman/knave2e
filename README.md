@@ -51,9 +51,11 @@ In addition, the game system automates many of the Knave Second Edition rules, w
 ### System:
 
 - [ ] Characters/Recruits/Monsters can be randomly generated at any level
+- [ ] Support for Vehicles and Containers
 - [ ] Add modifiers and items based on Careers
 - [ ] Configuration settings avaiable in Foundry system menu
 - [ ] Assign custom icons to Recruits & Monsters
+- [ ] Spell/Potion builder
 
 ## Bug Reporting
 Knave Second Edition for FoundryVTT is still in a beta stage, and is likely to have many missing features, bugs, and edge cases. Report any issues (preferably with `F12 > Inspect Editor` screenshots) in the [Issues](https://github.com/Lee-Talman/knave2e/issues) page.
