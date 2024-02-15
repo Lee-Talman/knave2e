@@ -41,7 +41,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Add roll data for TinyMCE editors.
         context.rollData = context.actor.getRollData();
 
-        console.log(context);
+        //console.log(context);
         return context;
     }
 
@@ -235,6 +235,7 @@ export default class Knave2eActorSheet extends ActorSheet {
             systemData.costPerMonth = category.costPerMonth;
             systemData.morale = category.morale;
             systemData.rarity = "KNAVE2E.Common";
+            systemData.spells.max = 0;
         }
         else if (systemData.category === "expert") {
             switch (systemData.rarity) {
@@ -242,11 +243,13 @@ export default class Knave2eActorSheet extends ActorSheet {
                     systemData.costPerMonth = 600;
                     systemData.morale = category.morale;
                     systemData.rarity = "KNAVE2E.Common";
+                    systemData.spells.max = 0;
                     break;
                 case "KNAVE2E.Uncommon":
                     systemData.costPerMonth = 1200;
                     systemData.morale = category.morale;
                     systemData.rarity = "KNAVE2E.Uncommon";
+                    systemData.spells.max = 0;
                     break;
                 case "KNAVE2E.Rare":
                     systemData.costPerMonth = 2400;
@@ -393,7 +396,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         const speaker = ChatMessage.getSpeaker({ actor: this.actor });
         const rollMode = game.settings.get('core', 'rollMode');
 
-        
+
         if (a.dataset.action === "dungeon") {
             r = new Roll("@appearing", { appearing: systemData.numberAppearing.dungeon });
             await r.evaluate();
@@ -943,7 +946,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                     }
 
                 case "cast":
-                    if (systemData.rarity !== "rare") {
+                    if (systemData.rarity !== "KNAVE2E.Rare") {
                         ChatMessage.create({
                             speaker: speaker,
                             flavor: `${item.name} cannot be used!`,

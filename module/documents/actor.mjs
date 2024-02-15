@@ -36,6 +36,12 @@ export default class Knave2eActor extends Actor {
     if (actorData.type !== 'recruit') return;
 
     const systemData = actorData.system;
+    if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare'){
+      systemData.spells.max = 1;
+    }
+    else {
+      systemData.spells.max = 0;
+    }
 
     systemData.hitPoints.max = 3;
   }
