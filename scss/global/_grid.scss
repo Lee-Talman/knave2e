@@ -189,8 +189,18 @@
 	
 }
 #character-portrait {
+  display: grid;
 	grid-area: 2 / 3 / 4 / 4;
-	
+  place-items: center;
+
+  img {
+    border: none;
+    padding: 5px;
+    width: 100%; /* Ensures the image fills the container horizontally */
+    height: auto; /* Allows the image to maintain its aspect ratio */
+    object-fit: cover; /* Ensures the image covers the entire container */
+  }
+
 }
 
 // Item Header Grid

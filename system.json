@@ -11,13 +11,13 @@
   "url": "https://github.com/Lee-Talman/knave2e",
   "license": "LICENSE.txt",
   "readme": "README.md",
-  "bugs": "Replace this with a link to file issues or tickets",
+  "bugs": "https://github.com/Lee-Talman/knave2e/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
       "type": "setup",
-      "url": "systems/knave2e/assets/anvil-impact.png",
-      "thumbnail": "systems/knave2e/assets/anvil-impact.png"
+      "url": "systems/knave2e/assets/knave-2e-repo.png",
+      "thumbnail": "systems/knave2e/assets/knave-2e-repo.png"
     }
   ],
   "version": "0.1.0",
@@ -35,12 +35,29 @@
       "path": "lang/en.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "monsters",
+      "label": "Monsters",
+      "type": "Actor"
+    },
+    {
+      "name": "items",
+      "label": "Weapons",
+      "type": "Item"
+    },
+    {
+      "name": "actors",
+      "label": "Recruits",
+      "type": "Actor"
+    }
+  ],
   "packFolders": [],
   "socket": false,
   "manifest": "https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json",
-  "download": "https://github.com/Lee-Talman/knave2e/archive/refs/tags/alpha-0.1.0.zip",
+  "download": "https://github.com/Lee-Talman/knave2e/archive/refs/tags/release-0.1.0.zip",
   "background": "systems/knave2e/assets/anvil-impact.png",
   "gridDistance": 5,
-  "gridUnits": "ft"
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "hitPoints"
 }
