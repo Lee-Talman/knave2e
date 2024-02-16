@@ -679,6 +679,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                 rollMode: rollMode
                             });
                             this._checkWeaponBreak(r, item);
+                            this._checkManeuver(r, item);
                             return r
                         }
                         else if (item.system.category === 'ranged') {
@@ -693,6 +694,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                     rollMode: rollMode
                                 });
                                 this._checkWeaponBreak(r, item);
+                                this._checkManeuver(r, item);
                                 return r
                             }
                             else {
@@ -707,6 +709,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                         rollMode: rollMode
                                     });
                                     this._checkWeaponBreak(r, item);
+                                    this._checkManeuver(r, item);
                                     return r
                                 }
                                 else if (ammoType === "bullet" && systemData.ammo[ammoType] >= 1) {
@@ -720,6 +723,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                         rollMode: rollMode
                                     });
                                     this._checkWeaponBreak(r, item);
+                                    this._checkManeuver(r, item);
                                     return r
                                 }
                                 else {
@@ -849,6 +853,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                 rollMode: rollMode
                             });
                             this._checkWeaponBreak(r, item);
+                            this._checkManeuver(r, item);
                             return r
                         }
                         else if (item.system.category === 'ranged') {
@@ -863,6 +868,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                     rollMode: rollMode
                                 });
                                 this._checkWeaponBreak(r, item);
+                                this._checkManeuver(r, item);
                                 return r
                             }
                             else {
@@ -877,6 +883,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                         rollMode: rollMode
                                     });
                                     this._checkWeaponBreak(r, item);
+                                    this._checkManeuver(r, item);
                                     return r
                                 }
                                 else if (ammoType === "bullet" && systemData.ammo[ammoType] >= 1) {
@@ -890,6 +897,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                                         rollMode: rollMode
                                     });
                                     this._checkWeaponBreak(r, item);
+                                    this._checkManeuver(r, item);
                                     return r
                                 }
                                 else {
@@ -1015,6 +1023,23 @@ export default class Knave2eActorSheet extends ActorSheet {
                 speaker: speaker,
                 flavor: `${item.name} has broken!`,
                 content: "Weapons break on a natural 1. Time to repair or replace this weapon!", //@Todo: localize this
+                rollMode: rollMode
+            });
+        }
+    }
+
+    _checkManeuver(r, item) {
+        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+        const rollMode = game.settings.get('core', 'rollMode');
+
+        // console.log(r.terms);
+        const totalRoll = r.total;
+
+        if (totalRoll >= 21) {
+            ChatMessage.create({
+                speaker: speaker,
+                flavor: `Attack roll >= 21!`,
+                content: `${this.actor.name} may succeed at a free maneuver!`, //@Todo: localize this
                 rollMode: rollMode
             });
         }
