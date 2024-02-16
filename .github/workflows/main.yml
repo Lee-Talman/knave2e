@@ -9,7 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      # install deps
+      - run: npm ci
+      # build scss
+      - run: npm run build
 
       # Substitute the Manifest and Download URLs in the system.json
       - name: Substitute Manifest and Download Links For Versioned Ones
@@ -24,7 +28,7 @@ jobs:
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.zip
 
       # Create a zip file with all files required by the system to add to the release
-      - run: zip -r ./system.zip system.json template.json LICENSE assets/ css/ system/ templates/ lang/ packs/ 
+      - run: zip -r ./system.zip system.json template.json LICENSE.txt assets/ css/ module/ templates/ lang/ packs/ 
       # Create a release for this specific version
       - name: Update Release with Files
         id: create_version_release
@@ -45,4 +49,3 @@ jobs:
         with:
           package-token: ${{ secrets.PACKAGE_TOKEN }}
           manifest-url: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.json
-          dry-run: true
