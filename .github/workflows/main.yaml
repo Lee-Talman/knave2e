@@ -13,9 +13,7 @@ jobs:
       # install deps
       - run: npm ci
       # build scss
-      - run: npm run gulp
-      # pack packs
-      - run: npm run pack
+      - run: npm run build
 
       # Substitute the Manifest and Download URLs in the system.json
       - name: Substitute Manifest and Download Links For Versioned Ones
