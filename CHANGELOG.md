@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.2
+- Added automatic reminder for maneuevers on an attack roll >= 21
+
 ## 0.1.1
 - Fixed bug affecting recruit spellcasting
 - Updated system background image for Foundry UI
