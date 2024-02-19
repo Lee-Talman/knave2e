@@ -4,8 +4,7 @@
   margin: 2px 0;
   padding: 0;
   align-items: center;
-  background: rgba(0, 0, 0, 0.05);
-  border: $border-groove;
+  border-bottom: 2px solid black;
   font-weight: bold;
 
   >* {
@@ -33,6 +32,8 @@
   overflow-y: auto;
   scrollbar-width: thin;
   color: $c-tan;
+  border: 2px solid black;
+  border-radius: 5px;
 
   .item-info {
     min-width: 200px;
@@ -96,11 +97,12 @@
   .item {
     align-items: center;
     padding: 0 2px; // to align with the header border
-    border-bottom: 1px solid $c-faint;
+    border-bottom: 2px dotted black;
 
     &:last-child {
       border-bottom: none;
     }
+    
 
     .item-name {
       color: $c-dark;
@@ -114,10 +116,10 @@
       }
     }
 
+
+
     .item-prop {
       text-align: center;
-      border-left: 1px solid #c9c7b8;
-      border-right: 1px solid #c9c7b8;
       font-size: 12px;
     }
 

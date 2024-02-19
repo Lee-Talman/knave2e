@@ -15,6 +15,18 @@
   }
 }
 
+.flex-border {
+  &.vertical {
+    border-left: 1px solid var(--color-border-light-primary);
+    border-right: 1px solid var(--color-border-light-primary);
+  }
+
+  &.horizontal {
+    border-top: 1px solid var(--color-border-light-primary);
+    border-bottom: 1px solid var(--color-border-light-primary);
+  }
+}
+
 .flex-group-left {
   justify-content: flex-start;
   text-align: left;

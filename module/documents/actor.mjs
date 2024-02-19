@@ -133,6 +133,7 @@ export default class Knave2eActor extends Actor {
     // Prepare character roll data.
     this._getCharacterRollData(data);
     this._getRecruitRollData(data);
+    this._getMonsterRollData(data);
 
     return data;
   }
@@ -143,17 +144,13 @@ export default class Knave2eActor extends Actor {
   _getCharacterRollData(data) {
     if (this.type !== 'character') return;
 
-    // Copy the ability scores to the top level, so that rolls can use formulas like `d20 + @strength.value`.
-    if (data.abilities) {
-      for (let [k, v] of Object.entries(data.abilities)) {
-        data[k] = foundry.utils.deepClone(v);
-      }
+    // Copy the ability score values to the top level, so that rolls can use formulas like `d20 + @strength`.
+    for (let [k, v] of Object.entries(data.abilities)) {
+      data[k] = foundry.utils.deepClone(v).value;
     }
 
-    // Add level for easier access, or fall back to 1.
-    if (data.level) {
-      data.lvl = data.level.value ?? 1;
-    }
+    data.speaker = ChatMessage.getSpeaker({ actor: this });
+    data.rollMode = game.settings.get('core', 'rollMode');
   }
 
   /**
@@ -162,11 +159,13 @@ export default class Knave2eActor extends Actor {
   _getRecruitRollData(data) {
     if (this.type !== 'recruit') return;
 
-    if (data.level) {
-      data.lvl = data.level.value ?? 1;
-    }
-
     // Process additional Recruit data here.
+  }
+
+  _getMonsterRollData(data) {
+    if (this.type !== 'monster') return;
+
+    // Process additional Monster data here.
   }
 
 }

@@ -85,6 +85,7 @@
   "KNAVE2E.Armor": "Armor",
   "KNAVE2E.Arrow": "Arrow",
   "KNAVE2E.Broken": "Broken",
+  "KNAVE2E.Breaks": "Breaks",
   "KNAVE2E.Cast": "Cast",
   "KNAVE2E.DamageDiceSize": "Damage Die",
   "KNAVE2E.DamageDiceAmount": "# of Dice",
@@ -118,8 +119,21 @@
   "KNAVE2E.ActivateLightSourceDetail": "Toggle Light Source",
 
   "KNAVE2E.AttackRoll": "Attack Roll",
+  "KNAVE2E.PowerAttackRoll": "Power Attack Roll",
   "KNAVE2E.DamageRoll": "Damage Roll",
+  "KNAVE2E.Damage": "Damage",
+  "KNAVE2E.Direct": "Direct",
   "KNAVE2E.DirectRoll": "Direct Damage Roll",
+  "KNAVE2E.With": "with",
+  
+
+  "KNAVE2E.AddBonusToCheck": "Add Bonus to Check: ",
+  "KNAVE2E.AppearInDungeon": "(s) appear in the dungeon...",
+  "KNAVE2E.AppearInWilderness": "(s) appear in the nearby wilderness...",
+
+  "KNAVE2E.CreateItemDialogTitle": "Create New Item",
+  "KNAVE2E.CreateItemDialogContent": "Choose an item type:",
+
 
   "KNAVE2E.EffectCreate": "Create Effect",
   "KNAVE2E.EffectToggle": "Toggle Effect",
@@ -128,5 +142,24 @@
 
   "KNAVE2E.Add": "Add",
   "KNAVE2E.Check": "Check",
-  "KNAVE2E.Roll": "Roll"
+  "KNAVE2E.Roll": "Roll",
+
+  "REF.Maneuver": "Maneuvers (pg. 20)",
+  "REF.PowerAttack": "Power Attacks (pg. 20)",
+  "KNAVE2E.ManeuverSuccess": "may succeed at a free maneuver!",
+
+  "KNAVE2E.Restored": "Restored",
+
+  "KNAVE2E.DamageRollChar": "Damage Roll (Shift + Click to Power Attack)",
+  "KNAVE2E.DirectRollChar": "Direct Damage Roll (Shift + Click to Power Attack)",
+  "KNAVE2E.AttackAbbr": "ATK",
+  "KNAVE2E.DamageAbbr": "DMG",
+  "KNAVE2E.DirectAbbr": "DIR",
+  "KNAVE2E.CastAbbr": "CAST",
+  "KNAVE2E.CheckDialog": "Choose a bonus to add to this check: ",
+  "KNAVE2E.SkipDialog": ". Shift + Click to skip pop-up.",
+  "KNAVE2E.DamageDialog": "Standard or Power Attack?",
+  "KNAVE2E.SkipDamageDialog": ". Shift + Click to skip pop-up.",
+  "KNAVE2E.OutOfAmmo": "has no ammo for",
+  "KNAVE2E.PowerAttackFlavor": "(Power Attack)"
 }

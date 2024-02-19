@@ -13,16 +13,15 @@
       <div class="item-name flex3 flex-between">
         <div class="flexrow flex-group-left item-info">
           <div class="item-image">
-            <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24"
-                height="24" /></a>
+            <a class="rollable"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24" /></a>
           </div>
           <h4>{{item.name}}</h4>
         </div>
         <div class="flexrow flex-group-right">
-          <button class="item-monster-roll attack" data-action="attack-roll" data-roll-type="item"
-            type="button">ATK</button>
-          <button class="item-monster-roll damage" data-action="damage-roll" data-roll-type="item"
-            type="button">DMG</button>
+          <button class="item-button attack sheet" data-action="attack" type="button"
+            title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
+          <button class="item-button damage sheet" data-action="damage" type="button"
+            title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
         </div>
       </div>
       <div class="item-slots item-prop">{{item.system.attackAmount}}</div>

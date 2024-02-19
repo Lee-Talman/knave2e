@@ -38,34 +38,36 @@
       <div class="item-name flex3 flex-between">
         <div class="flexrow flex-group-left item-info">
           <div class="item-image">
-            <a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24"
-                height="24" /></a>
+            <a class="rollable"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24" /></a>
           </div>
           <h4>{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}}) {{/if}}{{item.name}}</h4>
         </div>
         <div class="flexrow flex-group-right">
           {{#if (eq item.type "weapon")}}
-          <button class="list-roll attack" data-action="attack-roll" data-roll-type="item" type="button">ATK</button>
-          <button class="list-roll damage" data-action="damage-roll" data-roll-type="item" type="button">DMG</button>
-          <button class="list-roll direct" data-action="direct-roll" data-roll-type="item" type="button">DIR</button>
+          <button class="item-button attack sheet" data-action="attack" type="button"
+            title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
+          <button class="item-button damage sheet" data-action="damage" type="button"
+            title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
+          <button class="item-button damage sheet" data-action="direct" type="button"
+            title={{localize "KNAVE2E.DirectRoll" }}>{{localize "KNAVE2E.DirectAbbr"}}</button>
           {{/if}}
           {{#if (eq item.type "spellbook")}}
-          <button class="list-roll cast" data-action="cast" data-roll-type="item" type="button">CAST</button>
+          <button class="list-roll cast" data-action="cast" type="button">{{localize "KNAVE2E.CastAbbr"}}</button>
           {{/if}}
         </div>
       </div>
       <div class="item-slots item-prop">{{item.system.slots}}</div>
       <div class="item-controls">
         {{#if (eq item.type "weapon")}}
-        <a class="item-control" data-action="toggle-break" title={{localize "KNAVE2E.BreakWeaponDetail"}}>
+        <a class="item-control" data-action="toggle-break" title={{localize "KNAVE2E.BreakWeaponDetail" }}>
           <i class="fas {{#if item.system.broken}}fa-heart-broken{{else}}fa-heart{{/if}}"></i></a>
         {{/if}}
         {{#if (eq item.type "spellbook")}}
-        <a class="item-control" data-action="toggle-cast" title={{localize "KNAVE2E.CastSpellbookDetail"}}>
+        <a class="item-control" data-action="toggle-cast" title={{localize "KNAVE2E.CastSpellbookDetail" }}>
           <i class="fas {{#if item.system.cast}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
         {{/if}}
         {{#if (eq item.type "lightSource")}}
-        <a class="item-control" data-action="toggle-light" title={{localize "KNAVE2E.ActivateLightSourceDetail"}}>
+        <a class="item-control" data-action="toggle-light" title={{localize "KNAVE2E.ActivateLightSourceDetail" }}>
           <i class="{{#if item.system.lit}}fas fa-lightbulb{{else}}far fa-lightbulb{{/if}}"></i></a>
         {{/if}}
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
