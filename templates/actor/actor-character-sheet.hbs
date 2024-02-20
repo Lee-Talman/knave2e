@@ -2,15 +2,15 @@
     <div class="sheet-container">
         {{!-- Sheet Header --}}
         <header class="sheet-header">
-            <div id="character-header-grid">
+            <div class="character-header-grid">
 
                 {{!-- Knave Logo --}}
-                <div id="knave-logo" style="min-width:150px">
+                <div class="knave-logo" style="min-width:150px">
                     <img class="logo-img" src="systems/knave2e/assets/knave-2e-logo.webp" />
                 </div>
 
                 {{!-- Character Header Info --}}
-                <div id="character-info">
+                <div class="character-info">
                     <div class="flexrow flex-group-left" id="dotted">
                         <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
                         <input class="transparent flex3" name="name" type="text" value="{{actor.name}}"
@@ -53,9 +53,9 @@
         {{!-- Sheet Body --}}
         <section class="sheet-body">
             <div class="tab character" data-group="primary" data-tab="character">
-                <div id="character-body-grid">
+                <div class="character-body-grid">
                     {{!-- Abilities --}}
-                    <div id="character-abilities">
+                    <div class="character-abilities">
                         {{#each system.abilities as |ability key|}}
                         <div class="flexrow">
                             <input class="flex1 flex-group-center" id="circle-form" type="number"
@@ -63,12 +63,12 @@
                             <div class="flexcol flex3">
                                 <div class="resource-label rollable crimson-pro-bold"
                                     data-roll="d20+@abilities.{{key}}.value" data-label="{{ability.label}}"
-                                    style="justify-content:left;font-size:x-large;">
+                                    style="justify-content:left;font-size:20px;">
                                     {{localize
                                     ability.label}}
                                 </div>
-                                <div class="resource-label crimson-pro-detail" style="font-weight:normal">{{localize
-                                    ability.detail}}
+                                <div class="resource-label crimson-pro-detail" style="font-weight:normal">{{{localize
+                                    ability.detail}}}
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                     </div>
 
                     {{!-- Armor --}}
-                    <div id="character-armor">
+                    <div class="character-armor">
                         <div class="flexrow">
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.ArmorClass"}}</div>
@@ -94,7 +94,7 @@
                     </div>
 
                     {{!-- Level & XP --}}
-                    <div id="character-level">
+                    <div class="character-level">
                         <div class="flexrow flex-between">
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.Level"}}</div>
@@ -116,7 +116,7 @@
                     </div>
 
                     {{!-- HP --}}
-                    <div id="character-health">
+                    <div class="character-health">
                         <div class="flexrow">
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.HitPointsMax"}}</div>
@@ -146,12 +146,12 @@
                             </div>
                         </div>
                         <div class="flexrow">
-                            <button class="rest-button" type="button">{{localize "KNAVE2E.Rest"}}</button>
+                            <button class="flex-button rounded-button rest-button" type="button">{{localize "KNAVE2E.Rest"}}</button>
                         </div>
                     </div>
 
                     {{!-- Portrait --}}
-                    <div id="character-portrait">
+                    <div class="character-portrait">
                         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="100%" />
                     </div>
                 </div>

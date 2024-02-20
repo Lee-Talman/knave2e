@@ -1,4 +1,4 @@
-import {onAttack} from '../helpers/items.mjs';
+import { onAttack, onDamage } from '../helpers/items.mjs';
 
 export default class Knave2eActorSheet extends ActorSheet {
 
@@ -6,7 +6,7 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         return mergeObject(super.defaultOptions, {
             classes: ["knave2e", "sheet", "actor"],
-            width: 620,
+            width: 600,
             height: 650,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
@@ -314,8 +314,13 @@ export default class Knave2eActorSheet extends ActorSheet {
             });
         }
 
+        // Rollable elements (e.g. Abilities)
+        html.on('click', '.rollable', this._onRollable.bind(this));
+
         // Toggle Item Icons
         html.on('click', '.item-toggle', this._onItemToggle.bind(this));
+
+
 
         /* -------------------------------------------- */
         /*  Item Rolls                                  */
@@ -323,9 +328,9 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Attack Roll
         html.on('click', '.item-button.attack', onAttack.bind(this));
-        
+
         // Sheet Damage Roll (chat button rolls handled in './documents/chat-message.mjs')
-        // html.on('click', '.item-button.damage.sheet', onDamage.bind(this));
+        html.on('click', '.item-button.damage.sheet', onDamage.bind(this));
 
         // Sheet Direct Roll (chat button rolls handled in './documents/chat-message.mjs')
         // html.on('click', '.item-button.damage.sheet', onDamage.bind(this));
@@ -665,20 +670,14 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    _onRoll(event) {
+    async _onRollable(event) {
         // event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
 
-        //("Roll Data:");
-        //console.log(this.actor.getRollData());
-
-        //console.log("dataset.roll");
-        //console.log(dataset.roll);
-
         // Handle item rolls.
-        if (dataset.rollType) {
-            if (dataset.rollType == 'item') {
+        if (dataset.dataType) {
+            if (dataset.dataType == 'item') {
                 const itemId = element.closest('.item').dataset.itemId;
                 const item = this.actor.items.get(itemId);
                 if (item) return item.roll();
@@ -687,22 +686,18 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Handle plain-text roll formulas
         if (dataset.roll) {
-            if (event.shiftKey) {
-                //console.log("Shift Click!"); // @TODO: Add optional modifier pop-up
-            }
-            else {
-                let label = dataset.label ?
-                    `[${game.i18n.localize("KNAVE2E.Check")}]
+            let label = dataset.label ?
+                `[${game.i18n.localize("KNAVE2E.Check")}]
                   ${game.i18n.localize(dataset.label)}` : '';
-                let roll = new Roll(dataset.roll, this.actor.getRollData());
+            let r = await new Roll(dataset.roll, this.actor.getRollData());
 
-                roll.toMessage({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: game.i18n.localize(label),
-                    rollMode: game.settings.get('core', 'rollMode'),
-                });
-                return roll;
-            }
+            r.toMessage({
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: game.i18n.localize(label),
+                rollMode: game.settings.get('core', 'rollMode'),
+            });
+
+            return r;
         }
     }
 

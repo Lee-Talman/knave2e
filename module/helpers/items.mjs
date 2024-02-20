@@ -1,15 +1,15 @@
 export async function checkDialog(data) {
-    await Dialog.wait({
+    let attackBonus = await Dialog.wait({
         title: "Check",
-        content: `${game.i18n.localize("KNAVE2E.CheckDialog")}`,
+        content: `${game.i18n.localize("KNAVE2E.CheckDialog")}<br>${game.i18n.localize("KNAVE2E.SkipDialog")}<br>`,
         buttons: {
             standard: {
-                label: game.i18n.localize("KNAVE2E.Level"),
-                callback: () => { return (data.level).toString() }
+                label: `${game.i18n.localize("KNAVE2E.Level")} (${data.level})`,
+                callback: () => { return data.level }
             },
             half: {
-                label: game.i18n.localize("KNAVE2E.HalfLevel"),
-                callback: () => { return (Math.floor(data.level / 2)).toString() }
+                label: `${game.i18n.localize("KNAVE2E.HalfLevel")} (${Math.floor(data.level / 2)})`,
+                callback: () => { return Math.floor(data.level / 2) }
             },
             zero: {
                 label: game.i18n.localize("KNAVE2E.None"),
@@ -18,29 +18,29 @@ export async function checkDialog(data) {
         },
         default: 'standard',
     })
+
+    return attackBonus
 }
 
-export async function damageDialog(itemData, r) {
-    // Only characters can power attack
-    if (this.actor.type !== 'character') {
-        return itemData.damageRoll;
-    }
+export async function damageDialog() {
 
-    await Dialog.wait({
+    let powerAttack = await Dialog.wait({
         title: `${game.i18n.localize("KNAVE2E.Damage")}`,
-        content: `${game.i18n.localize("KNAVE2E.DamageDialog")}`,
+        content: `${game.i18n.localize("KNAVE2E.DamageDialog")}<br/>${game.i18n.localize("KNAVE2E.SkipDialog")}<br/>`,
         buttons: {
             standard: {
                 label: game.i18n.localize("KNAVE2E.Standard"),
-                callback: async () => { return itemData.damageRoll }
+                callback: async () => { return false }
             },
             power: {
                 label: game.i18n.localize("KNAVE2E.PowerAttack"),
-                callback: async () => { return r.terms[0].number * 2 }
+                callback: async () => { return true }
             }
         },
         default: 'standard',
     })
+
+    return powerAttack;
 }
 
 export async function onAttack(event) {
@@ -54,7 +54,19 @@ export async function onAttack(event) {
     const systemData = this.actor.system;
     const itemData = item.system;
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const rollMode = game.settings.get('core', 'rollMode')
+    const rollMode = game.settings.get('core', 'rollMode');
+
+    // Return if the weapon is broken
+    if (item.type === 'weapon' && itemData.broken === true) {
+        Dialog.prompt({
+            title: `${game.i18n.localize("KNAVE2E.Item")} ${game.i18n.localize("KNAVE2E.Broken")}`,
+            content: `${item.name} ${game.i18n.localize("KNAVE2E.IsBroken")}!`,
+            label: "OK",
+            callback: (html) => { return }
+        })
+
+        return
+    }
 
     let flavor = `${game.i18n.localize("KNAVE2E.AttackRoll")} ${game.i18n.localize("KNAVE2E.With")} ${item.name}`;
 
@@ -106,13 +118,12 @@ export async function onAttack(event) {
     // Roll with level for recruits & monsters
     if (this.actor.type !== 'character') {
         // Skip dialog window on shift + click, default to system level
-        if (!event.shiftKey) {
+        if (event.shiftKey === true) {
             attackRollBonus = systemData.level;
         }
         else {
             // get attack roll bonus from options
-            attackRollBonus = checkDialog(systemData);
-            rollData.flavor = `${flavor} ${game.i18n.localize("KNAVE2E.SkipDialog")}`;
+            attackRollBonus = await checkDialog(systemData);
         }
     }
 
@@ -127,14 +138,15 @@ export async function onAttack(event) {
 
     // Evaluate a roll and determine post-roll effects
     attackRollFormula = `${die} + ${attackRollBonus}`;
-    let r = new Roll(attackRollFormula, {data: rollData});
+
+    let r = new Roll(attackRollFormula, { data: rollData });
     await r.evaluate();
 
     // Weapons from characters or recruits can break
     if (item.type === 'weapon') {
 
-        // Check for weapon break
-        if (r.result[0] === 1) {
+        // Check for weapon break on natural 1
+        if (r.terms[0].results[0].result === 1) {
             rollData.flavor = `${item.name} ${game.i18n.localize("KNAVE2E.Breaks")}!`
 
             item.update({
@@ -158,6 +170,7 @@ export async function onAttack(event) {
     /* -------------------------------------------- */
 
     // Push roll to rolls[] array for Dice So Nice
+    r.toolTip = await r.getTooltip();
     rollData.rolls.push(r);
 
     // Merge and push to chat message
@@ -198,6 +211,65 @@ export async function onAttack(event) {
 }
 
 export async function onDamage(event) {
+    event.preventDefault();
+    event.preventDefault();
+    const a = event.currentTarget;
+
+    // Find closest <li> element containing a "data-item-id" attribute
+    const li = a.closest("li");
+    const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
+
+    const systemData = this.actor.system;
+    const itemData = item.system;
+
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+
+    // Return if the weapon is broken
+    if (item.type === 'weapon' && itemData.broken === true) {
+        Dialog.prompt({
+            title: `${game.i18n.localize("KNAVE2E.Item")} ${game.i18n.localize("KNAVE2E.Broken")}`,
+            content: `${item.name} ${game.i18n.localize("KNAVE2E.IsBroken")}!`,
+            label: "OK",
+            callback: (html) => { return }
+        })
+
+        return
+    }
+
+    // Change rollFlavor depending on Damage/Direct/Power
+    let rollFlavor = `${game.i18n.localize("KNAVE2E.DamageRoll")} ${game.i18n.localize("KNAVE2E.With")} ${item.name}`;
+
+    let formula = `@amount@size+@bonus`;
+    let amount = itemData.damageDiceAmount;
+    const size = itemData.damageDiceSize;
+    const bonus = itemData.damageDiceBonus;
+
+    // Only characters can power attack
+    if (this.actor.type === 'character') {
+        if (event.shiftKey === false) {
+            const powerAttack = await damageDialog();
+            if (powerAttack) {
+                amount = amount * 2; // double dice on power attack
+                item.update({ // power attacks break item
+                    "system.broken": true
+                });
+                rollFlavor = rollFlavor + `. ${game.i18n.localize("KNAVE2E.PowerAttack")} ${game.i18n.localize("KNAVE2E.Breaks")} ${item.name}!`;
+            }
+        }
+    }
+
+    if (a.dataset.action === 'direct') {
+        formula = `3*(@amount@size+@bonus)`;
+    }
+
+    const r = await new Roll(formula, { amount: amount, size: size, bonus: bonus });
+
+    r.toMessage({
+        speaker: speaker,
+        flavor: rollFlavor,
+        rollMode: rollMode
+    });
 }
 
 // export async function onDamage(item, action, dialog, speaker) {

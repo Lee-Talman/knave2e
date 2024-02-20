@@ -1,32 +1,30 @@
 <section>
   <div class="flexrow" style="min-height:50px;">
-    <div class="flexcol flex-group-center">
+    <div class="flexcol flex-border vertical flex-group-center">
       <div class="resource-label">{{localize "KNAVE2E.Slots"}}: </div>
       <div class="resource-label">{{system.slots.value}} / {{system.slots.max}}</div>
     </div>
-    {{#if (eq system.rarity "KNAVE2E.Rare")}}
-    <div class="flexcol flex-group-center">
+    <div class="flexcol flex-border vertical flex-group-center">
       <div class="resource-label">{{localize "KNAVE2E.Spells"}}: </div>
       <div class="resource-label">{{system.spells.value}} / {{system.spells.max}}</div>
     </div>
-    {{/if}}
-    <div class="flexcol flex-group-center">
+    <div class="flexcol flex-border vertical flex-group-center">
       <div class="resource-label">{{localize "KNAVE2E.AmmoBow"}}: </div>
       <input class="resource-label small" type="text" name="system.ammo.arrow" value="{{system.ammo.arrow}}"
         data-dtype="Number" />
     </div>
-    <div class="flexcol flex-group-center">
+    <div class="flexcol flex-border vertical flex-group-center">
       <div class="resource-label">{{localize "KNAVE2E.Sling"}} {{localize "KNAVE2E.AmmoSling"}}: </div>
       <input class="resource-label small" type="text" name="system.ammo.bullet" value="{{system.ammo.bullet}}"
         data-dtype="Number" />
     </div>
   </div>
 
-  <hr>
+  <br>
 
   <ol class="items-list">
     <li class="item flexrow items-header">
-      <div class="item-name flex3">{{localize "KNAVE2E.Name"}}</div>
+      <div class="item-name flex3">{{localize "KNAVE2E.ItemName"}}</div>
       <div class="item-slots">{{localize "KNAVE2E.Slots"}}</div>
       <div class="item-controls">
         <a class="item-control item-create" title="Create item" data-type="item"><i class="fas fa-plus"></i> Add

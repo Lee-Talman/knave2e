@@ -5,7 +5,7 @@ export default class Knave2eChatMessage extends ChatMessage {
     async getHTML() {
         const html = await super.getHTML();
 
-        html.on('click', '.item-button.damage.chat', onDamage.bind(this));
+        // html.on('click', '.item-button.damage.chat', onDamage.bind(this));
 
         return html
     }

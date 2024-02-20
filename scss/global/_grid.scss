@@ -4,8 +4,8 @@
   display: grid;
   grid-column: span 2 / span 2;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
+  gap: 2px;
+  margin: 2px 0;
   padding: 0;
 }
 
@@ -148,8 +148,15 @@
   grid-column-end: span 12
 }
 
+.grid-slot {
+  
+  >* {
+    display: grid;
+  }
+}
+
 // Character Header
-#character-header-grid {
+.character-header-grid {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(5, 1fr);
@@ -157,38 +164,37 @@
   align-self: start;
 }
 
-#knave-logo {
+.knave-logo {
   grid-area: 1 / 1 / 2 / 3;
 }
 
-#character-info {
+.character-info {
   grid-area: 1 / 3 / 2 / 6;
 }
 
-#character-body-grid {
+.character-body-grid {
 	display: grid;
 	grid-auto-rows: repeat(2, 1fr);
-	grid-template-columns: auto 120px 235px;
+	grid-template-columns: max-content max-content auto;
 	gap: 0;
 	width: 100%;
 	height: 100%;
 }
-#character-abilities {
+.character-abilities {
 	grid-area: 1 / 1 / 4 / 2;
-  min-width: 215px;
 }
-#character-armor {
+.character-armor {
 	grid-area: 1/2/2/3;
 }
-#character-level {
+.character-level {
 	grid-area: 1/3/2/4;
 	
 }
-#character-health {
+.character-health {
 	grid-area: 2 / 2 / 4 / 3;
 	
 }
-#character-portrait {
+.character-portrait {
   display: grid;
 	grid-area: 2 / 3 / 4 / 4;
   place-items: center;
@@ -204,37 +210,37 @@
 }
 
 // Item Header Grid
-#item-header-grid {  display: grid;
+.item-header-grid {  display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
 }
 
-#item-img { 
+.item-img { 
   grid-area: 1 / 1 / 2 / 2; 
   
 }
 
-#item-info { 
+.item-info { 
   grid-area: 1 / 2 / 2 / 3; 
   
 }
 
 // Item Body Grid
-#item-body-grid {  display: grid;
+.item-body-grid {  display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
 
-  #item-aside { 
+  .item-aside { 
     grid-area: 1 / 1 / 2 / 2; 
     
     width: 300px;
   }
 
-  #item-description { 
+  .item-description { 
     grid-area: 1 / 2 / 2 / 3; 
     
   }
@@ -333,7 +339,7 @@
 
 .progress-container#vertical {
   width: 50px;
-  height: 150px;
+  height: 175px;
   margin: 2px;
   border: 2px solid black;
 

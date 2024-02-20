@@ -13,12 +13,14 @@
   "ABILITIES.WisdomAbbr": "WIS",
   "ABILITIES.CharismaAbbr": "CHA",
 
-  "ABILITIES.StrengthDescription": "Melee attacks, lifting, climbing, breaking free",
-  "ABILITIES.DexterityDescription": "Dodging, sneaking, sleight of hand",
-  "ABILITIES.ConstitutionDescription": "Physical resistance, item slots, wounds",
-  "ABILITIES.IntelligenceDescription": "Lockpicking, alchemy, spells per day",
-  "ABILITIES.WisdomDescription": "Ranged attacks, foraging, navigation, spell resistance",
-  "ABILITIES.CharismaDescription": "Initiative, persuasion, companions, blessings",
+  "ABILITIES.StrengthDescription": "Melee attacks, lifting,<br>climbing, breaking free",
+  "ABILITIES.DexterityDescription": "Dodging, sneaking,<br>sleight of hand",
+  "ABILITIES.ConstitutionDescription": "Physical resistance,<br>item slots, wounds",
+  "ABILITIES.IntelligenceDescription": "Lockpicking, alchemy,<br>spells per day",
+  "ABILITIES.WisdomDescription": "Ranged attacks, foraging,<br>navigation, spell resistance",
+  "ABILITIES.CharismaDescription": "Initiative, persuasion,<br>companions, blessings",
+
+  "KNAVE2E.CreateItemDialogHeader": "Create New Item",
 
   "KNAVE2E.Character": "CHARACTER",
   "KNAVE2E.Description": "DESCRIPTION",
@@ -45,7 +47,7 @@
   "KNAVE2E.Shield": "Shield",
 
   "KNAVE2E.ArmorPoints": "AP",
-  "KNAVE2E.Blessings": "Active Blessings",
+  "KNAVE2E.Blessings": "Blessings",
   "KNAVE2E.Careers": "Careers",
   
   "KNAVE2E.Companions": "Companions",
@@ -125,6 +127,10 @@
   "KNAVE2E.Direct": "Direct",
   "KNAVE2E.DirectRoll": "Direct Damage Roll",
   "KNAVE2E.With": "with",
+  "KNAVE2E.IsBroken": "is broken",
+
+  "KNAVE2E.ItemName": "Item Name",
+  "KNAVE2E.Item": "Item",
   
 
   "KNAVE2E.AddBonusToCheck": "Add Bonus to Check: ",
@@ -156,10 +162,10 @@
   "KNAVE2E.DamageAbbr": "DMG",
   "KNAVE2E.DirectAbbr": "DIR",
   "KNAVE2E.CastAbbr": "CAST",
-  "KNAVE2E.CheckDialog": "Choose a bonus to add to this check: ",
-  "KNAVE2E.SkipDialog": ". Shift + Click to skip pop-up.",
+  "KNAVE2E.CheckDialog": "Choose a bonus to add to this check.",
+  "KNAVE2E.SkipDialog": "In the future, you can Shift + Click to skip this dialog.",
   "KNAVE2E.DamageDialog": "Standard or Power Attack?",
   "KNAVE2E.SkipDamageDialog": ". Shift + Click to skip pop-up.",
   "KNAVE2E.OutOfAmmo": "has no ammo for",
-  "KNAVE2E.PowerAttackFlavor": "(Power Attack)"
+  "KNAVE2E.PowerAttack": "Power Attack"
 }
