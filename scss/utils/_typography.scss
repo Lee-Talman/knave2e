@@ -1,117 +1,115 @@
-$font-primary: 'Crimson Text', serif;
-$font-size-primary: 16px;
-$font-weight-primary: 400;
-$font-secondary: 'Alegreya SC', serif;
+$font-sheet-title: 'Alegereya SC', serif;
+$font-sheet-content: 'Crimson Text', serif;
 
-.crimson-text-regular-italic {
-    font-family: "Crimson Text", serif;
-    font-weight: 400;
-    font-style: italic;
-  }
+// .crimson-text-regular-italic {
+//     font-family: "Crimson Text", serif;
+//     font-weight: 400;
+//     font-style: italic;
+//   }
   
-  .crimson-text-semibold {
-    font-family: "Crimson Text", serif;
-    font-weight: 600;
-    font-style: normal;
-  }
+//   .crimson-text-semibold {
+//     font-family: "Crimson Text", serif;
+//     font-weight: 600;
+//     font-style: normal;
+//   }
   
-  .crimson-text-semibold-italic {
-    font-family: "Crimson Text", serif;
-    font-weight: 600;
-    font-style: italic;
-  }
+//   .crimson-text-semibold-italic {
+//     font-family: "Crimson Text", serif;
+//     font-weight: 600;
+//     font-style: italic;
+//   }
   
-  .crimson-text-bold {
-    font-family: "Crimson Text", serif;
-    font-weight: 700;
-    font-style: normal;
-  }
+//   .crimson-text-bold {
+//     font-family: "Crimson Text", serif;
+//     font-weight: 700;
+//     font-style: normal;
+//   }
   
-  .crimson-text-bold-italic {
-    font-family: "Crimson Text", serif;
-    font-weight: 700;
-    font-style: italic;
-  }
+//   .crimson-text-bold-italic {
+//     font-family: "Crimson Text", serif;
+//     font-weight: 700;
+//     font-style: italic;
+//   }
   
-  .crimson-text-regular {
-    font-family: "Crimson Text", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
+//   .crimson-text-regular {
+//     font-family: "Crimson Text", serif;
+//     font-weight: 400;
+//     font-style: normal;
+//   }
 
-// <uniquifier>: Use a uniquifier for the class name
-// <weight>: Use a value from 200 to 900
+// // <uniquifier>: Use a uniquifier for the class name
+// // <weight>: Use a value from 200 to 900
 
-.crimson-pro-detail {
-    font-family: "Crimson Pro", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: italic;
-  }
+// .crimson-pro-detail {
+//     font-family: "Crimson Pro", serif;
+//     font-optical-sizing: auto;
+//     font-weight: 400;
+//     font-style: italic;
+//   }
 
-  .crimson-pro-bold {
-    font-family: "Crimson Pro", serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-  }
+//   .crimson-pro-bold {
+//     font-family: "Crimson Pro", serif;
+//     font-optical-sizing: auto;
+//     font-weight: 700;
+//     font-style: normal;
+//   }
 
-  .alegreya-sc-regular {
-    font-family: "Alegreya SC", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
+//   .alegreya-sc-regular {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 400;
+//     font-style: normal;
+//   }
   
-  .alegreya-sc-medium {
-    font-family: "Alegreya SC", serif;
-    font-weight: 500;
-    font-style: normal;
-  }
+//   .alegreya-sc-medium {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 500;
+//     font-style: normal;
+//   }
   
-  .alegreya-sc-medium-italic {
-    font-family: "Alegreya SC", serif;
-    font-weight: 500;
-    font-style: italic;
-  }
+//   .alegreya-sc-medium-italic {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 500;
+//     font-style: italic;
+//   }
   
-  .alegreya-sc-bold {
-    font-family: "Alegreya SC", serif;
-    font-weight: 700;
-    font-style: normal;
-  }
+//   .alegreya-sc-bold {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 700;
+//     font-style: normal;
+//   }
   
-  .alegreya-sc-bold-italic {
-    font-family: "Alegreya SC", serif;
-    font-weight: 700;
-    font-style: italic;
-  }
+//   .alegreya-sc-bold-italic {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 700;
+//     font-style: italic;
+//   }
   
-  .alegreya-sc-extrabold {
-    font-family: "Alegreya SC", serif;
-    font-weight: 800;
-    font-style: normal;
-  }
+//   .alegreya-sc-extrabold {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 800;
+//     font-style: normal;
+//   }
   
-  .alegreya-sc-extrabold-italic {
-    font-family: "Alegreya SC", serif;
-    font-weight: 800;
-    font-style: italic;
-  }
+//   .alegreya-sc-extrabold-italic {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 800;
+//     font-style: italic;
+//   }
   
-  .alegreya-sc-black {
-    font-family: "Alegreya SC", serif;
-    font-weight: 900;
-    font-style: normal;
-  }
+//   .alegreya-sc-black {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 900;
+//     font-style: normal;
+//   }
   
-  .alegreya-sc-black-italic {
-    font-family: "Alegreya SC", serif;
-    font-weight: 900;
-    font-style: italic;
-  }
+//   .alegreya-sc-black-italic {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 900;
+//     font-style: italic;
+//   }
   
-  .alegreya-sc-regular-italic {
-    font-family: "Alegreya SC", serif;
-    font-weight: 400;
-    font-style: italic;
-  }
+//   .alegreya-sc-regular-italic {
+//     font-family: "Alegreya SC", serif;
+//     font-weight: 400;
+//     font-style: italic;
+//   }

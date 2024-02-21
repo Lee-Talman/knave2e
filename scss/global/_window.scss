@@ -1,7 +1,9 @@
 .window-app {
-  font-family: $font-primary;
-  font-weight: $font-weight-primary;
-  font-size: $font-size-primary;
+
+  &.actor {
+    font-family: $font-sheet-content;
+  }
+
 }
 
 .rollable {

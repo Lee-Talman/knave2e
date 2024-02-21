@@ -103,6 +103,7 @@
   "KNAVE2E.Slots": "Slots",
   "KNAVE2E.Range": "Range",
   "KNAVE2E.Rest": "Rest",
+  
 
   "KNAVE2E.Candle": "Candle",
   "KNAVE2E.Torch": "Torch",
@@ -167,5 +168,14 @@
   "KNAVE2E.DamageDialog": "Standard or Power Attack?",
   "KNAVE2E.SkipDamageDialog": ". Shift + Click to skip pop-up.",
   "KNAVE2E.OutOfAmmo": "has no ammo for",
-  "KNAVE2E.PowerAttack": "Power Attack"
+  "KNAVE2E.PowerAttack": "Power Attack",
+  
+  "KNAVE2E.CastDialogTitle": "Cannot Cast",
+  "KNAVE2E.CastDialogContentMax": "cannot cast spells from spellbooks!",
+  "KNAVE2E.CastDialogContentValue": "does not have any spells remaining!",
+  "KNAVE2E.CastDialogContentUsed": "has already used this spellbook today!",
+  "KNAVE2E.Casts": "casts a spell!",
+
+  "KNAVE2E.RestDialogTitle": "Choose Rest Type",
+  "KNAVE2E.RestDialogContent": "To rest, eat a meal & sleep at least two watches. Resting in a safe haven additionally restores 1 Wound."
 }

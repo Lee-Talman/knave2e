@@ -1,4 +1,4 @@
-import { onAttack, onDamage } from '../helpers/items.mjs';
+import { onAttack, onDamageFromSheet, onCast } from '../helpers/items.mjs';
 
 export default class Knave2eActorSheet extends ActorSheet {
 
@@ -106,7 +106,7 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Check max slots
         if (this.actor.type === "character") {
-            maxSlots = 10 + systemData.abilities["constitution"].value - systemData.wounds.value;
+            maxSlots = 10 + systemData.abilities["constitution"].value - (systemData.wounds.max - systemData.wounds.value);
         }
         else if (this.actor.type === "recruit") {
             maxSlots = 10;
@@ -177,7 +177,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
 
         else if (this.actor.type === 'character') {
-            const woundsProgress = Math.floor(((systemData.wounds.max - systemData.wounds.value) / systemData.wounds.max) * 100);
+            const woundsProgress = Math.floor((systemData.wounds.value / systemData.wounds.max) * 100);
 
             return { hitPointsProgress, woundsProgress }
         }
@@ -329,30 +329,27 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Attack Roll
         html.on('click', '.item-button.attack', onAttack.bind(this));
 
-        // Sheet Damage Roll (chat button rolls handled in './documents/chat-message.mjs')
-        html.on('click', '.item-button.damage.sheet', onDamage.bind(this));
-
-        // Sheet Direct Roll (chat button rolls handled in './documents/chat-message.mjs')
-        // html.on('click', '.item-button.damage.sheet', onDamage.bind(this));
+        // Sheet Damage/Direct rolls (chat button rolls handled in './documents/chat-message.mjs')
+        html.on('click', '.item-button.damage.sheet', onDamageFromSheet.bind(this));
 
         // Cast Spell
-        //html.on('click', '.item-button.cast.sheet', this.onCast.bind(this));
+        html.on('click', '.item-button.cast', onCast.bind(this));
 
         /* -------------------------------------------- */
         /*  Sheet Buttons                               */
         /* -------------------------------------------- */
 
         // Checks & Abilities.
-        //html.on('click', '.actor-button.check', this._onCheck.bind(this));
+        html.on('click', '.actor-button.check', this._onCheck.bind(this));
 
         // Resting
-        //html.on('click', '.actor-button.rest', this._onRest.bind(this));
+        html.on('click', '.actor-button.rest', this._onRest.bind(this));
 
         // Morale
-        //html.on('click', '.actor-button.morale', this._onMorale.bind(this));
+        html.on('click', '.actor-button.morale', this._onMorale.bind(this));
 
         // Number Appearing
-        //html.on('click', '.actor-button.numAppearing', this._onNumAppearing.bind(this));
+        html.on('click', '.actor-button.numAppearing', this._onNumAppearing.bind(this));
     }
 
     async _onItemToggle(event) {
@@ -392,7 +389,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    async _check(event) {
+    async _onCheck(event) {
         event.preventDefault();
         const a = event.currentTarget;
         const systemData = this.actor.system;
@@ -433,7 +430,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         return r
     }
 
-    async _numberAppearing(event) {
+    async _onNumAppearing(event) {
         event.preventDefault();
         const a = event.currentTarget;
         const systemData = this.actor.system;
@@ -461,73 +458,6 @@ export default class Knave2eActorSheet extends ActorSheet {
                 flavor: `${r.total} ${this.actor.name}(s) appear in the nearby wilderness...`, //@TODO: localize this
                 rollMode: rollMode
             });
-        }
-    }
-
-    async _itemMonsterRoll(event) {
-        event.preventDefault();
-        const a = event.currentTarget;
-        const systemData = this.actor.system;
-
-        // Find closest <li> element containing a "data-item-id" attribute
-        const li = a.closest("li");
-        const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
-
-        // console.log(item);
-        let r = new Roll();
-        let rollMod = systemData.level;
-
-        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-        const rollMode = game.settings.get('core', 'rollMode');
-
-        switch (a.dataset.action) {
-            case "attack-roll":
-                rollMod = 1;
-                r = await attackRoll(rollMod);
-                r.toMessage({
-                    speaker: speaker,
-                    flavor: `Attacking with ${item.name}`,
-                    rollMode: rollMode
-                });
-                // case "attack-roll":
-                //     rollMod = await Dialog.wait({
-                //         title: "Attack Bonus",
-                //         content: "<h3 style=\"text-align:center;\">Add a bonus to this Attack?<h3>",//todo: localize
-                //         buttons: {
-                //             standard: {
-                //                 label: game.i18n.localize("KNAVE2E.Level"),
-                //                 callback: () => { return systemData.level }
-                //             },
-                //             half: {
-                //                 label: game.i18n.localize("KNAVE2E.HalfLevel"),
-                //                 callback: () => { return Math.floor(systemData.level / 2) }
-                //             },
-                //             zero: {
-                //                 label: game.i18n.localize("KNAVE2E.None"),
-                //                 callback: () => { return 0 }
-                //             },
-                //         },
-                //         default: 'standard',
-                //         // close: () => { reject() },
-                //     });
-
-                //     r = new Roll("1d20 + @mod", { mod: rollMod });
-                //     r.toMessage({
-                //         speaker: speaker,
-                //         flavor: `Attacking with ${item.name}: `, //@TODO: localize this
-                //         rollMode: rollMode
-                //     });
-                return r
-            case "damage-roll":
-                r = new Roll("@damage", { damage: item.system.damageRoll });
-                r.toMessage({
-                    speaker: speaker,
-                    flavor: `Attacking with ${item.name}: `, //@TODO: localize this
-                    rollMode: rollMode
-                });
-                return r
-            default:
-                break
         }
     }
 
@@ -590,7 +520,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         return await Item.create(itemData, { parent: this.actor });
     }
 
-    async _morale(event) {
+    async _onMorale(event) {
         event.preventDefault();
         const systemData = this.actor.system;
 
@@ -615,18 +545,14 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    async _rest(event) {
+    async _onRest(event) {
         event.preventDefault();
         const systemData = this.actor.system;
 
         let spellbookChanges = this.actor.items.filter(i => i.type === 'spellbook').map(i => ({ _id: i.id, 'system.cast': false }))
         this.actor.updateEmbeddedDocuments('Item', spellbookChanges)
 
-        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-        const rollMode = game.settings.get('core', 'rollMode');
-
-        const restoredHP = systemData.hitPoints.max - systemData.hitPoints.value;
-
+        // Recruits have no wounds to recover
         if (this.actor.type === "recruit") {
             return this.actor.update({
                 "system.hitPoints.value": systemData.hitPoints.max,
@@ -636,8 +562,8 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         else {
             const restType = await Dialog.wait({
-                title: "Select Rest Option",
-                content: "<h3 style=\"text-align:center;\">To rest, eat a meal & sleep at least two watches.</h3><p style=\"text-align:center;\">Resting in a safe haven additionally restores 1 Wound.</p>", //todo: localize
+                title: `${game.i18n.localize("KNAVE2E.RestDialogTitle")}`,
+                content: `${game.i18n.localize("KNAVE2E.RestDialogContent")}`,
                 buttons: {
                     standard: {
                         label: game.i18n.localize("KNAVE2E.Standard"),
@@ -646,7 +572,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                     safe: {
                         label: game.i18n.localize("KNAVE2E.SafeHaven"),
                         callback: () => { return "safe" }
-                    }
+                    },
                 },
                 default: 'standard',
                 // close: () => { reject() },
@@ -663,7 +589,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                 return this.actor.update(
                     {
                         "system.hitPoints.value": systemData.hitPoints.max,
-                        "system.wounds.value": Math.max(systemData.wounds.value - 1, 0),
+                        "system.wounds.value": Math.max(systemData.wounds.value + 1, 0),
                         "system.spells.value": 0,
                     });
             }

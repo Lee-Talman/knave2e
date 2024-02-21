@@ -43,18 +43,69 @@ export async function damageDialog() {
     return powerAttack;
 }
 
+export async function onCast(event) {
+    event.preventDefault();
+    const a = event.currentTarget;
+
+    const li = a.closest("li");
+    const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
+    const itemData = item.system;
+    const systemData = this.actor.system;
+
+    // Reminder if actor cannot cast spells
+    if (systemData.spells.max <= 0) {
+        Dialog.prompt({
+            title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentMax")}`,
+            label: "OK",
+            callback: (html) => { return }
+        })
+        return
+    }
+    else if (systemData.spells.value >= systemData.spells.max) {
+        Dialog.prompt({
+            title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentValue")}`,
+            label: "OK",
+            callback: (html) => { return }
+        })
+        return
+    }
+    else if (itemData.cast === true) {
+        Dialog.prompt({
+            title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentUsed")}`,
+            label: "OK",
+            callback: (html) => { return }
+        })
+        return
+    }
+    else {
+        ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({actor: this.actor}),
+            // flavor: `${this.actor.name} ${game.i18n.localize("KNAVE2E.Casts")}`,
+            content: `<br><h3>${item.name}</h3>${itemData.description}`,
+            rollMode: game.settings.get('core', 'rollMode')
+        });
+
+        // Cast spell and increment actor's used spells
+        item.update({
+            "system.cast" : true
+        });
+        this.actor.update({
+            "system.spells.value": systemData.spells.value + 1
+        });
+    }
+}
+
 export async function onAttack(event) {
     event.preventDefault();
     const a = event.currentTarget;
 
-    // Find closest <li> element containing a "data-item-id" attribute
     const li = a.closest("li");
     const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
-
-    const systemData = this.actor.system;
     const itemData = item.system;
-    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const rollMode = game.settings.get('core', 'rollMode');
+    const systemData = this.actor.system;
 
     // Return if the weapon is broken
     if (item.type === 'weapon' && itemData.broken === true) {
@@ -68,6 +119,8 @@ export async function onAttack(event) {
         return
     }
 
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
     let flavor = `${game.i18n.localize("KNAVE2E.AttackRoll")} ${game.i18n.localize("KNAVE2E.With")} ${item.name}`;
 
     // Override base roll function to deliver to ChatMessage
@@ -83,13 +136,9 @@ export async function onAttack(event) {
     // Pass item info for clickable Damage & Direct buttons in-chat. Will update item/buttons/flavor in-method
     const rollData = {
         data: {
-            item: {
-                _id: item._id,
-                amount: itemData.damageDiceAmount,
-                size: itemData.damageDiceSize,
-                bonus: itemData.damageDiceBonus
-            },
-            buttons: true
+            item: item._id,
+            actor: this.actor._id,
+            buttons: true,
         },
         flavor: flavor,
         rolls: []
@@ -210,19 +259,34 @@ export async function onAttack(event) {
     }
 }
 
-export async function onDamage(event) {
+export async function onDamageFromChat(event) {
     event.preventDefault();
+    const a = event.currentTarget;
+
+    const button = a.closest("button");
+    const actor = button.dataset.actorId ? game.actors.get(button.dataset.actorId) : null;
+    const item = button.dataset.itemId ? actor.items.get(button.dataset.itemId) : null;
+
+    _rollDamage(a, actor, item);
+}
+
+export async function onDamageFromSheet(event) {
     event.preventDefault();
     const a = event.currentTarget;
 
     // Find closest <li> element containing a "data-item-id" attribute
     const li = a.closest("li");
+    const actor = this.actor;
     const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
 
-    const systemData = this.actor.system;
+    _rollDamage(a, actor, item);
+}
+
+async function _rollDamage(a, actor, item) {
+    const systemData = actor.system;
     const itemData = item.system;
 
-    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get('core', 'rollMode');
 
     // Return if the weapon is broken
@@ -246,7 +310,7 @@ export async function onDamage(event) {
     const bonus = itemData.damageDiceBonus;
 
     // Only characters can power attack
-    if (this.actor.type === 'character') {
+    if (actor.type === 'character') {
         if (event.shiftKey === false) {
             const powerAttack = await damageDialog();
             if (powerAttack) {
@@ -271,46 +335,3 @@ export async function onDamage(event) {
         rollMode: rollMode
     });
 }
-
-// export async function onDamage(item, action, dialog, speaker) {
-//     // onDamage only gets param "speaker" when called from chat-message:
-//     let speaker = (typeof speaker !== 'undefined') ? speaker : ChatMessage.getSpeaker({ actor: this.actor });
-
-//     const itemData = item.system;
-//     const damageFlavor = game.i18n.localize("KNAVE2E.DamageRoll");
-//     const directFlavor = game.i18n.localize("KNAVE2E.DirectRoll");
-//     let powerAttack = '';
-
-//     // Modify damage and roll flavor text based on weapon's data-action string
-//     const damageMod = action === "direct" ? 3 : 1;
-//     const flavorType = action === "direct" ? directFlavor : damageFlavor;
-
-//     const flavor = `${powerAttack} ${flavorType} ${game.i18n.localize("KNAVE2E.With")} ${item.name}`
-//     const rollMode = game.settings.get('core', 'rollMode');
-
-//     let r = new Roll("@mod * (@damage)", { mod: damageMod, damage: itemData.damageRoll });
-
-//     if (!dialog) {
-//         await r.evaluate();
-//         r.toMessage({
-//             speaker: speaker,
-//             flavor: flavor,
-//             rollMode: rollMode
-//         });
-//     }
-//     else {
-//         powerAttack = game.i18n.localize("KNAVE2E.PowerAttackFlavor");
-//         r.formula = await this.damageDialog(itemData);
-//         await r.evaluate();
-//         r.toMessage({
-//             speaker: speaker,
-//             flavor: flavor,
-//             rollMode: rollMode
-//         });
-
-//         // Power attack break weapon
-//         itemData.update({
-//             "system.broken": true
-//         });
-//     }
-// }

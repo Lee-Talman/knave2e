@@ -11,12 +11,12 @@
 
                 {{!-- Character Header Info --}}
                 <div class="character-info">
-                    <div class="flexrow flex-group-left" id="dotted">
+                    <div class="flexrow flex-group-left dotted">
                         <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
                         <input class="transparent flex3" name="name" type="text" value="{{actor.name}}"
                             placeholder="{{actor.name}}" />
                     </div>
-                    <div class="flexrow flex-group-left" id="dotted">
+                    <div class="flexrow flex-group-left dotted">
                         <div class="resource-label flex1">{{localize "KNAVE2E.Careers"}}</div>
                         <input class="transparent flex3" name="system.careers" type="text" value="{{system.careers}}"
                             placeholder="Alchemist, Cook, Sailor, etc." />
@@ -45,9 +45,9 @@
         {{!-- Sheet Tab Navigation --}}
         <nav class="sheet-tabs tabs" data-group="primary">
             {{!-- Default tab is specified in actor-sheet.mjs --}}
-            <a class="item" id="tab-color" data-tab="character">{{localize "KNAVE2E.Character"}}</a>
-            <a class="item" id="tab-color" data-tab="items">{{localize "KNAVE2E.Inventory"}}</a>
-            <a class="item" id="tab-color" data-tab="description">{{localize "KNAVE2E.Description"}}</a>
+            <a class="item tab-color" data-tab="character">{{localize "KNAVE2E.Character"}}</a>
+            <a class="item tab-color" data-tab="items">{{localize "KNAVE2E.Inventory"}}</a>
+            <a class="item tab-color" data-tab="description">{{localize "KNAVE2E.Description"}}</a>
         </nav>
 
         {{!-- Sheet Body --}}
@@ -58,7 +58,7 @@
                     <div class="character-abilities">
                         {{#each system.abilities as |ability key|}}
                         <div class="flexrow">
-                            <input class="flex1 flex-group-center" id="circle-form" type="number"
+                            <input class="flex1 flex-group-center circle-form" type="number"
                                 name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
                             <div class="flexcol flex3">
                                 <div class="resource-label rollable crimson-pro-bold"
@@ -80,13 +80,13 @@
                         <div class="flexrow">
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.ArmorClass"}}</div>
-                                <div class="resource-label" id="shield-resource">
+                                <div class="resource-label shield-resource">
                                     {{system.armorClass}}
                                 </div>
                             </div>
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.ArmorPoints"}}</div>
-                                <div class="resource-label" id="circle-resource">
+                                <div class="resource-label circle-resource">
                                     {{system.armorPoints}}
                                 </div>
                             </div>
@@ -98,15 +98,15 @@
                         <div class="flexrow flex-between">
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.Level"}}</div>
-                                <div class="resource-label" id="rounded-resource">
+                                <div class="resource-label rounded-resource">
                                     {{system.level}}
                                 </div>
                             </div>
                             <div class="flex-group-left">
                                 <div class="resource-label small">{{localize "KNAVE2E.XP"}}</div>
-                                <div class="progress-container" id="horizontal">
+                                <div class="progress-container horizontal">
                                     <div class="progress-bar">
-                                        <div class="progress-fill" style="width:{{system.xp.progress}}%"></div>
+                                        <div class="progress-fill xp" style="width:{{system.xp.progress}}%"></div>
                                         <input class="progress-input resource-label" name="system.xp.value"
                                             value="{{system.xp.value}}" />
                                     </div>
@@ -120,33 +120,33 @@
                         <div class="flexrow">
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.HitPointsMax"}}</div>
-                                <input class="resource-label transparent" id="rounded-resource"
+                                <input class="resource-label transparent rounded-resource"
                                     name="system.hitPoints.max" value="{{system.hitPoints.max}}"
                                     style="text-align:center" />
                             </div>
                             <div class="flex-group-center">
                                 <div class="resource-label small">{{localize "KNAVE2E.WoundsMax"}}</div>
-                                <div class="resource-label" id="rounded-resource">{{system.wounds.max}}</div>
+                                <div class="resource-label rounded-resource">{{system.wounds.max}}</div>
                             </div>
                         </div>
                         <div class="flexrow">
-                            <div class="progress-container" id="vertical">
+                            <div class="progress-container vertical">
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="height:{{system.hitPoints.progress}}%"></div>
+                                    <div class="progress-fill hitPoints" style="height:{{system.hitPoints.progress}}%"></div>
                                     <input class="progress-input resource-label" name="system.hitPoints.value"
                                         value="{{system.hitPoints.value}}" />
                                 </div>
                             </div>
-                            <div class="progress-container" id="vertical">
+                            <div class="progress-container vertical">
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="height:{{system.wounds.progress}}%"></div>
+                                    <div class="progress-fill wounds" style="height:{{system.wounds.progress}}%"></div>
                                     <input class="progress-input resource-label" name="system.wounds.value"
                                         value="{{system.wounds.value}}" />
                                 </div>
                             </div>
                         </div>
                         <div class="flexrow">
-                            <button class="flex-button rounded-button rest-button" type="button">{{localize "KNAVE2E.Rest"}}</button>
+                            <button class="flex-button rounded-button actor-button rest" type="button">{{localize "KNAVE2E.Rest"}}</button>
                         </div>
                     </div>
 
