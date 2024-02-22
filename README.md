@@ -15,9 +15,11 @@ Knave Second Edition for FoundryVTT is now available to download from Foundry's 
 
 
 ## Features
-Knave Second Edition for FoundryVTT provides sheets for player characters, monster, recruits (hireling, mercenaries, and experts), and items (weapons, armor, light sources, spellbooks, and general equipment). 
+Knave Second Edition for FoundryVTT provides sheets for player characters, monster, recruits (hireling, mercenaries, and experts), and items (weapons, armor, light sources, spellbooks, and general equipment). The system provides many automations, such as the following example of "chaining" items together: by adding a spellbook to a weapon, then rolling that weapon's attack, you can automatically output both the weapon's roll *and* spell effect simultaneously:
 
-In addition, the game system automates many of the Knave Second Edition rules, with more features to come:
+![Relic-Weapon-Chaining](./assets/relic-weapon-screenshot.png)
+
+The game system provides many other similar automations:
 
 ### Rolls:
 - [x] Ability Checks

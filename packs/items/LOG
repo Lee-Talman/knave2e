@@ -1,3 +1,5 @@
-2024/02/22-16:06:33.461 4b0c Recovering log #8
-2024/02/22-16:06:33.463 4b0c Delete type=0 #8
-2024/02/22-16:06:33.463 4b0c Delete type=3 #6
+2024/02/22-17:30:49.067 1df0 Recovering log #11
+2024/02/22-17:30:49.067 1df0 Level-0 table #13: started
+2024/02/22-17:30:49.068 1df0 Level-0 table #13: 1419 bytes OK
+2024/02/22-17:30:49.071 1df0 Delete type=0 #11
+2024/02/22-17:30:49.071 1df0 Delete type=3 #10
