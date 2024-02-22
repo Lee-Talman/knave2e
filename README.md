@@ -3,9 +3,12 @@
 
 This game system for [Foundry Virtual Tabletop](https://foundryvtt.com/) provides character sheets and rule automation for [Knave Second Edition](https://www.kickstarter.com/projects/questingbeast/knave-rpg-second-edition) by [Ben Milton and Questing Beast LLC](https://questingbeast.substack.com/). 
 
-Knave Second Edition for FoundryVTT is an independent production of Lee Talman and is not affiliated with Questing Beast LLC. The game system is currently an early beta and is subject to change. Once approved by the FoundryVTT team, you will be able to find the official package page [hosted by FoundryVTT here](https://foundryvtt.com/packages/knave2e).
+Knave Second Edition for FoundryVTT is an independent production of Lee Talman and is not affiliated with Questing Beast LLC. 
 
-## Installation
+## Automatic Installation
+Knave Second Edition for FoundryVTT is now available to download from Foundry's [official game system](https://foundryvtt.com/packages/knave2e) list!
+
+## Manual Installation
 1. In your Foundry UI, select "Install System" under "Game Systems".
 2. Copy and paste the following link into the "Manifest URL field", then click "Install":
 `https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json`
@@ -20,11 +23,10 @@ In addition, the game system automates many of the Knave Second Edition rules, w
 - [x] Ability Checks
 - [x] Attack, Damage, and Direct Damage
 - [x] Checks adding Level, half Level, or zero
-- [x] Monster and Recruit Morale
-- [x] Weapons break on a natural 1
+- [x] Monster and Recruit Morale checks, with automatic success or failure
+- [x] Weapons break on a natural 1, or after using a power attack
 - [x] Monsters roll number appearing in both wilderness and dungeons
-- [ ] Spell effects scale with INT
-- [ ] Rolls of 21+ trigger maneuvers
+- [x] Maneuvers trigger on rolls >= 21
 
 ### Slots:
 - [x] Characters gain slots with CON
@@ -32,10 +34,8 @@ In addition, the game system automates many of the Knave Second Edition rules, w
 - [x] Stacking items (coins, ammo) calculate total slot encumberance
 - [x] Items in wounded/overencumbered slots cannot be used
 - [x] Item order can be rearranged
-- [ ] Characters can assign coins/ammo to numbered slots to determine drop order
 
 ### Items:
-
 - [x] Items can be labeled as "Relics"
 - [x] Relics can be active or inactive, and add to total Active Blessings
 - [x] Characters gain maximum Active Blessings with CHA
@@ -44,18 +44,15 @@ In addition, the game system automates many of the Knave Second Edition rules, w
 - [x] Only certain recruits can cast spells
 - [x] Light sources can be customized and activated from a character's inventory
 - [x] Characters can perform a standard or "safe haven" rest to restore Wounds
+
+### Future Features:
 - [ ] GMs can perform a rest on all characters at once
-- [ ] Items can be assigned to macro bars for quick use
 - [ ] Items can be labeled as potions and given alchemical effects
 - [ ] Chaos spellbooks gain random effects
-
-### System:
-
 - [ ] Characters/Recruits/Monsters can be randomly generated at any level
 - [ ] Support for Vehicles and Containers
 - [ ] Add modifiers and items based on Careers
-- [ ] Configuration settings avaiable in Foundry system menu
-- [ ] Assign custom icons to Recruits & Monsters
+- [ ] Configuration settings available in Foundry system menu
 - [ ] Spell/Potion builder
 
 ## Bug Reporting
@@ -67,6 +64,6 @@ This system would not have been possible without the following people:
 
 2. The FoundryVTT Boilerplate System developer `asacolips`, who is responsible for indirectly birthing more FoundryVTT game systems than anyone.
 
-3. `mxzf`, `chaosOS`, `Ethaks`, and the rest of the incredible FoundryVTT development gurus in the FoundryVTT Discord server. Partially for their wisdom, but mostly for their patience.
+3. `mxzf`, `chaosOS`, `Ethaks`, `Draft`, and the rest of the incredible FoundryVTT development gurus in the FoundryVTT Discord server. Partially for their wisdom, but mostly for their patience.
 
 
