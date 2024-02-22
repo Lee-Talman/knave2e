@@ -16,7 +16,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         return `systems/knave2e/templates/actor/actor-${this.actor.type}-sheet.hbs`;
     }
 
-    getData() {
+    async getData() {
         const context = super.getData();
 
         // Use a safe clone of the actor data for further operations.
@@ -41,6 +41,8 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Add roll data for TinyMCE editors.
         context.rollData = context.actor.getRollData();
+
+        context.system.enrichedHTML = await TextEditor.enrichHTML(context.system.description);
 
         //console.log(context);
         return context;
@@ -401,7 +403,7 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         rollMod = await Dialog.wait({
             title: "Check",
-            content: "<h3 style=\"text-align:center;\">Add a bonus to this Check?</h3>", //todo: localize
+            content: "Add a bonus to this Check?", //todo: localize
             buttons: {
                 standard: {
                     label: game.i18n.localize("KNAVE2E.Level"),

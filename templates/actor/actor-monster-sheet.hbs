@@ -61,7 +61,8 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <div class="resource-label content shield character">{{system.armorClass}}</div>
+                            <input class="resource-label transparent shield character" type="text"
+                                name="system.armorClass" value="{{system.armorClass}}" />
                         </div>
                     </div>
                 </div>
@@ -69,11 +70,12 @@
 
             {{!-- Sheet Body --}}
             <section class="sheet-body">
-                <div class="resources grid grid-4col">
-                    <div class="grid-span-4 square">
-                    <div class="resource-label description">{{localize "KNAVE2E.Description"}}</div>
-                    {{editor system.description target="system.description" button=true owner=owner
+                <div class="resources">
+                    <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+                    <section class="editor">
+                    {{editor system.enrichedHTML target="system.description" button=true owner=owner
                     editable=editable}}
+                    </section>
                     </div>
                 </div>
                 <div class="items">
@@ -97,7 +99,7 @@
                                 <button class="item-button damage sheet" data-action="damage" type="button"
                                     title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
                             </div>
-                            <div class="item-slots detail grid-span-2">{{item.attacks}}</div>
+                            <div class="item-slots detail grid-span-2 flexrow flex-group-center">{{item.system.attackAmount}}</div>
                             <div class="item-controls grid-span-2 flexrow flex-group-center">
                                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>

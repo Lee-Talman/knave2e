@@ -52,20 +52,33 @@ button {
 .sheet-body .tab .editor {
   width: 100%;
   height: auto;
-  min-height: 200px;
+  min-height: 10px;
+
+  section.editor {
+    min-height: 100px;
+    border: 2px solid black;
+
+    .editor {
+      min-height: 100px;
+      padding: 5px;
+    }
+  }
+}
+
+section.editor {
+  min-height: 100px;
+  border: 2px solid black;
+
+  .editor {
+    min-height: 100px;
+    padding: 5px;
+  }
 }
 
 // .item-body-description .editor {
 //   height: auto;
 //   min-height: 200px;
 // }
-
-.sheet-body .resources .editor {
-  display: grid;
-  height: auto;
-  min-height: 100px;
-  padding: 2px;
-}
 
 footer {
   padding: 10px;

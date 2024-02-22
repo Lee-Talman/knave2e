@@ -4,9 +4,9 @@ export default class Knave2eItemSheet extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "item"],
-      width: 680,
-      height: 400,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      width: 580,
+      height: 350,
+      // tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
 
@@ -21,7 +21,7 @@ export default class Knave2eItemSheet extends ItemSheet {
   /* -------------------------------------------- */
 
 
-  getData() {
+  async getData() {
     // Retrieve base data structure.
     const context = super.getData();
 
@@ -66,6 +66,8 @@ export default class Knave2eItemSheet extends ItemSheet {
     if (itemData.type == "monsterAttack") {
       this._prepareMonsterAttackData(context);
     }
+
+    context.system.enrichedHTML = await TextEditor.enrichHTML(context.system.description);
     
     return context;
   }

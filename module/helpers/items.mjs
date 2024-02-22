@@ -139,6 +139,9 @@ export async function onAttack(event) {
             item: item._id,
             actor: this.actor._id,
             buttons: true,
+            character: true,
+            relic: false,
+            description: itemData.description,
         },
         flavor: flavor,
         rolls: []
@@ -205,6 +208,11 @@ export async function onAttack(event) {
             // Turn off buttons for broken weapons
             rollData.data.buttons = false;
         }
+
+        // Send relic descriptions to chat when active
+        if (itemData.relic.isRelic && itemData.relic.isActive) {
+            rollData.data.relic = true;
+        }
     }
 
     // Attack from characters get free maneuvers
@@ -212,6 +220,11 @@ export async function onAttack(event) {
         if (r.total >= 21) {
             rollData.flavor = `${this.actor.name} ${game.i18n.localize("KNAVE2E.ManeuverSuccess")}`
         }
+    }
+
+    // Remove direct damage button option for monsters
+    else if (this.actor.type === 'monster') {
+        rollData.data.character = false;
     }
 
     /* -------------------------------------------- */
@@ -334,4 +347,18 @@ async function _rollDamage(a, actor, item) {
         flavor: rollFlavor,
         rollMode: rollMode
     });
+}
+
+export async function onLinkFromChat(event) {
+    event.preventDefault();
+    const a = event.currentTarget;
+
+    const link = a.closest("a");
+    const item = game.items.get(link.dataset.id);
+
+    ChatMessage.create ({
+        flavor: `${item.name}`,
+        content: `${item.system.description}`
+    });
+
 }

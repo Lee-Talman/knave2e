@@ -171,7 +171,9 @@
 
                 {{!-- Description Tab --}}
                 <div class="tab description" data-group="primary" data-tab="description">
-                    {{> "systems/knave2e/templates/actor/parts/actor-description.hbs"}}
+                    <section class="editor">
+                    {{editor system.enrichedHTML target="system.description" button=true owner=owner editable=editable}}
+                    </section>
                 </div>
 
             </section>

@@ -1,5 +1,13 @@
 {{title}}
 
+{{#if data.relic}}
+<hr>
+<div class="renderedHTML" style="margin-top: 5px">
+    {{{data.description}}}
+</div>
+<hr>
+{{/if}}
+
 {{#if data.buttons}}
 <div class="item-roll dice-roll flexcol flex-row-center">
     <div class="dice-result">
@@ -12,9 +20,11 @@
     <button class="item-button damage chat" data-action="damage" data-item-id="{{data.item}}"
         data-actor-id="{{data.actor}}" type="button">{{localize
         "KNAVE2E.Damage"}}</button>
+        {{#if data.character}}
     <button class="item-button damage chat" data-action="direct" data-item-id="{{data.item}}"
         data-actor-id="{{data.actor}}" type="button">{{localize
         "KNAVE2E.Direct"}}</button>
+        {{/if}}
 </div>
 
 {{else}}
