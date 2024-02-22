@@ -39,40 +39,35 @@
 
       {{!-- Item Aside --}}
       <div class="item-body-aside">
-        {{!-- <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Type"}}</div>
-          <select name="system.category">
-            {{selectOptions lightSourceCategories selected=system.category localize=true}}</select>
-        </div>--}}
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.QuantityPerSlot"}}</div>
-          <input type="text" name="system.quantityPerSlot" value="{{system.quantityPerSlot}}" data-dtype="Number" />
-        </div>
-        <hr class="separator">
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DimRadius"}}</div>
-          <input type="text" name="system.dimRadius" value="{{system.dimRadius}}" data-dtype="Number" />
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.BrightRadius"}}</div>
-          <input type="text" name="system.brightRadius" value="{{system.brightRadius}}" data-dtype="Number" />
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Intensity"}}</div>
-          <input type="text" name="system.intensity" value="{{system.intensity}}" data-dtype="Number" />
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Speed"}}</div>
-          <input type="text" name="system.speed" value="{{system.speed}}" data-dtype="Number" />
-        </div>
+      <div class="flexrow flex-group-left flex-between">
+        <div class="resource-label aside">{{localize "KNAVE2E.QuantityPerSlot"}}</div>
+        <input type="text" name="system.quantityPerSlot" value="{{system.quantityPerSlot}}" data-dtype="Number" />
       </div>
+      <hr class="separator">
+      <div class="flexrow flex-group-left flex-between">
+        <div class="resource-label aside">{{localize "KNAVE2E.DimRadius"}}</div>
+        <input type="text" name="system.dimRadius" value="{{system.dimRadius}}" data-dtype="Number" />
+      </div>
+      <div class="flexrow flex-group-left flex-between">
+        <div class="resource-label aside">{{localize "KNAVE2E.BrightRadius"}}</div>
+        <input type="text" name="system.brightRadius" value="{{system.brightRadius}}" data-dtype="Number" />
+      </div>
+      <div class="flexrow flex-group-left flex-between">
+        <div class="resource-label aside">{{localize "KNAVE2E.Intensity"}}</div>
+        <input type="text" name="system.intensity" value="{{system.intensity}}" data-dtype="Number" />
+      </div>
+      <div class="flexrow flex-group-left flex-between">
+        <div class="resource-label aside">{{localize "KNAVE2E.Speed"}}</div>
+        <input type="text" name="system.speed" value="{{system.speed}}" data-dtype="Number" />
+      </div>
+    </div>
 
-      {{!-- Item Description --}}
-      <div class="item-body-description">
-        <h2 class="light">Description</h2>
-        {{editor system.description target="system.description" button=true owner=owner
-        editable=editable}}
-      </div>
+    {{!-- Item Description --}}
+    <div class="item-body-description">
+      <h2 class="light">Description</h2>
+      {{editor system.description target="system.description" button=true owner=owner
+      editable=editable}}
+    </div>
     </div>
   </section>
 </form>

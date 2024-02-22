@@ -7,7 +7,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["knave2e", "sheet", "actor"],
             width: 600,
-            height: 650,
+            height: 670,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
     }
@@ -65,6 +65,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.level = currentLevel;
         systemData.xp.progress = progress;
         systemData.blessings.value = activeBlessings;
+        systemData.companions.value = Math.min(systemData.companions.value, systemData.companions.max);
 
         this._updateLight(context);
     }
@@ -88,7 +89,6 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         this._updateRecruitCategoryDetails(context);
         this._updateLight(context);
-
     }
 
     _prepareMonsterData(context) {
@@ -152,15 +152,12 @@ export default class Knave2eActorSheet extends ActorSheet {
         const uniqueArmorPieces = armorPieces.filter(i => {
             if (!uniqueCategories.some(cat => cat === i.system.category)) {
                 uniqueCategories.push(i.system.category);
-                armorPoints = armorPoints + i.system.armorPoints;
+                armorPoints = Math.min(armorPoints + i.system.armorPoints, 7);
                 return true;
             }
             return false;
         });
-
-        // const armorPoints = uniqueArmorPieces.length;
-        // const armorClass = uniqueArmorPieces.length + 11;
-
+        
         const armorClass = armorPoints + 11;
 
         return { armorPoints, armorClass }
@@ -168,15 +165,17 @@ export default class Knave2eActorSheet extends ActorSheet {
 
     _updateHealth(context) {
         const systemData = context.system;
-
         const hitPointsProgress = Math.floor((systemData.hitPoints.value / systemData.hitPoints.max) * 100);
 
 
         if (this.actor.type === 'recruit' || this.actor.type === 'monster') {
+            systemData.hitPoints.value = Math.min(systemData.hitPoints.value, systemData.hitPoints.max);
             return hitPointsProgress
         }
 
         else if (this.actor.type === 'character') {
+            systemData.hitPoints.value = Math.min(systemData.hitPoints.value, systemData.hitPoints.max);
+            systemData.wounds.value = Math.min(systemData.wounds.value, systemData.wounds.max);
             const woundsProgress = Math.floor((systemData.wounds.value / systemData.wounds.max) * 100);
 
             return { hitPointsProgress, woundsProgress }
@@ -349,7 +348,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         html.on('click', '.actor-button.morale', this._onMorale.bind(this));
 
         // Number Appearing
-        html.on('click', '.actor-button.numAppearing', this._onNumAppearing.bind(this));
+        html.on('click', '.actor-button.numberAppearing', this._onNumberAppearing.bind(this));
     }
 
     async _onItemToggle(event) {
@@ -430,33 +429,39 @@ export default class Knave2eActorSheet extends ActorSheet {
         return r
     }
 
-    async _onNumAppearing(event) {
+    async _onNumberAppearing(event) {
         event.preventDefault();
         const a = event.currentTarget;
         const systemData = this.actor.system;
 
-        let r = new Roll();
+        let formula = await Dialog.wait({
+            title: `${game.i18n.localize("KNAVE2E.NumberAppearingDialogTitle")}`,
+            buttons: {
+                dungeon: {
+                    label: `${game.i18n.localize("KNAVE2E.NumberAppearingDungeon")} (${systemData.numberAppearing.dungeon})`,
+                    callback: () => { return systemData.numberAppearing.dungeon }
+                },
+                wilderness: {
+                    label: `${game.i18n.localize("KNAVE2E.NumberAppearingWilderness")} (${systemData.numberAppearing.wilderness})`,
+                    callback: () => { return systemData.numberAppearing.wilderness }
+                },
+                cancel: {
+                    label: game.i18n.localize("KNAVE2E.Cancel"),
+                    callback: () => { return ('', '') }
+                },
+            },
+            default: 'dungeon',
+        })
 
-        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-        const rollMode = game.settings.get('core', 'rollMode');
+        console.log(formula);
 
-
-        if (a.dataset.action === "dungeon") {
-            r = new Roll("@appearing", { appearing: systemData.numberAppearing.dungeon });
-            await r.evaluate();
+        if (formula !== '' && formula !== undefined) {
+            let r = Roll.create(formula);
+            r.evaluate();
             r.toMessage({
-                speaker: speaker,
-                flavor: `${r.total} ${this.actor.name}(s) appear in the dungeon...`, //@TODO: localize this
-                rollMode: rollMode
-            });
-        }
-        else {
-            r = new Roll("@appearing", { appearing: systemData.numberAppearing.wilderness });
-            await r.evaluate();
-            r.toMessage({
-                speaker: speaker,
-                flavor: `${r.total} ${this.actor.name}(s) appear in the nearby wilderness...`, //@TODO: localize this
-                rollMode: rollMode
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: `${this.actor.name}`,
+                rollMode: game.settings.get('core', 'rollMode'),
             });
         }
     }
@@ -589,7 +594,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                 return this.actor.update(
                     {
                         "system.hitPoints.value": systemData.hitPoints.max,
-                        "system.wounds.value": Math.max(systemData.wounds.value + 1, 0),
+                        "system.wounds.value": Math.min(systemData.wounds.value + 1, systemData.wounds.max),
                         "system.spells.value": 0,
                     });
             }

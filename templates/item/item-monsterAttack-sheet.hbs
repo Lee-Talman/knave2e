@@ -24,21 +24,21 @@
       {{!-- Item Aside --}}
       <div class="item-body-aside">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Attacks"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.Attacks"}}</div>
           <input type="text" name="system.attackAmount" value="{{system.attackAmount}}" data-dtype="Number" />
         </div>
         <hr class="separator">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DamageDiceSize"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.DamageDiceSize"}}</div>
           <select name="system.damageDiceSize">
             {{selectOptions damageDiceCategories selected=system.damageDiceSize localize=true}}</select>
         </div>
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DamageDiceAmount"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.DamageDiceAmount"}}</div>
           <input type="text" name="system.damageDiceAmount" value="{{system.damageDiceAmount}}" data-dtype="Number" />
         </div>
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.DamageDiceBonus"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.DamageDiceBonus"}}</div>
           <input type="text" name="system.damageDiceBonus" value="{{system.damageDiceBonus}}" data-dtype="Number" />
         </div>
       </div>

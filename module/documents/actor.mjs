@@ -42,8 +42,6 @@ export default class Knave2eActor extends Actor {
     else {
       systemData.spells.max = 0;
     }
-
-    systemData.hitPoints.max = 3;
   }
 
     /**

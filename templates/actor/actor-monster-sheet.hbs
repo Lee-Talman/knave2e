@@ -1,109 +1,124 @@
 <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
     <div class="sheet-container">
-        {{!-- Sheet Header --}}
-        <header class="sheet-header">
-            <div id="character-header-grid">
+        <div class="npc-grid">
 
-                {{!-- Knave Logo --}}
-                <div id="knave-logo" style="min-width:150px">
-                    <img class="logo-img" src="systems/knave2e/assets/knave-2e-logo.webp" />
+            {{!-- Sheet Header --}}
+            <header class="header">
+
+                {{!-- Recruit Image --}}
+                <div class="image">
+                    <div class="flexcol no-wrap">
+                        <div class="resource-label align-center">{{localize "KNAVE2E.Portrait"}}</div>
+                        <img class="rounded" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" width="100%" />
+                    </div>
                 </div>
 
                 {{!-- Character Header Info --}}
-                <div id="character-info">
-                    <div class="flexrow flex-group-left" id="dotted">
+                <div class="info">
+                    <div class="flexrow no-wrap flex-between flex-group-left dotted name">
                         <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
-                        <input class="transparent flex3" name="name" type="text" value="{{actor.name}}"
-                            placeholder="{{actor.name}}" />
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="{{actor.name}}" placeholder="{{actor.name}}" />
                     </div>
-                    <div class="flexrow flex-group-center flex-between" style="margin-top: 5px;">
-                        <div class="flexcol flex-group-center min-width">
-                            <div class="resource-label small">{{localize "KNAVE2E.Level"}}</div>
-                            <div class="flexrow flex-group-center">
-                                <input class="resource-label transparent small" name="system.level"
-                                    value="{{system.level}}" data-dtype="Number" />
-                                <a class="check-button" data-action="level-roll" title={{localize "KNAVE2E.Level" }}>
-                                    <i class="fas fa-dice-d20"></i></a>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center level">
+                            <a class="resource-label actor-button check">{{localize "KNAVE2E.Level"}}</a>
+                            <input class="resource-label content narrow" type="text" name="system.level"
+                                value="{{system.level}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center morale">
+                            <a class="resource-label actor-button morale">{{localize "KNAVE2E.Morale"}}</a>
+                            <input class="resource-label content narrow" type="text" name="system.morale"
+                                value="{{system.morale}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center movement">
+                            <div class="resource-label">{{localize "KNAVE2E.Movement"}}</div>
+                            <input class="resource-label content narrow" type="text" name="system.movement"
+                                value="{{system.movement}}" data-dtype="Number" />
+                        </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center numAppearing">
+                            <a class="resource-label actor-button numberAppearing">{{localize "KNAVE2E.NumberAppearing"}}</a>
+                            <input class="resource-label content narrow" type="text"
+                                name="system.numberAppearing.combined" value="{{system.numberAppearing.combined}}"
+                                data-dtype="String" />
+                        </div>
+                    </div>
+                    <div class="grid grid-4col no-wrap flex-between flex-group-center info-3" style="margin-top: 5px;">
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.HitPoints"}}</div>
+                            <div class="progress-container horizontal hitPoints">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width:{{system.hitPoints.progress}}%"></div>
+                                    <input class="progress-input resource-label content" name="system.hitPoints.value"
+                                        value="{{system.hitPoints.value}}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="flexcol flex-group-center min-width">
-                            <div class="resource-label small">{{localize "KNAVE2E.Morale"}}</div>
-                            <div class="flexrow flex-group-center">
-                                <input class="resource-label transparent small" name="system.morale"
-                                    value="{{system.morale}}" data-dtype="Number" />
-                                <a class="morale-button" data-action="morale-roll" title={{localize "KNAVE2E.Morale" }}>
-                                    <i class="fas fa-dice"></i></a>
-                            </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.HitPointsMax"}}</div>
+                            <input class="resource-label transparent rounded character" type="text"
+                                name="system.hitPoints.max" value="{{system.hitPoints.max}}" />
                         </div>
-                        <div class="flexcol flex-group-center min-width">
-                            <div class="resource-label small">{{localize "KNAVE2E.NumberAppearingDungeon"}}</div>
-                            <div class="flexrow flex-group-center">
-                                <input type="text" class="resource-label transparent small"
-                                    name="system.numberAppearing.dungeon" value="{{system.numberAppearing.dungeon}}"
-                                    data-dtype="String" />
-                                <a class="number-appearing-button" data-action="dungeon"
-                                    title={{localize "KNAVE2E.NumberAppearingDungeon" }}>
-                                    <i class="fas fa-dice"></i></a>
-                            </div>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
+                            <div class="resource-label content shield character">{{system.armorClass}}</div>
                         </div>
-                        <div class="flexcol flex-group-center min-width">
-                            <div class="resource-label small">{{localize "KNAVE2E.NumberAppearingWilderness"}}</div>
-                            <div class="flexrow flex-group-center">
-                                <input type="text" class="resource-label transparent small"
-                                    name="system.numberAppearing.wilderness"
-                                    value="{{system.numberAppearing.wilderness}}" data-dtype="String" />
-                                <a class="number-appearing-button" data-action="wilderness"
-                                    title={{localize "KNAVE2E.NumberAppearingWilderness" }}>
-                                    <i class="fas fa-dice"></i></a>
+                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.ArmorPoints"}}</div>
+                            <div class="resource-label content circle character">
+                                {{system.armorPoints}}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <section class="sheet body">
-            <div class="flexrow flex-group-center flex-between">
-                <div class="flexcol flex-group-center">
-                    <div class="resource-label small">{{localize "KNAVE2E.HitPoints"}}</div>
-                    <div class="progress-container" id="horizontal">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width:{{system.hitPoints.progress}}%"></div>
-                            <input class="progress-input resource-label" name="system.hitPoints.value"
-                                value="{{system.hitPoints.value}}" />
-                        </div>
-                    </div>
+            {{!-- Sheet Body --}}
+            <section class="sheet-body">
+                <div class="resources flexcol flex-group-center" style="margin-top:10px;">
+                    {{{editor system.description target="system.description" button=true owner=owner
+                    editable=editable}}}
                 </div>
-                <div class="flexcol flex-group-center">
-                    <div class="resource-label small">{{localize "KNAVE2E.HitPointsMax"}}</div>
-                    <input class="resource-label transparent" id="rounded-resource" name="system.hitPoints.max"
-                        value="{{system.hitPoints.max}}" style="text-align:center" />
+                <div class="items">
+                    <ol class="items-list">
+                        <li class="item grid grid-12col items-header">
+                            <div class="resource-label item-name-header grid-span-8">{{localize "KNAVE2E.AttackName"}}
+                            </div>
+                            <div class="resource-label item-slots-header grid-span-2">{{localize "KNAVE2E.Attacks"}}
+                            </div>
+                            <div class="resource-label item-controls-header grid-span-2">
+                                <a class="item-control item-create" title="Add Attack" data-type="item"><i
+                                        class="fas fa-plus"></i> Add attack</a>
+                            </div>
+                        </li>
+                        {{#each items as |item id|}}
+                        <li class="item grid grid-12col" data-item-id="{{item._id}}">
+                            <div class="item-name detail grid-span-6" style="margin-left:2px;">{{item.name}}</div>
+                            <div class="item-buttons grid-span-2 flexrow flex-group-center">
+                                <button class="item-button attack sheet" data-action="attack" type="button"
+                                    title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
+                                <button class="item-button damage sheet" data-action="damage" type="button"
+                                    title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
+                            </div>
+                            <div class="item-slots detail grid-span-2">{{item.attacks}}</div>
+                            <div class="item-controls grid-span-2 flexrow flex-group-center">
+                                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ol>
                 </div>
-                <div class="flexcol flex-group-center">
-                    <div class="resource-label small">{{localize "KNAVE2E.ArmorClass"}}</div>
-                    <input class="resource-label transparent" id="shield-resource" name="system.armorClass"
-                        value="{{system.armorClass}}" style="text-align:center" />
-                </div>
-                <div class="flexcol flex-group-center">
-                    <div class="resource-label small">{{localize "KNAVE2E.Movement"}}</div>
-                    <input class="resource-label transparent" id="rounded-resource" name="system.movement"
-                        value="{{system.movement}}" style="text-align:center" />
-                </div>
-            </div>
-            <div class="monster-body-description">
-            {{> "systems/knave2e/templates/actor/parts/actor-description.hbs"}}
-            </div>
-            <div style="min-height:150px;">
-            {{> "systems/knave2e/templates/actor/parts/actor-monster-items.hbs"}}
-            </div>
-        </section>
+            </section>
 
-        <footer>
-            <div class="flexrow flex-group-center">
-                <p style="font-size:smaller">Copyright &#169; 2023 <a
-                        href="https://www.patreon.com/questingbeast/posts">Ben
-                        Milton and Questing Beast LLC.</a> Logo Design by <a
-                        href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
-            </div>
-        </footer>
+            <footer class="footer">
+                <div class="flexrow no-wrap flex-group-center ">
+                    <p style="font-size:smaller">Copyright &#169; 2023 <a
+                            href="https://www.patreon.com/questingbeast/posts">Ben
+                            Milton and Questing Beast LLC.</a> Logo Design by <a
+                            href="https://www.behance.net/MindkillerINK?locale=en_US">Tim Hastings</a>.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
 </form>

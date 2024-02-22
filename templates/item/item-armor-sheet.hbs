@@ -40,13 +40,13 @@
       {{!-- Item Aside --}}
       <div class="item-body-aside">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Type"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.Type"}}</div>
           <select name="system.category">
             {{selectOptions armorCategories selected=system.category localize=true}}</select>
         </div>
         <hr>
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.ArmorPoints"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.ArmorPoints"}}</div>
           <input type="text" name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
         </div>
       </div>

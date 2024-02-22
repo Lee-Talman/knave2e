@@ -72,9 +72,13 @@
   "KNAVE2E.Relic": "Relic",
   "KNAVE2E.Quantity": "Quantity",
 
+  "KNAVE2E.Cancel": "Cancel",
+
   "KNAVE2E.Attacks": "Attacks",
-  "KNAVE2E.NumberAppearingDungeon": "NA (Dungeon)",
-  "KNAVE2E.NumberAppearingWilderness": "NA (Wilderness)",
+  "KNAVE2E.AttackName": "Attack Name",
+  "KNAVE2E.NumberAppearing": "NA",
+  "KNAVE2E.NumberAppearingDungeon": "Dungeon: ",
+  "KNAVE2E.NumberAppearingWilderness": "Wilderness: ",
   
   "KNAVE2E.Morale": "Morale",
   "KNAVE2E.CostPerMonth": "Cost Per Month",
@@ -132,9 +136,11 @@
 
   "KNAVE2E.ItemName": "Item Name",
   "KNAVE2E.Item": "Item",
+  "KNAVE2E.Portrait": "Portrait",
   
 
   "KNAVE2E.AddBonusToCheck": "Add Bonus to Check: ",
+  "KNAVE2E.NumberAppearingDialogTitle": "Roll Number Appearing",
   "KNAVE2E.AppearInDungeon": "(s) appear in the dungeon...",
   "KNAVE2E.AppearInWilderness": "(s) appear in the nearby wilderness...",
 
