@@ -10,8 +10,20 @@
 
 .flexrow, 
 .flexcol {
+
+  &.no-wrap {
+    flex-wrap: nowrap;
+  }
+
   .min-width {
     min-width: 80px;
+  }
+
+  .item-row {
+    flex-shrink: 0; 
+    overflow: hidden;
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
@@ -36,15 +48,8 @@
 .flex-button {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px;
-}
-
-.flexlarge {
-  flex: 2;
-}
-
-.flex-dropped {
-  background-color: lightcoral;
 }
 
 // Alignment styles.

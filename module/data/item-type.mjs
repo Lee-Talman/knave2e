@@ -14,7 +14,7 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
             isRelic: new fields.BooleanField({ initial: false }),
             isActive: new fields.BooleanField({ initial: false })
         });
-        schema.description = new fields.StringField({ initial: "Enter Item Description Here." });
+        schema.description = new fields.StringField({ initial: "" });
         
         return schema;
     }

@@ -40,16 +40,18 @@
       {{!-- Item Aside --}}
       <div class="item-body-aside">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.QuantityPerSlot"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.QuantityPerSlot"}}</div>
           <input type="text" name="system.quantityPerSlot" value="{{system.quantityPerSlot}}" data-dtype="Number" />
         </div>
       </div>
 
       {{!-- Item Description --}}
       <div class="item-body-description">
-        <h2 class="light">Description</h2>
-        {{editor system.description target="system.description" button=true owner=owner
-        editable=editable}}
+        <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+        <section class="editor">
+          {{editor system.enrichedHTML target="system.description" button=true owner=owner
+          editable=editable}}
+        </section>
       </div>
     </div>
   </section>

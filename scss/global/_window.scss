@@ -1,7 +1,36 @@
 .window-app {
-  font-family: $font-primary;
-  font-weight: $font-weight-primary;
-  font-size: $font-size-primary;
+
+  p {
+     font-family: "Roboto", sans-serif;
+  }
+
+  &.actor {
+
+    form {
+      div,
+      section,
+      input,
+      button,
+      footer {
+        font-family: $font-sheet-title;
+      }
+
+      .detail {
+        font-family: $font-sheet-content;
+      }
+    }
+  }
+}
+
+// Chat Message CSS
+.chat-message .message-header .message-sender {
+  font-family: $font-sheet-title;
+  font-size: larger;
+  font-weight: bold;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rollable {

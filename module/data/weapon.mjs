@@ -15,7 +15,7 @@ export default class Knave2eWeapon extends Knave2eItemType {
         schema.range = new fields.NumberField({ ...requiredInteger, initial: 5, min: 0 });
         schema.damageDiceAmount = new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 });
         schema.damageDiceSize = new fields.StringField({ required: false, choices: SYSTEM.DAMAGE_DICE_SIZES, initial: "d6" });
-        schema.damageDiceBonus = new fields.NumberField({ required: true, nullable: false, integer: false, initial: 0, min: -999 });
+        schema.damageDiceBonus = new fields.NumberField({ ...requiredInteger, initial: 0, min: -999 });
         // schema.damageRoll = new fields.StringField({required: true, initial: "1d6"});
 
         return schema;

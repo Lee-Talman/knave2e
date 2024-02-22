@@ -29,6 +29,10 @@ export default class Knave2eRecruit extends Knave2eActorType {
             value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 })
         });
+        
+        schema.hitPoints.fields.value.initial = 3;
+        schema.hitPoints.fields.max.initial = 3;
+
         return schema;
     }
 }

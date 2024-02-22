@@ -13,12 +13,14 @@
   "ABILITIES.WisdomAbbr": "WIS",
   "ABILITIES.CharismaAbbr": "CHA",
 
-  "ABILITIES.StrengthDescription": "Melee attacks, lifting, climbing, breaking free",
-  "ABILITIES.DexterityDescription": "Dodging, sneaking, sleight of hand",
-  "ABILITIES.ConstitutionDescription": "Physical resistance, item slots, wounds",
-  "ABILITIES.IntelligenceDescription": "Lockpicking, alchemy, spells per day",
-  "ABILITIES.WisdomDescription": "Ranged attacks, foraging, navigation, spell resistance",
-  "ABILITIES.CharismaDescription": "Initiative, persuasion, companions, blessings",
+  "ABILITIES.StrengthDescription": "Melee attacks, lifting,<br>climbing, breaking free",
+  "ABILITIES.DexterityDescription": "Dodging, sneaking,<br>sleight of hand",
+  "ABILITIES.ConstitutionDescription": "Physical resistance,<br>item slots, wounds",
+  "ABILITIES.IntelligenceDescription": "Lockpicking, alchemy,<br>spells per day",
+  "ABILITIES.WisdomDescription": "Ranged attacks, foraging,<br>navigation, spell resistance",
+  "ABILITIES.CharismaDescription": "Initiative, persuasion,<br>companions, blessings",
+
+  "KNAVE2E.CreateItemDialogHeader": "Create New Item",
 
   "KNAVE2E.Character": "CHARACTER",
   "KNAVE2E.Description": "DESCRIPTION",
@@ -45,7 +47,7 @@
   "KNAVE2E.Shield": "Shield",
 
   "KNAVE2E.ArmorPoints": "AP",
-  "KNAVE2E.Blessings": "Active Blessings",
+  "KNAVE2E.Blessings": "Blessings",
   "KNAVE2E.Careers": "Careers",
   
   "KNAVE2E.Companions": "Companions",
@@ -70,9 +72,13 @@
   "KNAVE2E.Relic": "Relic",
   "KNAVE2E.Quantity": "Quantity",
 
+  "KNAVE2E.Cancel": "Cancel",
+
   "KNAVE2E.Attacks": "Attacks",
-  "KNAVE2E.NumberAppearingDungeon": "NA (Dungeon)",
-  "KNAVE2E.NumberAppearingWilderness": "NA (Wilderness)",
+  "KNAVE2E.AttackName": "Attack Name",
+  "KNAVE2E.NumberAppearing": "NA",
+  "KNAVE2E.NumberAppearingDungeon": "Dungeon: ",
+  "KNAVE2E.NumberAppearingWilderness": "Wilderness: ",
   
   "KNAVE2E.Morale": "Morale",
   "KNAVE2E.CostPerMonth": "Cost Per Month",
@@ -85,6 +91,7 @@
   "KNAVE2E.Armor": "Armor",
   "KNAVE2E.Arrow": "Arrow",
   "KNAVE2E.Broken": "Broken",
+  "KNAVE2E.Breaks": "Breaks",
   "KNAVE2E.Cast": "Cast",
   "KNAVE2E.DamageDiceSize": "Damage Die",
   "KNAVE2E.DamageDiceAmount": "# of Dice",
@@ -100,6 +107,7 @@
   "KNAVE2E.Slots": "Slots",
   "KNAVE2E.Range": "Range",
   "KNAVE2E.Rest": "Rest",
+  
 
   "KNAVE2E.Candle": "Candle",
   "KNAVE2E.Torch": "Torch",
@@ -118,8 +126,27 @@
   "KNAVE2E.ActivateLightSourceDetail": "Toggle Light Source",
 
   "KNAVE2E.AttackRoll": "Attack Roll",
+  "KNAVE2E.PowerAttackRoll": "Power Attack Roll",
   "KNAVE2E.DamageRoll": "Damage Roll",
+  "KNAVE2E.Damage": "Damage",
+  "KNAVE2E.Direct": "Direct",
   "KNAVE2E.DirectRoll": "Direct Damage Roll",
+  "KNAVE2E.With": "with",
+  "KNAVE2E.IsBroken": "is broken",
+
+  "KNAVE2E.ItemName": "Item Name",
+  "KNAVE2E.Item": "Item",
+  "KNAVE2E.Portrait": "Portrait",
+  
+
+  "KNAVE2E.AddBonusToCheck": "Add Bonus to Check: ",
+  "KNAVE2E.NumberAppearingDialogTitle": "Roll Number Appearing",
+  "KNAVE2E.AppearInDungeon": "(s) appear in the dungeon...",
+  "KNAVE2E.AppearInWilderness": "(s) appear in the nearby wilderness...",
+
+  "KNAVE2E.CreateItemDialogTitle": "Create New Item",
+  "KNAVE2E.CreateItemDialogContent": "Choose an item type:",
+
 
   "KNAVE2E.EffectCreate": "Create Effect",
   "KNAVE2E.EffectToggle": "Toggle Effect",
@@ -128,5 +155,33 @@
 
   "KNAVE2E.Add": "Add",
   "KNAVE2E.Check": "Check",
-  "KNAVE2E.Roll": "Roll"
+  "KNAVE2E.Roll": "Roll",
+
+  "REF.Maneuver": "Maneuvers (pg. 20)",
+  "REF.PowerAttack": "Power Attacks (pg. 20)",
+  "KNAVE2E.ManeuverSuccess": "may succeed at a free maneuver!",
+
+  "KNAVE2E.Restored": "Restored",
+
+  "KNAVE2E.DamageRollChar": "Damage Roll (Shift + Click to Power Attack)",
+  "KNAVE2E.DirectRollChar": "Direct Damage Roll (Shift + Click to Power Attack)",
+  "KNAVE2E.AttackAbbr": "ATK",
+  "KNAVE2E.DamageAbbr": "DMG",
+  "KNAVE2E.DirectAbbr": "DIR",
+  "KNAVE2E.CastAbbr": "CAST",
+  "KNAVE2E.CheckDialog": "Choose a bonus to add to this check.",
+  "KNAVE2E.SkipDialog": "In the future, you can Shift + Click to skip this dialog.",
+  "KNAVE2E.DamageDialog": "Standard or Power Attack?",
+  "KNAVE2E.SkipDamageDialog": ". Shift + Click to skip pop-up.",
+  "KNAVE2E.OutOfAmmo": "has no ammo for",
+  "KNAVE2E.PowerAttack": "Power Attack",
+  
+  "KNAVE2E.CastDialogTitle": "Cannot Cast",
+  "KNAVE2E.CastDialogContentMax": "cannot cast spells from spellbooks!",
+  "KNAVE2E.CastDialogContentValue": "does not have any spells remaining!",
+  "KNAVE2E.CastDialogContentUsed": "has already used this spellbook today!",
+  "KNAVE2E.Casts": "casts a spell!",
+
+  "KNAVE2E.RestDialogTitle": "Choose Rest Type",
+  "KNAVE2E.RestDialogContent": "To rest, eat a meal & sleep at least two watches. Resting in a safe haven additionally restores 1 Wound."
 }

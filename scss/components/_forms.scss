@@ -1,87 +1,35 @@
-.item-form {
-  font-family: $font-primary;
-}
-
-.sheet-container {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-}
-
-.sheet-header {
-  flex: 0 auto;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-
-  .logo-img {
-    border-color:#ffffff00;
-    margin-right: 20px;
-    height: 96px;
-    min-width: 180px;
+input {
+  &.resource-label {
+    text-align: center;
   }
 
-  .header-fields {
-    flex: 1;
-    align-items: flex-end;
+  &.narrow {
+    max-width: 75px;
+  }
 
-    #logo-container {
-      max-width: 250px;
-    }
+  &.name {
+    font-size: large;
   }
 }
 
-#dotted {
+button {
+  &.narrow {
+    max-width: 75px;
+  }
+}
+
+.transparent {
+  background: rgba(255, 255, 255, 0)
+}
+
+.no-border {
+  border: none;
+}
+
+.dotted {
   margin: 0 5px;
   border-bottom: 2px dotted black;
   align-content: flex-end;
-}
-
-input.transparent {
-  background-color: #ffffff00;
-  border: 0px;
-}
-
-input.small {
-  max-width: 50px;
-  padding: 0px;
-  border: 0px;
-  text-align: center;
-}
-
-button.small {
-  max-width: 60px;
-  text-align: center;
-}
-
-#circle-form {
-  border-radius: 50%;
-  border: 2px solid black;
-  min-width: 50px;
-  max-width: 50px;
-  min-height: 50px;
-  max-height: 50px;
-  margin: 2px;
-  text-align: center;
-}
-
-#rounded-form {
-  border-radius: 5%;
-  border: 2px solid black;
-  min-width: 50px;
-  max-width: 50px;
-  min-height: 50px;
-  max-height: 50px;
-  margin: 2px;
-  text-align: center;
-}
-
-.transparent-form label,
-.transparent-form input {
-  margin-right: 10px;
 }
 
 .sheet-tabs {
@@ -95,26 +43,42 @@ button.small {
   border-bottom: 2px solid var(--color-border-highlight);
 }
 
-.active#tab-color {
+.active.tab-color {
   background-color: var(--color-border-highlight);
 }
 
 .sheet-body,
 .sheet-body .tab,
 .sheet-body .tab .editor {
+  width: 100%;
   height: auto;
-  min-height: 200px;
+  min-height: 10px;
+
+  section.editor {
+    min-height: 100px;
+    border: 2px solid black;
+
+    .editor {
+      min-height: 100px;
+      padding: 5px;
+    }
+  }
 }
 
-.item-body-description .editor{
-  height: auto;
-  min-height: 200px;
-}
-
-.monster-body-description .editor{
-  height: auto;
+section.editor {
   min-height: 100px;
+  border: 2px solid black;
+
+  .editor {
+    min-height: 100px;
+    padding: 5px;
+  }
 }
+
+// .item-body-description .editor {
+//   height: auto;
+//   min-height: 200px;
+// }
 
 footer {
   padding: 10px;
@@ -133,6 +97,6 @@ footer {
   }
 
   &.tox-tinymce {
-    min-height:200px;
+    min-height: 200px;
   }
 }

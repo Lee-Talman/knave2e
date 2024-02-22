@@ -3,10 +3,9 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 // Import DataModel classes.
 
 import * as DataModels from "./data/_module.mjs"
-import { Knave2eActor, Knave2eItem } from "./documents/_module.mjs";
+import { Knave2eActor, Knave2eItem, Knave2eChatMessage } from "./documents/_module.mjs";
 import { Knave2eActorSheet, Knave2eItemSheet } from "./sheets/_module.mjs";
 import { SYSTEM } from "./config/system.mjs";
-// globalThis.SYSTEM = SYSTEM;
 
 
 /* -------------------------------------------- */
@@ -51,6 +50,7 @@ Hooks.once('init', function () {
   game.knave2e = {
     Knave2eActor,
     Knave2eItem,
+    Knave2eChatMessage,
     rollItemMacro
   };
 
@@ -65,6 +65,7 @@ Hooks.once('init', function () {
   // Define custom Document classes
   CONFIG.Actor.documentClass = Knave2eActor;
   CONFIG.Item.documentClass = Knave2eItem;
+  CONFIG.ChatMessage.documentClass = Knave2eChatMessage;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);

@@ -40,22 +40,24 @@
       {{!-- Item Aside --}}
       <div class="item-body-aside">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Type"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.Type"}}</div>
           <select name="system.category">
             {{selectOptions spellbookCategories selected=system.category localize=true}}</select>
         </div>
         <hr class="separator">
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label">{{localize "KNAVE2E.Cast"}}</div>
+          <div class="resource-label aside">{{localize "KNAVE2E.Cast"}}</div>
           <input type="checkbox" name="system.cast" {{checked system.cast}}>
         </div>
       </div>
 
       {{!-- Item Description --}}
       <div class="item-body-description">
-        <h2 class="light">Description</h2>
-        {{editor system.description target="system.description" button=true owner=owner
-        editable=editable}}
+        <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+        <section class="editor">
+          {{editor system.enrichedHTML target="system.description" button=true owner=owner
+          editable=editable}}
+        </section>
       </div>
     </div>
   </section>

@@ -6,7 +6,7 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
         const schema = {};
 
         schema.armorClass = new fields.NumberField({ ...requiredInteger, initial: 11, min: 1 });
-        schema.description = new fields.StringField({ initial: "Enter Description/Biography Here." });
+        schema.description = new fields.StringField({ initial: "" });
         schema.hitPoints = new fields.SchemaField({
             value: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 }),
             max: new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 }),
