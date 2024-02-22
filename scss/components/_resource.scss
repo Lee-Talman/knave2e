@@ -88,6 +88,16 @@
   }
 }
 
+.square {
+  margin: 2px;
+  border: 2px solid black;
+
+  .description {
+    padding: 2px;
+    border-bottom: 2px solid black;
+  }
+}
+
 .dropped {
   background-color: lightcoral;
 }

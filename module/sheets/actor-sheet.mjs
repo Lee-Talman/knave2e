@@ -434,33 +434,38 @@ export default class Knave2eActorSheet extends ActorSheet {
         const a = event.currentTarget;
         const systemData = this.actor.system;
 
-        let formula = await Dialog.wait({
+        let formula;
+        let rollFlavor;
+
+        let type = await Dialog.wait({
             title: `${game.i18n.localize("KNAVE2E.NumberAppearingDialogTitle")}`,
             buttons: {
                 dungeon: {
                     label: `${game.i18n.localize("KNAVE2E.NumberAppearingDungeon")} (${systemData.numberAppearing.dungeon})`,
-                    callback: () => { return systemData.numberAppearing.dungeon }
+                    callback: () => { return 'dungeon' }
                 },
                 wilderness: {
                     label: `${game.i18n.localize("KNAVE2E.NumberAppearingWilderness")} (${systemData.numberAppearing.wilderness})`,
-                    callback: () => { return systemData.numberAppearing.wilderness }
+                    callback: () => { return 'wilderness' }
                 },
                 cancel: {
                     label: game.i18n.localize("KNAVE2E.Cancel"),
-                    callback: () => { return ('', '') }
+                    callback: () => { return }
                 },
             },
             default: 'dungeon',
         })
 
-        console.log(formula);
+        if (type) {
+            formula = (type === 'dungeon') ? systemData.numberAppearing.dungeon : (type === 'wilderness') ? systemData.numberAppearing.wilderness : null;
+            rollFlavor = (type === 'dungeon') ? "KNAVE2E.AppearInDungeon" : (type === 'wilderness') ? "KNAVE2E.AppearInWilderness" : null;
+        }
 
-        if (formula !== '' && formula !== undefined) {
-            let r = Roll.create(formula);
-            r.evaluate();
+        if (formula) {
+            let r = await new Roll(formula);
             r.toMessage({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: `${this.actor.name}`,
+                flavor: `${this.actor.name}${game.i18n.localize(rollFlavor)}`,
                 rollMode: game.settings.get('core', 'rollMode'),
             });
         }

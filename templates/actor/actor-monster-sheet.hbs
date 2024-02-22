@@ -44,11 +44,11 @@
                         </div>
                     </div>
                     <div class="grid grid-4col no-wrap flex-between flex-group-center info-3" style="margin-top: 5px;">
-                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
+                        <div class="grid-span-2 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.HitPoints"}}</div>
                             <div class="progress-container horizontal hitPoints">
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width:{{system.hitPoints.progress}}%"></div>
+                                    <div class="progress-fill hitPoints" style="width:{{system.hitPoints.progress}}%"></div>
                                     <input class="progress-input resource-label content" name="system.hitPoints.value"
                                         value="{{system.hitPoints.value}}" />
                                 </div>
@@ -63,21 +63,18 @@
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
                             <div class="resource-label content shield character">{{system.armorClass}}</div>
                         </div>
-                        <div class="grid-span-1 flexcol no-wrap flex-group-center">
-                            <div class="resource-label">{{localize "KNAVE2E.ArmorPoints"}}</div>
-                            <div class="resource-label content circle character">
-                                {{system.armorPoints}}
-                            </div>
-                        </div>
                     </div>
                 </div>
             </header>
 
             {{!-- Sheet Body --}}
             <section class="sheet-body">
-                <div class="resources flexcol flex-group-center" style="margin-top:10px;">
-                    {{{editor system.description target="system.description" button=true owner=owner
-                    editable=editable}}}
+                <div class="resources grid grid-4col">
+                    <div class="grid-span-4 square">
+                    <div class="resource-label description">{{localize "KNAVE2E.Description"}}</div>
+                    {{editor system.description target="system.description" button=true owner=owner
+                    editable=editable}}
+                    </div>
                 </div>
                 <div class="items">
                     <ol class="items-list">

@@ -8,7 +8,7 @@ input {
   }
 
   &.name {
-    font-size:large;
+    font-size: large;
   }
 }
 
@@ -55,14 +55,16 @@ button {
   min-height: 200px;
 }
 
-.item-body-description .editor{
-  height: auto;
-  min-height: 200px;
-}
+// .item-body-description .editor {
+//   height: auto;
+//   min-height: 200px;
+// }
 
-.monster-body-description .editor{
+.sheet-body .resources .editor {
+  display: grid;
   height: auto;
   min-height: 100px;
+  padding: 2px;
 }
 
 footer {
@@ -82,6 +84,6 @@ footer {
   }
 
   &.tox-tinymce {
-    min-height:200px;
+    min-height: 200px;
   }
 }
