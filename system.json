@@ -9,10 +9,10 @@
     }
   ],
   "url": "https://github.com/Lee-Talman/knave2e",
-  "license": "LICENSE.txt",
-  "readme": "README.md",
+  "license": "https://github.com/Lee-Talman/knave2e/blob/main/LICENSE.txt",
+  "readme": "https://github.com/Lee-Talman/knave2e/blob/main/README.md",
   "bugs": "https://github.com/Lee-Talman/knave2e/issues",
-  "changelog": "CHANGELOG.md",
+  "changelog": "https://github.com/Lee-Talman/knave2e/blob/main/CHANGELOG.md",
   "version": "0.2.0",
   "compatibility": {
     "minimum": "10",
@@ -53,7 +53,7 @@
   "packFolders": [],
   "socket": false,
   "manifest": "https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json",
-  "download": "https://github.com/Lee-Talman/knave2e/archive/refs/tags/release-0.1.2.zip",
+  "download": "https://github.com/Lee-Talman/knave2e/releases/download/0.2.0/system.zip",
   "background": "systems/knave2e/assets/anvil-bg.png",
   "gridDistance": 5,
   "gridUnits": "ft",
