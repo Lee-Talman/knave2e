@@ -159,7 +159,7 @@ export default class Knave2eActorSheet extends ActorSheet {
             }
             return false;
         });
-        
+
         const armorClass = armorPoints + 11;
 
         return { armorPoints, armorClass }
@@ -343,6 +343,9 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Checks & Abilities.
         html.on('click', '.actor-button.check', this._onCheck.bind(this));
 
+        // Armor Points for Player-Facing Rolls
+        html.on('click', '.actor-button.ap', this._onAP.bind(this));
+
         // Resting
         html.on('click', '.actor-button.rest', this._onRest.bind(this));
 
@@ -429,6 +432,20 @@ export default class Knave2eActorSheet extends ActorSheet {
             rollMode: rollMode
         });
         return r
+    }
+
+    async _onAP(event) {
+        event.preventDefault();
+        const a = event.currentTarget;
+        const context = await this.getData();
+
+        let r = new Roll('d20+@ap', { ap: context.system.armorPoints });
+
+        r.toMessage({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            flavor: `[Reverse AP] ${this.actor.name}: `,
+            rollMode: game.settings.get('core', 'rollMode')
+        });
     }
 
     async _onNumberAppearing(event) {

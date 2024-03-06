@@ -5,7 +5,8 @@
   "authors": [
     {
       "name": "Lee Talman",
-      "discord": ".pizzawizard"
+      "discord": ".pizzawizard",
+      "flags": {}
     }
   ],
   "url": "https://github.com/Lee-Talman/knave2e",
@@ -13,47 +14,78 @@
   "readme": "https://github.com/Lee-Talman/knave2e/blob/main/README.md",
   "bugs": "https://github.com/Lee-Talman/knave2e/issues",
   "changelog": "https://github.com/Lee-Talman/knave2e/blob/main/CHANGELOG.md",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "compatibility": {
     "minimum": "10",
     "verified": "11",
     "maximum": "11"
   },
-  "esmodules": ["module/knave2e.mjs"],
-  "styles": ["css/knave2e.css"],
+  "esmodules": [
+    "module/knave2e.mjs"
+  ],
+  "styles": [
+    "css/knave2e.css"
+  ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     }
   ],
   "packs": [
     {
       "name": "monsters",
       "label": "Monsters",
-      "type": "Actor"
+      "type": "Actor",
+      "system": "knave2e",
+      "path": "packs/monsters",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     },
     {
       "name": "items",
       "label": "Weapons",
-      "type": "Item"
+      "type": "Item",
+      "system": "knave2e",
+      "path": "packs/items",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     },
     {
       "name": "actors",
       "label": "Recruits",
-      "type": "Actor"
+      "type": "Actor",
+      "system": "knave2e",
+      "path": "packs/actors",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     },
     {
       "name": "spells",
       "label": "Spells",
-      "type": "Item"
+      "type": "Item",
+      "system": "knave2e",
+      "path": "packs/spells",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     }
   ],
-  "packFolders": [],
-  "socket": false,
   "manifest": "https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json",
-  "download": "https://github.com/Lee-Talman/knave2e/releases/download/0.2.0/system.zip",
+  "download": "https://github.com/Lee-Talman/knave2e/releases/download/0.2.1/system.zip",
   "background": "systems/knave2e/assets/anvil-bg.png",
   "gridDistance": 5,
   "gridUnits": "ft",
