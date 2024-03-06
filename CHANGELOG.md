@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.1
+- Added support for reverse AP rolls for PCs/recruits
+- Reduced size of chat message header font
+
 ## 0.2.0
 - Added support for Power Attacks, with automatic weapon breaking
 - Visual update to character, recruit, and monster sheets
