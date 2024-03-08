@@ -11,6 +11,7 @@ export default class Knave2eRecruit extends Knave2eActorType {
         const requiredInteger = { required: true, nullable: false, integer: true };
         const schema = super.defineSchema();
 
+        schema.armorPoints = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0});
         schema.morale = new fields.NumberField({ ...requiredInteger, initial: 7, min: 2, max: 12 });
         schema.numberAppearing = new fields.SchemaField({
             combined: new fields.StringField({ initial: "1d6(3d6)" }),
@@ -21,6 +22,9 @@ export default class Knave2eRecruit extends Knave2eActorType {
     }
 
     prepareDerivedData() {
+
+        // Prepare armorPoints in reverse
+        this.armorPoints = this.armorClass - 11;
 
         // Rip single NA roll of format 1d6(3d6) into separate rolls
         const combined = this.numberAppearing.combined;

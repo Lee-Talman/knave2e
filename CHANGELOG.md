@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.2.2
+- All attacks roll their description (not just relics)
+- Monster sheets display AP and can roll reverse AP
+- New PCs and recruits have "Link Actor Data" selected by default
+
 ## 0.2.1
 - Added support for reverse AP rolls for PCs/recruits
 - Reduced size of chat message header font

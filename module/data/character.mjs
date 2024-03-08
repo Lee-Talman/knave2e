@@ -54,6 +54,5 @@ export default class Knave2eCharacter extends Knave2eActorType {
     }
 
     prepareBaseData(){
-
     }
 }
