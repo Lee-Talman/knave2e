@@ -44,12 +44,12 @@
     {{#each items as |item id|}}
     <li class="item grid grid-12col {{#if system.dropped}}dropped{{/if}}" data-item-id="{{item._id}}">
 
-      <div class="item-image rollable"><a class="item-image rollable grid-span-1"><img src="{{item.img}}"
+      <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
             title="{{item.name}}" width="36" height="36" /></a></div>
 
       {{#if (eq item.type "weapon")}}
-      <div class="item-name detail grid-span-5">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
-        {{/if}}{{item.name}}</div>
+      <a class="item-name detail grid-span-5">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
+        {{/if}}{{item.name}}</a>
       <div class="item-buttons grid-span-3 flexrow flex-group-center">
         <button class="item-button attack sheet" data-action="attack" type="button"
           title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
@@ -61,16 +61,16 @@
 
       {{else}}
       {{#if (eq item.type "spellbook")}}
-      <div class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
-        {{/if}}{{item.name}}</div>
+      <a class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
+        {{/if}}{{item.name}}</a>
       <div class="item-buttons grid-span-1 flexrow flex-group-center">
         <button class="item-button cast" data-action="cast" type="button">{{localize
           "KNAVE2E.CastAbbr"}}</button>
       </div>
 
       {{else}}
-      <div class="item-name detail grid-span-8">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
-        {{/if}}{{item.name}}</div>
+      <a class="item-name detail grid-span-8">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
+        {{/if}}{{item.name}}</a>
       {{/if}}
       {{/if}}
 
@@ -87,6 +87,10 @@
         {{#if (eq item.type "lightSource")}}
         <a class="item-toggle" data-action="light" title={{localize "KNAVE2E.ActivateLightSourceDetail" }}>
           <i class="{{#if item.system.lit}}fas fa-lightbulb{{else}}far fa-lightbulb{{/if}}"></i></a>
+        {{/if}}
+        {{#if (eq item.type "armor")}}
+        <a class="item-toggle" data-action="equip" title={{localize "KNAVE2E.EquipArmorDetail" }}>
+          <i class="{{#if item.system.equipped}}fas fa-shirt{{else}}far fa-shirt{{/if}}"></i></a>
         {{/if}}
         {{#if (eq item.system.relic.isRelic true)}}
         <a class="item-toggle" data-action="blessing" title={{localize "KNAVE2E.ActiveBlessingDetail" }}>
