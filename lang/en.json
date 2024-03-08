@@ -120,10 +120,11 @@
 
   "KNAVE2E.QuantityPerSlot": "# per Slot",
 
-  "KNAVE2E.BreakWeaponDetail": "Toggle Broken Weapon",
-  "KNAVE2E.CastSpellbookDetail": "Toggle Cast Spellbook",
-  "KNAVE2E.ActiveBlessingDetail": "Toggle Active Blessing",
-  "KNAVE2E.ActivateLightSourceDetail": "Toggle Light Source",
+  "KNAVE2E.BreakWeaponDetail": "Break",
+  "KNAVE2E.CastSpellbookDetail": "Cast",
+  "KNAVE2E.ActiveBlessingDetail": "Bless",
+  "KNAVE2E.ActivateLightSourceDetail": "Light",
+  "KNAVE2E.EquipArmorDetail": "Equip",
 
   "KNAVE2E.AttackRoll": "Attack Roll",
   "KNAVE2E.PowerAttackRoll": "Power Attack Roll",
