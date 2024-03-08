@@ -1,5 +1,12 @@
 export default class Knave2eActor extends Actor {
 
+  async _preCreate(data) {
+    if (data.type === 'character' || data.type === 'recruit') {
+      this.updateSource({"prototypeToken.actorLink" : true});
+    }
+    super._preCreate(data)
+}
+
   prepareData() {
     super.prepareData();
   }
@@ -51,6 +58,7 @@ export default class Knave2eActor extends Actor {
       if (actorData.type !== 'monster') return;
   
       const systemData = actorData.system;
+      systemData.armorPoints = systemData.armorClass - 11;
 
       }
 

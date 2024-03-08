@@ -1,6 +1,6 @@
 {{title}}
 
-{{#if data.relic}}
+{{#if data.hasDescription}}
 <hr>
 <div class="renderedHTML" style="margin-top: 5px">
     {{{data.description}}}
@@ -36,3 +36,5 @@
     </div>
 </div>
 {{/if}}
+
+{{log data}}

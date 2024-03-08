@@ -105,6 +105,7 @@ export async function onAttack(event) {
     const li = a.closest("li");
     const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
     const itemData = item.system;
+    const hasDescription = itemData.description === "" ? false: true;
     const systemData = this.actor.system;
 
     // Return if the weapon is broken
@@ -140,8 +141,9 @@ export async function onAttack(event) {
             actor: this.actor._id,
             buttons: true,
             character: true,
-            relic: false,
+            // relic: false,
             description: itemData.description,
+            hasDescription: hasDescription
         },
         flavor: flavor,
         rolls: []
@@ -209,10 +211,10 @@ export async function onAttack(event) {
             rollData.data.buttons = false;
         }
 
-        // Send relic descriptions to chat when active
-        if (itemData.relic.isRelic && itemData.relic.isActive) {
-            rollData.data.relic = true;
-        }
+        // // Send relic descriptions to chat when active
+        // if (itemData.relic.isRelic && itemData.relic.isActive) {
+        //     rollData.data.relic = true;
+        // }
     }
 
     // Attack from characters get free maneuvers
