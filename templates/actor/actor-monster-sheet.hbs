@@ -100,7 +100,7 @@
                 </li>
                 {{#each items as |item id|}}
                 <li class="item grid grid-12col" data-item-id="{{item._id}}">
-                    <div class="item-name detail grid-span-6" style="margin-left:2px;">{{item.name}}</div>
+                    <a class="item-name detail grid-span-6" style="margin-left:2px;">{{item.name}}</a>
                     <div class="item-buttons grid-span-2 flexrow flex-group-center">
                         <button class="item-button attack sheet" data-action="attack" type="button"
                             title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>

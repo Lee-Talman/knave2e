@@ -4,6 +4,9 @@
 - All attacks roll their description (not just relics)
 - Monster sheets display AP and can roll reverse AP
 - New PCs and recruits have "Link Actor Data" selected by default
+- Armor can be unequipped for AP calculations without being removed from inventory
+- Clicking item names or icons in inventory sends their descriptions to chat (only when items have descriptions)
+- Fix labels for toggleable buttons on items in actor inventory
 
 ## 0.2.1
 - Added support for reverse AP rolls for PCs/recruits

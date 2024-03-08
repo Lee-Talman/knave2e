@@ -147,7 +147,7 @@ export default class Knave2eActorSheet extends ActorSheet {
     }
 
     _updateArmor(context) {
-        const armorPieces = context.items.filter(i => i.type === "armor" && i.system.dropped === false);
+        const armorPieces = context.items.filter(i => i.type === "armor" && i.system.dropped === false && i.system.equipped === true);
         const uniqueCategories = [];
         let armorPoints = 0;
 
@@ -318,9 +318,11 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Rollable elements (e.g. Abilities)
         html.on('click', '.rollable', this._onRollable.bind(this));
 
+        // Item Description to chat
+        html.on('click', '.item-name', this._onItemName.bind(this));
+
         // Toggle Item Icons
         html.on('click', '.item-toggle', this._onItemToggle.bind(this));
-
 
 
         /* -------------------------------------------- */
@@ -356,6 +358,24 @@ export default class Knave2eActorSheet extends ActorSheet {
         html.on('click', '.actor-button.numberAppearing', this._onNumberAppearing.bind(this));
     }
 
+    async _onItemName(event) {
+        event.preventDefault();
+        const a = event.currentTarget;
+        const systemData = this.actor.system;
+
+        const li = a.closest("li");
+        const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
+
+        if (item.system.description !== ""){
+            ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: `${item.name}`,
+                content:`${item.system.description}`,
+                rollMode: game.settings.get('core', 'rollMode')
+            });
+        }
+    }
+
     async _onItemToggle(event) {
         event.preventDefault();
         const a = event.currentTarget;
@@ -370,6 +390,8 @@ export default class Knave2eActorSheet extends ActorSheet {
                 return item.update({ "system.broken": !item.system.broken })
             case "cast":
                 return item.update({ "system.cast": !item.system.cast })
+            case "equip":
+                return item.update({"system.equipped": !item.system.equipped})
             case "blessing":
                 if (item.system.relic.isActive) {
                     this.actor.update({

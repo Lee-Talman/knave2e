@@ -11,6 +11,7 @@ export default class Knave2eArmor extends Knave2eItemType {
         const schema = super.defineSchema();
 
         schema.armorPoints = new fields.NumberField({ ...requiredInteger, initial: 1, min: 1});
+        schema.equipped = new fields.BooleanField({ initial: true });
 
         return schema;
     }
