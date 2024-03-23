@@ -70,17 +70,17 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Updates based on user settings
 
-        // Calculate AC, AP, and Armor Types
-        if (game.settings.get('knave2e', 'calculateArmor')) {
+        // Automatic AC, AP, and Armor Types
+        if (game.settings.get('knave2e', 'automaticArmor')) {
             const { armorPoints, armorClass } = this._updateArmor(context);
             systemData.armorPoints = armorPoints;
             systemData.armorClass = armorClass;
         }
 
 
-        // Calculate Level & XP
+        // Automatic Level & XP
         const { currentLevel, progress } = this._updateLevelAndXP(systemData.xp.value);
-        if (game.settings.get('knave2e', 'calculateLevel')) {
+        if (game.settings.get('knave2e', 'automaticLevel')) {
             systemData.level = currentLevel;
             systemData.xp.progress = progress;
         }
@@ -105,8 +105,8 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.slots.max = maxSlots;
         systemData.slots.value = usedSlots;
 
-        // Calculate AC, AP, and Armor Types
-        if (game.settings.get('knave2e', 'calculateArmor')) {
+        // Automatic AC, AP, and Armor Types
+        if (game.settings.get('knave2e', 'automaticArmor')) {
             const { armorPoints, armorClass } = this._updateArmor(context);
             systemData.armorPoints = armorPoints;
             systemData.armorClass = armorClass;

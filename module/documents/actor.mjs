@@ -34,8 +34,12 @@ export default class Knave2eActor extends Actor {
     systemData.blessings.max = systemData.abilities.charisma.value;
     systemData.companions.max = systemData.abilities.charisma.value;
     systemData.spells.max = systemData.abilities.intelligence.value;
-    systemData.slots.max, 
-    systemData.wounds.max = (systemData.abilities.constitution.value + 10);
+
+    if (game.settings.get('knave2e', 'automaticArmor')) {
+      systemData.wounds.max = (systemData.abilities.constitution.value + 10);
+    }
+    systemData.slots.max 
+    
 
   }
 
