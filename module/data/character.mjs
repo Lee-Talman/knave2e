@@ -10,7 +10,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
 
         schema.abilities = new fields.SchemaField(Object.values(SYSTEM.ABILITIES.ABILITIES).reduce((obj, ability) => {
             obj[ability.id] = new fields.SchemaField({
-                value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+                value: new fields.NumberField({ ...requiredInteger, initial: 0}),
                 label: new fields.StringField({ initial: ability.label }),
                 abbreviation: new fields.StringField({ initial: ability.abbreviation }),
                 detail: new fields.StringField({ initial: ability.detail })
