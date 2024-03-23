@@ -156,6 +156,17 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
+  // Automatic Recruits
+  game.settings.register('knave2e', 'automaticRecruits', {
+    name: "Automatic Recruits",
+    hint: "Derive monthly cost, morale, rarity, and max spells for recruited followers. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
   // Automatic Slots
   game.settings.register('knave2e', 'automaticSlots', {
     name: "Automatic Max Slots",

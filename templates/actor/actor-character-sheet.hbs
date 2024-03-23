@@ -81,18 +81,18 @@
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
                             {{#if system.settings.automaticArmor}}
-                            <div class="resource-label content shield character">{{system.armorClass}}</div>
+                            <div class="resource-label shield character">{{system.armorClass}}</div>
                             {{else}}
-                            <input class="resource-label content narrow shield character" type="text"
+                            <input class="resource-label content shield character" type="text"
                                 name="system.armorClass" value="{{system.armorClass}}" data-dtype="Number" />
                             {{/if}}
                         </div>
                         <div class="flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
                             {{#if system.settings.automaticArmor}}
-                            <div class="resource-label content circle character">{{system.armorPoints}}</div>
+                            <div class="resource-label circle character">{{system.armorPoints}}</div>
                             {{else}}
-                            <input class="resource-label content narrow circle character" type="text"
+                            <input class="resource-label content circle character" type="text"
                                 name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
                             {{/if}}
                         </div>
@@ -145,7 +145,7 @@
                     <div class="level flexrow no-wrap">
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.Level"}}</div>
-                            <input class="resource-label content narrow transparent rounded character" type="text"
+                            <input class="resource-label narrow transparent rounded character" type="text"
                                 name="system.level" value="{{system.level}}" data-dtype="Number" />
                         </div>
                         <div class="xp flex-group-left">
@@ -153,7 +153,7 @@
                             <div class="progress-container horizontal">
                                 <div class="progress-bar">
                                     <div class="progress-fill xp" style="width:{{system.xp.progress}}%"></div>
-                                    <input class="progress-input resource-label content" name="system.xp.value"
+                                    <input class="progress-input resource-label" name="system.xp.value"
                                         value="{{system.xp.value}}" />
                                 </div>
                             </div>

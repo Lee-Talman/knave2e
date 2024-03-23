@@ -6,7 +6,7 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         return mergeObject(super.defaultOptions, {
             classes: ["knave2e", "sheet", "actor"],
-            width: 600,
+            width: 640,
             height: 670,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
@@ -85,6 +85,13 @@ export default class Knave2eActorSheet extends ActorSheet {
             systemData.armorClass = armorClass;
         }
 
+        // Automatic AC, AP, and Armor Types
+        if (game.settings.get('knave2e', 'automaticArmor')) {
+            const { armorPoints, armorClass } = this._updateArmor(context);
+            systemData.armorPoints = armorPoints;
+            systemData.armorClass = armorClass;
+        }
+
 
         // Automatic Level & XP
         const { currentLevel, progress } = this._updateLevelAndXP(systemData.xp.value);
@@ -120,7 +127,7 @@ export default class Knave2eActorSheet extends ActorSheet {
             systemData.armorClass = armorClass;
         }
 
-        this._updateRecruitCategoryDetails(context);
+        // this._updateRecruitCategoryDetails(context);
         this._updateLight(context);
     }
 
@@ -402,6 +409,17 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Number Appearing
         html.on('click', '.actor-button.numberAppearing', this._onNumberAppearing.bind(this));
+
+        /* -------------------------------------------- */
+        /*  Sheet Dropdown                              */
+        /* -------------------------------------------- */
+
+        // // Recruit Category
+        // html.on('change', '.actor-select.category', this._onRecruitCategory.bind(this));
+
+        // // Recruit Rarity
+        // html.on('change', '.actor-select.rarity', this._onRecruitRarity.bind(this));
+
     }
 
     async _onItemName(event) {
@@ -723,6 +741,50 @@ export default class Knave2eActorSheet extends ActorSheet {
             return r;
         }
     }
+
+    // async _onRecruitCategory(event) {
+    //     if (game.settings.get('knave2e', 'automaticRecruits')) {
+    //         // event.preventDefault();
+    //         const systemData = this.actor.system;
+    //         const category = CONFIG.SYSTEM.RECRUIT.CATEGORIES[systemData.category];
+
+    //         if (systemData.category === "hireling" || systemData.category === "mercenary") {
+    //             systemData.costPerMonth = category.costPerMonth;
+    //             systemData.morale = category.morale;
+    //             systemData.rarity = "KNAVE2E.Common";
+    //             systemData.spells.max = 0;
+    //         }
+    //         else if (systemData.category === "expert") {
+    //             switch (systemData.rarity) {
+    //                 case "KNAVE2E.Common":
+    //                     systemData.costPerMonth = 600;
+    //                     systemData.morale = category.morale;
+    //                     systemData.rarity = "KNAVE2E.Common";
+    //                     systemData.spells.max = 0;
+    //                     break;
+    //                 case "KNAVE2E.Uncommon":
+    //                     systemData.costPerMonth = 1200;
+    //                     systemData.morale = category.morale;
+    //                     systemData.rarity = "KNAVE2E.Uncommon";
+    //                     systemData.spells.max = 0;
+    //                     break;
+    //                 case "KNAVE2E.Rare":
+    //                     systemData.costPerMonth = 2400;
+    //                     systemData.morale = category.morale;
+    //                     systemData.rarity = "KNAVE2E.Rare";
+    //                     systemData.spells.max = 1;
+    //                     break;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // async _onRecruitRarity(event) {
+    //     if (game.settings.get('knave2e', 'automaticRecruits')) {
+    //         // event.preventDefault();
+    //         this._onRecruitCategory();
+    //     }
+    // }
 
     _updateLevelAndXP(xp) {
         let currentLevel = 1;

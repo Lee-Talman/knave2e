@@ -45,14 +45,14 @@
                     <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
                         <div class="grid-span-1 flexcol no-wrap flex-group-center type">
                             <div class="resource-label">{{localize "KNAVE2E.Type"}}</div>
-                            <select name="system.category">
+                            <select class="actor-select category" name="system.category">
                                 {{selectOptions recruitCategories selected=system.category localize=true}}
                             </select>
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center rarity">
                             <div class="resource-label">{{localize "KNAVE2E.Rarity"}}</div>
                             {{#if (eq system.category "expert")}}
-                            <select name="system.rarity">
+                            <select class="actor-select rarity" name="system.rarity">
                                 {{selectOptions rarityCategories selected=system.rarity localize=true}}
                             </select>
                             {{else}}
@@ -62,8 +62,8 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center cost">
                             <div class="resource-label">{{localize "KNAVE2E.Cost"}}</div>
-                            <div class="resource-label content narrow" name="system.costPerMonth">
-                                {{system.costPerMonth}}</div>
+                            <input class="resource-label content narrow" type="text" name="system.costPerMonth"
+                                value="{{system.costPerMonth}}" data-dtype="Number" />
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center rest">
                             <button class="resource-label rounded transparent narrow actor-button rest"
@@ -91,18 +91,18 @@
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
                             {{#if system.settings.automaticArmor}}
-                            <div class="resource-label content shield character">{{system.armorClass}}</div>
+                            <div class="resource-label shield character">{{system.armorClass}}</div>
                             {{else}}
-                            <input class="resource-label content narrow shield character" type="text"
+                            <input class="resource-label shield character" type="text"
                                 name="system.armorClass" value="{{system.armorClass}}" data-dtype="Number" />
                             {{/if}}
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
                             {{#if system.settings.automaticArmor}}
-                            <div class="resource-label content circle character">{{system.armorPoints}}</div>
+                            <div class="resource-label circle character">{{system.armorPoints}}</div>
                             {{else}}
-                            <input class="resource-label content narrow circle character" type="text"
+                            <input class="resource-label circle character" type="text"
                                 name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
                             {{/if}}
                         </div>
