@@ -47,14 +47,14 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Add global knave2e settings for sheet logic
         context.system.settings = {}
-        
+
         for (let [key, value] of game.settings.settings) {
             if (key.includes('knave2e')) {
-                let filteredKey = key.replace('knave2e.','');
+                let filteredKey = key.replace('knave2e.', '');
                 let filteredValue = game.settings.get('knave2e', filteredKey);
                 context.system.settings[filteredKey] = filteredValue;
             }
-          }
+        }
 
         //console.log(context);
         return context;
@@ -130,6 +130,11 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         const hitPointsProgress = this._updateHealth(context);
         systemData.hitPoints.progress = hitPointsProgress;
+
+        // Automatic AC, AP, and Armor Types
+        if (game.settings.get('knave2e', 'automaticArmor')) {
+            systemData.armorPoints = systemData.armorClass - 11;
+        }
     }
 
     _updateSlots(context) {
