@@ -138,9 +138,8 @@
                     <div class="level flexrow no-wrap">
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.Level"}}</div>
-                            <div class="resource-label content rounded character">
-                                {{system.level}}
-                            </div>
+                            <input class="resource-label content narrow transparent rounded character" type="text" name="system.level"
+                                value="{{system.level}}" data-dtype="Number" />
                         </div>
                         <div class="xp flex-group-left">
                             <div class="resource-label">&nbsp;{{localize "KNAVE2E.XP"}}</div>
