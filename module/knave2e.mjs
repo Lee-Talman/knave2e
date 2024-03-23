@@ -101,21 +101,10 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Calculate AC
-  game.settings.register('knave2e', 'calculateAC', {
-    name: "Calculate AC",
-    hint: "Calculate armor class as 11 + AP. Defaults to TRUE.",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-    requiresReload: true,
-  });
-
-  // Calculate AP
-  game.settings.register('knave2e', 'calculateAP', {
-    name: "Calculate AP",
-    hint: "Calculate armor points from equipped armor. Defaults to TRUE.",
+  // Calculate Armor
+  game.settings.register('knave2e', 'calculateArmor', {
+    name: "Calculate Armor",
+    hint: "Calculate AP from worn armor, and AC from 11 + AP. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,

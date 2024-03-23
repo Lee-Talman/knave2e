@@ -54,24 +54,35 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         const { hitPointsProgress, woundsProgress } = this._updateHealth(context);
         const { maxSlots, usedSlots } = this._updateSlots(context);
-        const { armorPoints, armorClass } = this._updateArmor(context);
-        const { currentLevel, progress } = this._updateLevelAndXP(systemData.xp.value);
+        // const { armorPoints, armorClass } = this._updateArmor(context);
+
         const activeBlessings = this._updateBlessings(context);
 
         systemData.hitPoints.progress = hitPointsProgress;
         systemData.wounds.progress = woundsProgress;
         systemData.slots.max = maxSlots;
         systemData.slots.value = usedSlots;
-        systemData.armorPoints = armorPoints;
-        systemData.armorClass = armorClass;
-        systemData.xp.progress = progress;
+        // systemData.armorPoints = armorPoints;
+        // systemData.armorClass = armorClass;
+        // systemData.xp.progress = progress;
         systemData.blessings.value = activeBlessings;
         systemData.companions.value = Math.min(systemData.companions.value, systemData.companions.max);
 
         // Updates based on user settings
 
-        if (game.settings.get('knave2e', 'calculateLevel')){
+        // Calculate AC, AP, and Armor Types
+        if (game.settings.get('knave2e', 'calculateArmor')) {
+            const { armorPoints, armorClass } = this._updateArmor(context);
+            systemData.armorPoints = armorPoints;
+            systemData.armorClass = armorClass;
+        }
+
+
+        // Calculate Level & XP
+        const { currentLevel, progress } = this._updateLevelAndXP(systemData.xp.value);
+        if (game.settings.get('knave2e', 'calculateLevel')) {
             systemData.level = currentLevel;
+            systemData.xp.progress = progress;
         }
         else {
             systemData.xp.progress = 0;
@@ -88,14 +99,18 @@ export default class Knave2eActorSheet extends ActorSheet {
         const systemData = context.system;
 
         const { maxSlots, usedSlots } = this._updateSlots(context);
-        const { armorPoints, armorClass } = this._updateArmor(context);
         const hitPointsProgress = this._updateHealth(context);
 
         systemData.hitPoints.progress = hitPointsProgress;
         systemData.slots.max = maxSlots;
         systemData.slots.value = usedSlots;
-        systemData.armorPoints = armorPoints;
-        systemData.armorClass = armorClass;
+
+        // Calculate AC, AP, and Armor Types
+        if (game.settings.get('knave2e', 'calculateArmor')) {
+            const { armorPoints, armorClass } = this._updateArmor(context);
+            systemData.armorPoints = armorPoints;
+            systemData.armorClass = armorClass;
+        }
 
         this._updateRecruitCategoryDetails(context);
         this._updateLight(context);
@@ -156,20 +171,30 @@ export default class Knave2eActorSheet extends ActorSheet {
 
     _updateArmor(context) {
         const armorPieces = context.items.filter(i => i.type === "armor" && i.system.dropped === false && i.system.equipped === true);
-        const uniqueCategories = [];
         let armorPoints = 0;
+        let armorClass = 11;
 
-        const uniqueArmorPieces = armorPieces.filter(i => {
-            if (!uniqueCategories.some(cat => cat === i.system.category)) {
-                uniqueCategories.push(i.system.category);
-                armorPoints = Math.min(armorPoints + i.system.armorPoints, 7);
-                return true;
-            }
-            return false;
-        });
+        if (game.settings.get('knave2e', 'enableArmor')) {
+            const uniqueCategories = [];
+            armorPoints = 0;
 
-        const armorClass = armorPoints + 11;
+            const uniqueArmorPieces = armorPieces.filter(i => {
+                if (!uniqueCategories.some(cat => cat === i.system.category)) {
+                    uniqueCategories.push(i.system.category);
+                    armorPoints = Math.max(armorPoints + i.system.armorPoints, 0);
+                    return true;
+                }
+                return false;
+            });
 
+        }
+        else {
+            armorPoints = armorPieces.reduce((total, armorPiece) => {
+                return total + armorPiece.system.armorPoints;
+            }, 0);
+        }
+
+        armorClass = armorPoints + 11;
         return { armorPoints, armorClass }
     }
 
@@ -374,11 +399,11 @@ export default class Knave2eActorSheet extends ActorSheet {
         const li = a.closest("li");
         const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
 
-        if (item.system.description !== ""){
+        if (item.system.description !== "") {
             ChatMessage.create({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: `${item.name}`,
-                content:`${item.system.description}`,
+                content: `${item.system.description}`,
                 rollMode: game.settings.get('core', 'rollMode')
             });
         }
@@ -399,7 +424,7 @@ export default class Knave2eActorSheet extends ActorSheet {
             case "cast":
                 return item.update({ "system.cast": !item.system.cast })
             case "equip":
-                return item.update({"system.equipped": !item.system.equipped})
+                return item.update({ "system.equipped": !item.system.equipped })
             case "blessing":
                 if (item.system.relic.isActive) {
                     this.actor.update({
