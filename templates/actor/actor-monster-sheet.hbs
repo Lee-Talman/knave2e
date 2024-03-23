@@ -69,9 +69,9 @@
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
                             {{#if system.settings.automaticArmor}}
-                            <div class="resource-label content circle character">{{system.armorPoints}}</div>
+                            <div class="resource-label circle character">{{system.armorPoints}}</div>
                             {{else}}
-                            <input class="resource-label content narrow circle character" type="text"
+                            <input class="resource-label circle character" type="text"
                                 name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
                             {{/if}}
                         </div>
