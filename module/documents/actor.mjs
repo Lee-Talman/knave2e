@@ -46,7 +46,7 @@ export default class Knave2eActor extends Actor {
     }
     
 
-    if (game.settings.get('knave2e', 'automaticArmor')) {
+    if (game.settings.get('knave2e', 'automaticWounds')) {
       systemData.wounds.max = (systemData.abilities.constitution.value + 10);
     }
     systemData.slots.max 

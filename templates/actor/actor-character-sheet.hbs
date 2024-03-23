@@ -83,8 +83,8 @@
                             {{#if system.settings.automaticArmor}}
                             <div class="resource-label shield character">{{system.armorClass}}</div>
                             {{else}}
-                            <input class="resource-label content shield character" type="text"
-                                name="system.armorClass" value="{{system.armorClass}}" data-dtype="Number" />
+                            <input class="resource-label content shield character" type="text" name="system.armorClass"
+                                value="{{system.armorClass}}" data-dtype="Number" />
                             {{/if}}
                         </div>
                         <div class="flexcol no-wrap flex-group-center">
@@ -92,8 +92,8 @@
                             {{#if system.settings.automaticArmor}}
                             <div class="resource-label circle character">{{system.armorPoints}}</div>
                             {{else}}
-                            <input class="resource-label content circle character" type="text"
-                                name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
+                            <input class="resource-label content circle character" type="text" name="system.armorPoints"
+                                value="{{system.armorPoints}}" data-dtype="Number" />
                             {{/if}}
                         </div>
                     </div>
@@ -109,7 +109,12 @@
                                 </div>
                                 <div class="grid-span-1 flexcol no-wrap flex-group-center">
                                     <div class="resource-label">{{localize "KNAVE2E.WoundsMax"}}</div>
-                                    <div class="resource-label content rounded character">{{system.wounds.max}}</div>
+                                    {{#if system.settings.automaticWounds}}
+                                    <div class="resource-label rounded character">{{system.wounds.max}}</div>
+                                    {{else}}
+                                    <input class="resource-label narrow content rounded character" type="text"
+                                        name="system.wounds.max" value="{{system.wounds.max}}" data-dtype="Number" />
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>
@@ -145,8 +150,12 @@
                     <div class="level flexrow no-wrap">
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.Level"}}</div>
-                            <input class="resource-label narrow transparent rounded character" type="text"
-                                name="system.level" value="{{system.level}}" data-dtype="Number" />
+                                    {{#if system.settings.automaticLevel}}
+                                    <div class="resource-label rounded character">{{system.level}}</div>
+                                    {{else}}
+                                    <input class="resource-label narrow content rounded character" type="text"
+                                        name="system.level" value="{{system.level}}" data-dtype="Number" />
+                                    {{/if}}
                         </div>
                         <div class="xp flex-group-left">
                             <div class="resource-label">&nbsp;{{localize "KNAVE2E.XP"}}</div>
