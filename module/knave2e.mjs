@@ -57,9 +57,9 @@ Hooks.once('init', function () {
 
   // Set globals from game settings (TODO: localize)
 
-  // Enable Armor Restriction
-  game.settings.register('knave2e', 'enableArmor', {
-    name: "Enable Armor Type Restriction",
+  // Enforce Armor Restriction
+  game.settings.register('knave2e', 'enforceArmor', {
+    name: "Enforce Armor Type Restriction",
     hint: "Prevent equipping multiple armor pieces of the same type. Defaults to TRUE.",
     scope: "world",
     config: true,
@@ -68,9 +68,20 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Enable Spellbook Casting
-  game.settings.register('knave2e', 'enableCasting', {
-    name: "Enable Spellbook Casting",
+  // Enforce Item Dropping
+  game.settings.register('knave2e', 'enforceDrop', {
+    name: "Enforce Item Dropping",
+    hint: "Mark items as \"Dropped\" after receiving wounds. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Enforce Spellbook Casting
+  game.settings.register('knave2e', 'enforceCasting', {
+    name: "Enforce Spellbook Casting",
     hint: "Mark spellbooks as \"Cast\" after use. Defaults to True.",
     scope: "world",
     config: true,
@@ -79,9 +90,9 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Enable Weapon Breaking
-  game.settings.register('knave2e', 'enableBreaking', {
-    name: "Enable Weapon Breaking",
+  // Enforce Weapon Breaking
+  game.settings.register('knave2e', 'enforceBreaking', {
+    name: "Enforce Weapon Breaking",
     hint: "Mark weapons as \"Broken\" after a power attack or natural 1. Defaults to True.",
     scope: "world",
     config: true,
@@ -90,9 +101,9 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Enable Maximum Relics
-  game.settings.register('knave2e', 'enableRelics', {
-    name: "Enable Maximum Blessing Restriction",
+  // Enforce Maximum Relics
+  game.settings.register('knave2e', 'enforceRelics', {
+    name: "Enforce Maximum Blessing Restriction",
     hint: "Prevent activating more blessings than a character's CHA. Defaults to True.",
     scope: "world",
     config: true,
@@ -101,10 +112,10 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Calculate Armor
-  game.settings.register('knave2e', 'calculateArmor', {
-    name: "Calculate Armor",
-    hint: "Calculate AP from worn armor, and AC from 11 + AP. Defaults to TRUE.",
+  // Automatic AC/AP
+  game.settings.register('knave2e', 'automaticArmor', {
+    name: "Automatic AC and AP",
+    hint: "Derive AP from equipped armor and AC from 11 + AP. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -112,10 +123,10 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Calculate Level
-  game.settings.register('knave2e', 'calculateLevel', {
-    name: "Calculate Level",
-    hint: "Calculate level from XP. Defaults to TRUE.",
+  // Automatic Level
+  game.settings.register('knave2e', 'automaticLevel', {
+    name: "Automatic Level",
+    hint: "Derive level from XP. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -123,10 +134,21 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Calculate Wounds
-  game.settings.register('knave2e', 'calculateWounds', {
-    name: "Calculate Maximum Wounds",
-    hint: "Calculate maximum wounds as 10 + CON. Defaults to TRUE.",
+  // Automatic Maximum Slots
+  game.settings.register('knave2e', 'automaticSlots', {
+    name: "Automatic Max Slots",
+    hint: "Derive maximum item slots from 10 + CON. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Automatic Maximum Wounds
+  game.settings.register('knave2e', 'automaticWounds', {
+    name: "Automatic Max Wounds",
+    hint: "Derive maximum wounds from 10 + CON. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
