@@ -57,10 +57,65 @@ Hooks.once('init', function () {
 
   // Set globals from game settings (TODO: localize)
 
-  // Armor Restriction
-  game.settings.register('knave2e', 'restrictArmor', {
-    name: "Enforce Armor Restriction",
-    hint: "Characters cannot equip multiple armor pieces of the same type. Defaults to TRUE.",
+  // Enable Armor Restriction
+  game.settings.register('knave2e', 'enableArmor', {
+    name: "Enable Armor Type Restriction",
+    hint: "Prevent equipping multiple armor pieces of the same type. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Enable Spellbook Casting
+  game.settings.register('knave2e', 'enableCasting', {
+    name: "Enable Spellbook Casting",
+    hint: "Mark spellbooks as \"Cast\" after use. Defaults to True.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Enable Weapon Breaking
+  game.settings.register('knave2e', 'enableBreaking', {
+    name: "Enable Weapon Breaking",
+    hint: "Mark weapons as \"Broken\" after a power attack or natural 1. Defaults to True.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Enable Maximum Relics
+  game.settings.register('knave2e', 'enableRelics', {
+    name: "Enable Maximum Blessing Restriction",
+    hint: "Prevent activating more blessings than a character's CHA. Defaults to True.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Calculate AC
+  game.settings.register('knave2e', 'calculateAC', {
+    name: "Calculate AC",
+    hint: "Calculate armor class as 11 + AP. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Calculate AP
+  game.settings.register('knave2e', 'calculateAP', {
+    name: "Calculate AP",
+    hint: "Calculate armor points from equipped armor. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -71,7 +126,7 @@ Hooks.once('init', function () {
   // Calculate Level
   game.settings.register('knave2e', 'calculateLevel', {
     name: "Calculate Level",
-    hint: "Automatically calculate level from XP. Defaults to TRUE.",
+    hint: "Calculate level from XP. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -82,7 +137,7 @@ Hooks.once('init', function () {
   // Calculate Wounds
   game.settings.register('knave2e', 'calculateWounds', {
     name: "Calculate Maximum Wounds",
-    hint: "Automatically calculate maximum wounds as 10 + CON. Defaults to TRUE.",
+    hint: "Calculate maximum wounds as 10 + CON. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -118,7 +173,7 @@ Hooks.once('init', function () {
     range: {
       min: 0,
       step: 1,
-      max: 1000
+      max: 500
     }
   });
 
@@ -134,7 +189,7 @@ Hooks.once('init', function () {
     range: {
       min: 0,
       step: 1,
-      max: 1000,
+      max: 500,
     }
   });
 
