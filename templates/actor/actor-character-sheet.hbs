@@ -80,15 +80,19 @@
                     <div class="armor flexrow no-wrap">
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <input class="resource-label content narrow transparent shield character" type="text"
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label content shield character">{{system.armorClass}}</div>
+                            {{else}}
+                            <input class="resource-label content narrow shield character" type="text"
                                 name="system.armorClass" value="{{system.armorClass}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                         <div class="flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
                             {{#if system.settings.automaticArmor}}
                             <div class="resource-label content circle character">{{system.armorPoints}}</div>
                             {{else}}
-                            <input class="resource-label content narrow transparent circle character" type="text"
+                            <input class="resource-label content narrow circle character" type="text"
                                 name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
                             {{/if}}
                         </div>

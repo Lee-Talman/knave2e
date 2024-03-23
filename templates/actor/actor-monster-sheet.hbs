@@ -63,14 +63,17 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <input class="resource-label transparent shield character" type="text"
+                            <input class="resource-label shield character" type="text"
                                 name="system.armorClass" value="{{system.armorClass}}" />
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
-                            <div class="resource-label content circle character">
-                                {{system.armorPoints}}
-                            </div>
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label content circle character">{{system.armorPoints}}</div>
+                            {{else}}
+                            <input class="resource-label content narrow circle character" type="text"
+                                name="system.armorPoints" value="{{system.armorPoints}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                     </div>
                 </div>

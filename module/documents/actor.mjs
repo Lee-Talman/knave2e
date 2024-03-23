@@ -76,10 +76,6 @@ export default class Knave2eActor extends Actor {
       if (actorData.type !== 'monster') return;
   
       const systemData = actorData.system;
-
-      if (game.settings.get('knave2e', 'automaticArmor')){
-        systemData.armorPoints = systemData.armorClass - 11;
-      }
       }
 
   /**
