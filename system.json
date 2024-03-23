@@ -34,56 +34,6 @@
       "flags": {}
     }
   ],
-  "packs": [
-    {
-      "name": "monsters",
-      "label": "Monsters",
-      "type": "Actor",
-      "system": "knave2e",
-      "path": "packs/monsters",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    },
-    {
-      "name": "items",
-      "label": "Weapons",
-      "type": "Item",
-      "system": "knave2e",
-      "path": "packs/items",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    },
-    {
-      "name": "actors",
-      "label": "Recruits",
-      "type": "Actor",
-      "system": "knave2e",
-      "path": "packs/actors",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    },
-    {
-      "name": "spells",
-      "label": "Spells",
-      "type": "Item",
-      "system": "knave2e",
-      "path": "packs/spells",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      },
-      "flags": {}
-    }
-  ],
   "manifest": "https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json",
   "download": "https://github.com/Lee-Talman/knave2e/releases/download/0.2.2/system.zip",
   "background": "systems/knave2e/assets/anvil-bg.png",
