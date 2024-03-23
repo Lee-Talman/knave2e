@@ -64,10 +64,18 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.slots.value = usedSlots;
         systemData.armorPoints = armorPoints;
         systemData.armorClass = armorClass;
-        systemData.level = currentLevel;
         systemData.xp.progress = progress;
         systemData.blessings.value = activeBlessings;
         systemData.companions.value = Math.min(systemData.companions.value, systemData.companions.max);
+
+        // Updates based on user settings
+
+        if (game.settings.get('knave2e', 'calculateLevel')){
+            systemData.level = currentLevel;
+        }
+        else {
+            systemData.xp.progress = 0;
+        }
 
         this._updateLight(context);
     }
@@ -681,45 +689,46 @@ export default class Knave2eActorSheet extends ActorSheet {
     _updateLevelAndXP(xp) {
         let currentLevel = 1;
         let progress = 0;
+        const base = game.settings.get('knave2e', 'baseLevelXP');
 
         switch (true) {
-            case xp >= 0 && xp < 2000:
+            case xp >= 0 && xp < base:
                 currentLevel = 1;
                 progress = Math.floor((xp / 2000) * 100);
                 break;
-            case xp >= 2000 && xp < 4000:
+            case xp >= base && xp < base * 2:
                 currentLevel = 2;
                 progress = Math.floor(((xp - 2000) / 2000) * 100);
                 break;
-            case xp >= 4000 && xp < 8000:
+            case xp >= base * 2 && xp < base * 4:
                 currentLevel = 3;
                 progress = Math.floor(((xp - 4000) / 4000) * 100);
                 break;
-            case xp >= 8000 && xp < 16000:
+            case xp >= base * 4 && xp < base * 8:
                 currentLevel = 4;
                 progress = Math.floor(((xp - 8000) / 8000) * 100);
                 break;
-            case xp >= 16000 && xp < 32000:
+            case xp >= base * 8 && xp < base * 16:
                 currentLevel = 5;
                 progress = Math.floor(((xp - 16000) / 16000) * 100);
                 break;
-            case xp >= 32000 && xp < 64000:
+            case xp >= base * 16 && xp < base * 32:
                 currentLevel = 6;
                 progress = Math.floor(((xp - 32000) / 32000) * 100);
                 break;
-            case xp >= 64000 && xp < 125000:
+            case xp >= base * 32 && xp < base * 62.5:
                 currentLevel = 7;
                 progress = Math.floor(((xp - 64000) / 61000) * 100);
                 break;
-            case xp >= 125000 && xp < 250000:
+            case xp >= base * 62.5 && xp < 125:
                 currentLevel = 8;
                 progress = Math.floor(((xp - 125000) / 125000) * 100);
                 break;
-            case xp >= 250000 && xp < 500000:
+            case xp >= base * 125 && xp < 250:
                 currentLevel = 9;
                 progress = Math.floor(((xp - 250000) % 250000) * 100);
                 break;
-            case xp >= 500000:
+            case xp >= base * 250:
                 currentLevel = 10;
                 progress = 100;
                 break;
