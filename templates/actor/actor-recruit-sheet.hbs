@@ -90,13 +90,13 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <div class="resource-label content shield character">{{system.armorClass}}</div>
+                            <input class="resource-label content narrow transparent shield character" type="text" name="system.armorClass"
+                                value="{{system.armorClass}}" data-dtype="Number" />
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
-                            <div class="resource-label content circle character">
-                                {{system.armorPoints}}
-                            </div>
+                            <input class="resource-label content narrow transparent shield character" type="text" name="system.armorPoints"
+                                value="{{system.armorPoints}}" data-dtype="Number" />
                         </div>
                     </div>
                 </div>
