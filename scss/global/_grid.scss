@@ -432,6 +432,7 @@
       right: 0;
       bottom: 0;
       transform: rotate(180deg);
+      max-height: 100%;
 
       &.hitPoints {
         background-color: #7cd000;
@@ -486,6 +487,7 @@
 
     .progress-fill {
       background-color: var(--color-border-highlight);
+      max-width: 100%;
 
       &.hitPoints {
         background-color: #7cd000;
