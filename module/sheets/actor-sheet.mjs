@@ -719,39 +719,39 @@ export default class Knave2eActorSheet extends ActorSheet {
         switch (true) {
             case xp >= 0 && xp < base:
                 currentLevel = 1;
-                progress = Math.floor((xp / 2000) * 100);
+                progress = Math.floor((xp / base) * 100);
                 break;
             case xp >= base && xp < base * 2:
                 currentLevel = 2;
-                progress = Math.floor(((xp - 2000) / 2000) * 100);
+                progress = Math.floor(((xp - base) / base) * 100);
                 break;
             case xp >= base * 2 && xp < base * 4:
                 currentLevel = 3;
-                progress = Math.floor(((xp - 4000) / 4000) * 100);
+                progress = Math.floor(((xp - base * 2) / (base * 2)) * 100);
                 break;
             case xp >= base * 4 && xp < base * 8:
                 currentLevel = 4;
-                progress = Math.floor(((xp - 8000) / 8000) * 100);
+                progress = Math.floor(((xp - base * 4) / (base * 4)) * 100);
                 break;
             case xp >= base * 8 && xp < base * 16:
                 currentLevel = 5;
-                progress = Math.floor(((xp - 16000) / 16000) * 100);
+                progress = Math.floor(((xp - base * 8) / (base * 8)) * 100);
                 break;
             case xp >= base * 16 && xp < base * 32:
                 currentLevel = 6;
-                progress = Math.floor(((xp - 32000) / 32000) * 100);
+                progress = Math.floor(((xp - base * 16) / (base * 16)) * 100);
                 break;
             case xp >= base * 32 && xp < base * 62.5:
                 currentLevel = 7;
-                progress = Math.floor(((xp - 64000) / 61000) * 100);
+                progress = Math.floor(((xp - base * 32) / (base * 32)) * 100);
                 break;
-            case xp >= base * 62.5 && xp < 125:
+            case xp >= base * 62.5 && xp < base * 125:
                 currentLevel = 8;
-                progress = Math.floor(((xp - 125000) / 125000) * 100);
+                progress = Math.floor(((xp - base * 62.5) / (base * 62.5)) * 100);
                 break;
-            case xp >= base * 125 && xp < 250:
+            case xp >= base * 125 && xp < base * 250:
                 currentLevel = 9;
-                progress = Math.floor(((xp - 250000) % 250000) * 100);
+                progress = Math.floor(((xp - base * 125) / (base * 125)) * 100);
                 break;
             case xp >= base * 250:
                 currentLevel = 10;
