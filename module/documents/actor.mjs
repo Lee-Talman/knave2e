@@ -30,10 +30,21 @@ export default class Knave2eActor extends Actor {
     const systemData = actorData.system;
 
     // Define Maximum Values
-    // systemData.armorClass = (systemData.armorPoints + 11);
-    systemData.blessings.max = systemData.abilities.charisma.value;
-    systemData.companions.max = systemData.abilities.charisma.value;
-    systemData.spells.max = systemData.abilities.intelligence.value;
+    
+    if (game.settings.get('knave2e', 'automaticBlessings')){
+      systemData.blessings.max = systemData.abilities.charisma.value;
+    }
+    
+    
+    if (game.settings.get('knave2e', 'automaticCompanions')){
+      systemData.companions.max = systemData.abilities.charisma.value;
+    }
+    
+    
+    if (game.settings.get('knave2e', 'automaticSpells')){
+      systemData.spells.max = systemData.abilities.intelligence.value;
+    }
+    
 
     if (game.settings.get('knave2e', 'automaticArmor')) {
       systemData.wounds.max = (systemData.abilities.constitution.value + 10);
@@ -47,11 +58,14 @@ export default class Knave2eActor extends Actor {
     if (actorData.type !== 'recruit') return;
 
     const systemData = actorData.system;
-    if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare'){
-      systemData.spells.max = 1;
-    }
-    else {
-      systemData.spells.max = 0;
+
+    if (game.settings.get('knave2e', 'automaticSpells')) {
+      if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare'){
+        systemData.spells.max = 1;
+      }
+      else {
+        systemData.spells.max = 0;
+      }
     }
   }
 
@@ -62,8 +76,10 @@ export default class Knave2eActor extends Actor {
       if (actorData.type !== 'monster') return;
   
       const systemData = actorData.system;
-      systemData.armorPoints = systemData.armorClass - 11;
 
+      if (game.settings.get('knave2e', 'automaticArmor')){
+        systemData.armorPoints = systemData.armorClass - 11;
+      }
       }
 
   /**

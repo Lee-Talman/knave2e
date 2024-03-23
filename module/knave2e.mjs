@@ -123,10 +123,10 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Automatic Level
-  game.settings.register('knave2e', 'automaticLevel', {
-    name: "Automatic Level",
-    hint: "Derive level from XP. Defaults to TRUE.",
+  // Automatic Blessings
+  game.settings.register('knave2e', 'automaticBlessings', {
+    name: "Automatic Max Blessings",
+    hint: "Derive maximum active blessings from CHA. Defaults to TRUE.",
     scope: "world",
     config: true,
     type: Boolean,
@@ -134,7 +134,29 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Automatic Maximum Slots
+  // Automatic Companions
+  game.settings.register('knave2e', 'automaticCompanions', {
+    name: "Automatic Max Companions",
+    hint: "Derive maximum lifetime companions from CHA. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Automatic Level
+  game.settings.register('knave2e', 'automaticLevel', {
+    name: "Automatic Level",
+    hint: "Derive current level from XP. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Automatic Slots
   game.settings.register('knave2e', 'automaticSlots', {
     name: "Automatic Max Slots",
     hint: "Derive maximum item slots from 10 + CON. Defaults to TRUE.",
@@ -145,7 +167,18 @@ Hooks.once('init', function () {
     requiresReload: true,
   });
 
-  // Automatic Maximum Wounds
+  // Automatic Spells
+  game.settings.register('knave2e', 'automaticSpells', {
+    name: "Automatic Max Spells",
+    hint: "Derive maximum spells from INT. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
+  // Automatic Wounds
   game.settings.register('knave2e', 'automaticWounds', {
     name: "Automatic Max Wounds",
     hint: "Derive maximum wounds from 10 + CON. Defaults to TRUE.",

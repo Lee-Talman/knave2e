@@ -42,7 +42,19 @@ export default class Knave2eActorSheet extends ActorSheet {
         // Add roll data for TinyMCE editors.
         context.rollData = context.actor.getRollData();
 
+        // Add enriched HTML for text editors
         context.system.enrichedHTML = await TextEditor.enrichHTML(context.system.description);
+
+        // Add global knave2e settings for sheet logic
+        context.system.settings = {}
+        
+        for (let [key, value] of game.settings.settings) {
+            if (key.includes('knave2e')) {
+                let filteredKey = key.replace('knave2e.','');
+                let filteredValue = game.settings.get('knave2e', filteredKey);
+                context.system.settings[filteredKey] = filteredValue;
+            }
+          }
 
         //console.log(context);
         return context;
@@ -54,7 +66,6 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         const { hitPointsProgress, woundsProgress } = this._updateHealth(context);
         const { maxSlots, usedSlots } = this._updateSlots(context);
-        // const { armorPoints, armorClass } = this._updateArmor(context);
 
         const activeBlessings = this._updateBlessings(context);
 
@@ -62,9 +73,6 @@ export default class Knave2eActorSheet extends ActorSheet {
         systemData.wounds.progress = woundsProgress;
         systemData.slots.max = maxSlots;
         systemData.slots.value = usedSlots;
-        // systemData.armorPoints = armorPoints;
-        // systemData.armorClass = armorClass;
-        // systemData.xp.progress = progress;
         systemData.blessings.value = activeBlessings;
         systemData.companions.value = Math.min(systemData.companions.value, systemData.companions.max);
 
@@ -174,7 +182,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         let armorPoints = 0;
         let armorClass = 11;
 
-        if (game.settings.get('knave2e', 'enableArmor')) {
+        if (game.settings.get('knave2e', 'enforceArmor')) {
             const uniqueCategories = [];
             armorPoints = 0;
 
