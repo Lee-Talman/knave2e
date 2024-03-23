@@ -412,6 +412,13 @@
   grid-template-rows: 1fr;
   gap: 0px 0px;
 
+  .progress-bar {
+    .progress-input:focus {
+      box-shadow: 0 0 7px var(--color-shadow-primary);
+      outline: 1px solid transparent;
+    }
+  }
+
   &.vertical {
     width: 50px;
     max-width: 50px;
@@ -453,6 +460,7 @@
       border-color: #ffffff00;
       border: none;
       text-align: center;
+      font-weight: normal;
     }
   }
 
@@ -508,6 +516,7 @@
       border-color: #ffffff00;
       border: none;
       text-align: center;
+      font-weight: normal;
     }
   }
 }
