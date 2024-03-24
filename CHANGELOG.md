@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 0.3.0
+- Added options to disable automation and rule-enforcement features in system settings
+- Added options to adjust consumable weights and base level XP in system settings
+- PCs and recruits can only equip one armor piece of a given type at once
+- Added quantity field to equipment item sheet
+- Fixed equipment item slots not rounding to nearest integer by default
+- Added dynamic inputs on actor sheets based on game settings
+- Added icon to monster attacks on monster sheets
+- Fixed maximum HP/wounds bar vertical rendering
+- Standardized font weight and background color across static fields and user inputs
+
 ## 0.2.2
 - All attacks roll their description (not just relics)
 - Monster sheets display AP and can roll reverse AP

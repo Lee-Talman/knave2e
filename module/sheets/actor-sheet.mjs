@@ -118,7 +118,6 @@ export default class Knave2eActorSheet extends ActorSheet {
             systemData.slots.value = Number(systemData.slots.value.toPrecision(2));
             systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
         }
-
     }
 
     _prepareRecruitData(context) {
@@ -130,7 +129,7 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         // Handle Recruit Details
         if (game.settings.get('knave2e', 'automaticRecruits')) {
-           this._updateRecruitCategoryDetails(context); 
+            this._updateRecruitCategoryDetails(context);
         }
 
         // Handle Armor
@@ -149,7 +148,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
 
         // Handle Slots
-        if (game.settings.get('knave2e', 'automaticSlots')) {
+        if (game.settings.get('knave2e', 'automaticRecruits')) {
             const { maxSlots, usedSlots } = this._updateTotalSlots(context);
             systemData.slots.max = maxSlots;
             systemData.slots.value = usedSlots;
@@ -260,6 +259,8 @@ export default class Knave2eActorSheet extends ActorSheet {
                     armorPoints = Math.max(armorPoints + i.system.armorPoints, 0);
                     return true;
                 }
+                const item = this.actor.items.get(i._id)
+                item.update({ "system.equipped": false });
                 return false;
             });
 

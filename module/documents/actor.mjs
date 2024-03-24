@@ -2,10 +2,10 @@ export default class Knave2eActor extends Actor {
 
   async _preCreate(data) {
     if (data.type === 'character' || data.type === 'recruit') {
-      this.updateSource({"prototypeToken.actorLink" : true});
+      this.updateSource({ "prototypeToken.actorLink": true });
     }
     super._preCreate(data)
-}
+  }
 
   prepareData() {
     super.prepareData();
@@ -29,6 +29,18 @@ export default class Knave2eActor extends Actor {
 
     const systemData = actorData.system;
 
+    if (game.settings.get('knave2e', 'automaticBlessings')) {
+      systemData.blessings.max = systemData.abilities.charisma.value;
+    }
+
+    if (game.settings.get('knave2e', 'automaticCompanions')) {
+      systemData.companions.max = systemData.abilities.charisma.value;
+    }
+
+    if (game.settings.get('knave2e', 'automaticSpells')) {
+      systemData.spells.max = systemData.abilities.intelligence.value;
+    }
+
   }
 
   _prepareRecruitData(actorData) {
@@ -36,8 +48,8 @@ export default class Knave2eActor extends Actor {
 
     const systemData = actorData.system;
 
-    if (game.settings.get('knave2e', 'automaticSpells')) {
-      if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare'){
+    if (game.settings.get('knave2e', 'automaticRecruits')) {
+      if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare') {
         systemData.spells.max = 1;
       }
       else {
@@ -46,14 +58,14 @@ export default class Knave2eActor extends Actor {
     }
   }
 
-    /**
-   * Prepare Monster-type specific data.
-   */
-    _prepareMonsterData(actorData) {
-      if (actorData.type !== 'monster') return;
-  
-      const systemData = actorData.system;
-      }
+  /**
+ * Prepare Monster-type specific data.
+ */
+  _prepareMonsterData(actorData) {
+    if (actorData.type !== 'monster') return;
+
+    const systemData = actorData.system;
+  }
 
   /**
  * Prepare Vehicle-type specific data.
