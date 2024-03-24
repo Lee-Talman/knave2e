@@ -47,16 +47,6 @@ The game system provides many other similar automations:
 - [x] Light sources can be customized and activated from a character's inventory
 - [x] Characters can perform a standard or "safe haven" rest to restore Wounds
 
-### Future Features:
-- [ ] GMs can perform a rest on all characters at once
-- [ ] Items can be labeled as potions and given alchemical effects
-- [ ] Chaos spellbooks gain random effects
-- [ ] Characters/Recruits/Monsters can be randomly generated at any level
-- [ ] Support for Vehicles and Containers
-- [ ] Add modifiers and items based on Careers
-- [ ] Configuration settings available in Foundry system menu
-- [ ] Spell/Potion builder
-
 ## Bug Reporting
 Knave Second Edition for FoundryVTT is still in a beta stage, and is likely to have many missing features, bugs, and edge cases. Report any issues (preferably with `F12 > Inspect Editor` screenshots) in the [Issues](https://github.com/Lee-Talman/knave2e/issues) page.
 
