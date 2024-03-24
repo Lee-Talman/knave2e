@@ -1,37 +1,5 @@
 export default class Knave2eItem extends Item {
 
-  // async _preCreate(data, options, user) {
-  //   await super._preCreate(data, options, user);
-  
-  //   const type = this.type;
-  //   let imagePath = ''
-  
-  //   switch(type) {
-  //     case 'weapon':
-        
-  //   }
-  
-  //   this.updateSource({'img' : imagePath});
-  // }
-
-  prepareData() {
-    super.prepareData();
-  }
-
-  prepareDerivedData() {
-    const itemData = this;
-
-    this._prepareWeaponData(itemData);
-
-  }
-
-  _prepareWeaponData(itemData) {
-    if (itemData.type !== 'weapon') return;
-
-    // this.damageRoll = this._calculateDamageRoll(itemData);
-  }
-
-
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
    * @private
