@@ -61,41 +61,33 @@ export default class Knave2eActorSheet extends ActorSheet {
     }
 
     _prepareCharacterData(context) {
-
         const systemData = context.system;
 
+        // Handle Armor
+        if (game.settings.get('knave2e', 'automaticArmor')) {
+            const { armorPoints, armorClass } = this._updateArmor(context);
+            systemData.armorPoints = armorPoints;
+            systemData.armorClass = armorClass;
+        }
+
+        // Handle Blessings
+        systemData.blessings.value = this._updateBlessings(context);
+
+        // Handle Companions
+        if (game.settings.get('knave2e', 'enforceCompanions')) {
+            if (systemData.companions.value > systemData.companions.max) {
+                systemData.companions.value = Math.min(systemData.companions.value, systemData.companions.max);
+            }
+        }
+
+        // Handle HP & Wounds
         const { hitPointsProgress, woundsProgress } = this._updateHealth(context);
-        const { maxSlots, usedSlots } = this._updateSlots(context);
-
-        const activeBlessings = this._updateBlessings(context);
-
         systemData.hitPoints.progress = hitPointsProgress;
         systemData.wounds.progress = woundsProgress;
-        systemData.slots.max = maxSlots;
-        systemData.slots.value = usedSlots;
-        systemData.blessings.value = activeBlessings;
-        systemData.companions.value = Math.min(systemData.companions.value, systemData.companions.max);
 
-        // Updates based on user settings
-
-        // Automatic AC, AP, and Armor Types
-        if (game.settings.get('knave2e', 'automaticArmor')) {
-            const { armorPoints, armorClass } = this._updateArmor(context);
-            systemData.armorPoints = armorPoints;
-            systemData.armorClass = armorClass;
-        }
-
-        // Automatic AC, AP, and Armor Types
-        if (game.settings.get('knave2e', 'automaticArmor')) {
-            const { armorPoints, armorClass } = this._updateArmor(context);
-            systemData.armorPoints = armorPoints;
-            systemData.armorClass = armorClass;
-        }
-
-
-        // Automatic Level & XP
-        const { currentLevel, progress } = this._updateLevelAndXP(systemData.xp.value);
+        // Handle Level/XP
         if (game.settings.get('knave2e', 'automaticLevel')) {
+            const { currentLevel, progress } = this._updateLevelAndXP(systemData.xp.value);
             systemData.level = currentLevel;
             systemData.xp.progress = progress;
         }
@@ -103,7 +95,30 @@ export default class Knave2eActorSheet extends ActorSheet {
             systemData.xp.progress = 0;
         }
 
-        this._updateLight(context);
+        // Handle Light
+        if (game.settings.get('knave2e', 'automaticLight')) {
+            this._updateLight(context);
+        }
+
+        // Handle Slots
+        if (game.settings.get('knave2e', 'automaticSlots')) {
+            const { maxSlots, usedSlots } = this._updateTotalSlots(context);
+            systemData.slots.max = maxSlots;
+            systemData.slots.value = usedSlots;
+        }
+        else {
+            systemData.slots.value = this._updateUsedSlots(context);
+        }
+
+        if (game.settings.get('knave2e', 'enforceIntegerSlots')) {
+            systemData.slots.value = Math.ceil(systemData.slots.value);
+            systemData.slots.max = Math.ceil(systemData.slots.max);
+        }
+        else {
+            systemData.slots.value = Number(systemData.slots.value.toPrecision(2));
+            systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
+        }
+
     }
 
     _prepareRecruitData(context) {
@@ -113,30 +128,51 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         const systemData = context.system;
 
-        const { maxSlots, usedSlots } = this._updateSlots(context);
-        const hitPointsProgress = this._updateHealth(context);
+        // Handle Recruit Details
+        if (game.settings.get('knave2e', 'automaticRecruits')) {
+           this._updateRecruitCategoryDetails(context); 
+        }
 
-        systemData.hitPoints.progress = hitPointsProgress;
-        systemData.slots.max = maxSlots;
-        systemData.slots.value = usedSlots;
-
-        // Automatic AC, AP, and Armor Types
+        // Handle Armor
         if (game.settings.get('knave2e', 'automaticArmor')) {
             const { armorPoints, armorClass } = this._updateArmor(context);
             systemData.armorPoints = armorPoints;
             systemData.armorClass = armorClass;
         }
 
-        // this._updateRecruitCategoryDetails(context);
-        this._updateLight(context);
+        // Handle HP
+        systemData.hitPoints.progress = this._updateHealth(context);
+
+        // Handle Light
+        if (game.settings.get('knave2e', 'automaticLight')) {
+            this._updateLight(context);
+        }
+
+        // Handle Slots
+        if (game.settings.get('knave2e', 'automaticSlots')) {
+            const { maxSlots, usedSlots } = this._updateTotalSlots(context);
+            systemData.slots.max = maxSlots;
+            systemData.slots.value = usedSlots;
+        }
+        else {
+            systemData.slots.value = this._updateUsedSlots(context);
+        }
+
+        if (game.settings.get('knave2e', 'enforceIntegerSlots')) {
+            systemData.slots.value = Math.ceil(systemData.slots.value);
+            systemData.slots.max = Math.ceil(systemData.slots.max);
+        }
+        else {
+            systemData.slots.value = Number(systemData.slots.value.toPrecision(2));
+            systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
+        }
     }
 
     _prepareMonsterData(context) {
 
         const systemData = context.system;
 
-        const hitPointsProgress = this._updateHealth(context);
-        systemData.hitPoints.progress = hitPointsProgress;
+        systemData.hitPoints.progress = this._updateHealth(context);
 
         // Automatic AC, AP, and Armor Types
         if (game.settings.get('knave2e', 'automaticArmor')) {
@@ -144,49 +180,69 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
     }
 
-    _updateSlots(context) {
-
+    _updateTotalSlots(context) {
         const systemData = context.system;
         let maxSlots;
 
         // Check max slots
-        if (this.actor.type === "character") {
-            maxSlots = 10 + systemData.abilities["constitution"].value - (systemData.wounds.max - systemData.wounds.value);
+        if (game.settings.get('knave2e', 'automaticSlots')) {
+            if (this.actor.type === "character") {
+                maxSlots = 10 + systemData.abilities["constitution"].value - (systemData.wounds.max - systemData.wounds.value);
+            }
+            else if (this.actor.type === "recruit") {
+                maxSlots = 10;
+            }
         }
-        else if (this.actor.type === "recruit") {
-            maxSlots = 10;
+        else {
+            maxSlots = systemData.slots.max;
         }
 
+        const usedSlots = this._updateUsedSlots(context);
+
+        if (game.settings.get('knave2e', 'enforceDrop')) {
+            // If slots > max, start dropping items...
+            if (usedSlots > maxSlots) {
+                const overflowSlots = usedSlots - maxSlots;
+                let slotCounter = 0; // count up to systemData.slots.value to derive how many discrete items to drop
+                for (let i = 0; i < Math.min(overflowSlots, context.items.length); i++) {
+                    const currentItem = context.items[i];
+                    currentItem.system.dropped = true;
+
+                    // Make sure to account for multi-slot items
+                    slotCounter = slotCounter + currentItem.system.slots;
+                    if (slotCounter >= overflowSlots) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return { maxSlots, usedSlots }
+    }
+
+    _updateUsedSlots(context) {
+        const systemData = context.system;
         // Sum item slots...
         const itemSlots = context.items.reduce((total, item) => {
             return total + item.system.slots;
         }, 0);
 
+        const coinsPerSlot = game.settings.get('knave2e', 'coinsPerSlot');
+        const arrowsPerSlot = game.settings.get('knave2e', 'arrowsPerSlot');
+        const bulletsPerSlot = game.settings.get('knave2e', 'slingBulletsPerSlot');
+
         // Sum coin slots
-        const coinSlots = Math.ceil(systemData.coins / 500);
+        const coinSlots = coinsPerSlot === 0 ? 0 : systemData.coins / coinsPerSlot
 
         // Sum ammo slots
-        const ammoSlots = Math.ceil(systemData.ammo.arrow / CONFIG.SYSTEM.AMMO.CATEGORIES["arrow"].quantityPerSlot) + Math.ceil(systemData.ammo.bullet / CONFIG.SYSTEM.AMMO.CATEGORIES["bullet"].quantityPerSlot);
+        const arrowSlots = arrowsPerSlot === 0 ? 0 : systemData.ammo.arrow / arrowsPerSlot;
+        const bulletSlots = bulletsPerSlot === 0 ? 0 : systemData.ammo.bullet / bulletsPerSlot;
+        const ammoSlots = arrowSlots + bulletSlots;
 
         // Add up used slots
         const usedSlots = itemSlots + coinSlots + ammoSlots;
 
-        // If slots > max, start dropping items...
-        if (usedSlots > maxSlots) {
-            const overflowSlots = usedSlots - maxSlots;
-            let slotCounter = 0; // count up to systemData.slots.value to derive how many discrete items to drop
-            for (let i = 0; i < Math.min(overflowSlots, context.items.length); i++) {
-                const currentItem = context.items[i];
-                currentItem.system.dropped = true;
-
-                // Make sure to account for multi-slot items
-                slotCounter = slotCounter + currentItem.system.slots;
-                if (slotCounter >= overflowSlots) {
-                    break;
-                }
-            }
-        }
-        return { maxSlots, usedSlots }
+        return usedSlots
     }
 
     _updateArmor(context) {
@@ -457,20 +513,31 @@ export default class Knave2eActorSheet extends ActorSheet {
             case "equip":
                 return item.update({ "system.equipped": !item.system.equipped })
             case "blessing":
-                if (item.system.relic.isActive) {
-                    this.actor.update({
-                        "system.blessings.value": systemData.blessings.value - 1
-                    });
-                    return item.update({ "system.relic.isActive": false })
+                if (game.settings.get('knave2e', 'enforceBlessings')) {
+                    if (item.system.relic.isActive) {
+                        this.actor.update({
+                            "system.blessings.value": systemData.blessings.value - 1
+                        });
+                        return item.update({ "system.relic.isActive": false })
+                    }
+                    else if (systemData.blessings.value < systemData.blessings.max) {
+                        this.actor.update({
+                            "system.blessings.value": systemData.blessings.value + 1
+                        });
+                        return item.update({ "system.relic.isActive": !item.system.relic.isActive })
+                    }
+                    else if (systemData.blessings.value >= systemData.blessings.max) {
+                        Dialog.prompt({
+                            title: `${game.i18n.localize("KNAVE2E.BlessingDialogTitle")}`,
+                            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.BlessingDialogContentMax")}`,
+                            label: "OK",
+                            callback: (html) => { return }
+                        })
+                        return
+                    }
                 }
-                else if (systemData.blessings.value < systemData.blessings.max) {
-                    this.actor.update({
-                        "system.blessings.value": systemData.blessings.value + 1
-                    });
-                    return item.update({ "system.relic.isActive": !item.system.relic.isActive })
-                }
-                else if (systemData.blessings.value >= systemData.blessings.max) {
-                    return
+                else {
+                    return item.update({ "system.relic.isActive": !item.system.relic.isActive });
                 }
             case "light":
                 return item.update({ "system.lit": !item.system.lit })
@@ -741,50 +808,6 @@ export default class Knave2eActorSheet extends ActorSheet {
             return r;
         }
     }
-
-    // async _onRecruitCategory(event) {
-    //     if (game.settings.get('knave2e', 'automaticRecruits')) {
-    //         // event.preventDefault();
-    //         const systemData = this.actor.system;
-    //         const category = CONFIG.SYSTEM.RECRUIT.CATEGORIES[systemData.category];
-
-    //         if (systemData.category === "hireling" || systemData.category === "mercenary") {
-    //             systemData.costPerMonth = category.costPerMonth;
-    //             systemData.morale = category.morale;
-    //             systemData.rarity = "KNAVE2E.Common";
-    //             systemData.spells.max = 0;
-    //         }
-    //         else if (systemData.category === "expert") {
-    //             switch (systemData.rarity) {
-    //                 case "KNAVE2E.Common":
-    //                     systemData.costPerMonth = 600;
-    //                     systemData.morale = category.morale;
-    //                     systemData.rarity = "KNAVE2E.Common";
-    //                     systemData.spells.max = 0;
-    //                     break;
-    //                 case "KNAVE2E.Uncommon":
-    //                     systemData.costPerMonth = 1200;
-    //                     systemData.morale = category.morale;
-    //                     systemData.rarity = "KNAVE2E.Uncommon";
-    //                     systemData.spells.max = 0;
-    //                     break;
-    //                 case "KNAVE2E.Rare":
-    //                     systemData.costPerMonth = 2400;
-    //                     systemData.morale = category.morale;
-    //                     systemData.rarity = "KNAVE2E.Rare";
-    //                     systemData.spells.max = 1;
-    //                     break;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // async _onRecruitRarity(event) {
-    //     if (game.settings.get('knave2e', 'automaticRecruits')) {
-    //         // event.preventDefault();
-    //         this._onRecruitCategory();
-    //     }
-    // }
 
     _updateLevelAndXP(xp) {
         let currentLevel = 1;

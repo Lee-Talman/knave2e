@@ -2,7 +2,7 @@
   // font-family: $font-sheet-title;
   font-weight: bold;
   text-transform: uppercase;
-  overflow: hidden;
+  // overflow: hidden;
   white-space: nowrap;
 
   &.circle, 
@@ -20,6 +20,8 @@
     font-size:smaller;
   }
 }
+
+
 
 .circle {
   border: 2px solid black;
