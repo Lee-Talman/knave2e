@@ -63,14 +63,17 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <input class="resource-label transparent shield character" type="text"
-                                name="system.armorClass" value="{{system.armorClass}}" />
+                            <input class="resource-label shield character" type="text" name="system.armorClass"
+                                value="{{system.armorClass}}" />
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
-                            <div class="resource-label content circle character">
-                                {{system.armorPoints}}
-                            </div>
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label circle character">{{system.armorPoints}}</div>
+                            {{else}}
+                            <input class="resource-label circle character" type="text" name="system.armorPoints"
+                                value="{{system.armorPoints}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -100,7 +103,9 @@
                 </li>
                 {{#each items as |item id|}}
                 <li class="item grid grid-12col" data-item-id="{{item._id}}">
-                    <a class="item-name detail grid-span-6" style="margin-left:2px;">{{item.name}}</a>
+                    <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
+                                title="{{item.name}}" width="36" height="36" /></a></div>
+                    <a class="item-name detail grid-span-5" style="margin-left:2px;">{{item.name}}</a>
                     <div class="item-buttons grid-span-2 flexrow flex-group-center">
                         <button class="item-button attack sheet" data-action="attack" type="button"
                             title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>

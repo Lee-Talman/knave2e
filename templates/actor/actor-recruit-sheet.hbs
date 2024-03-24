@@ -28,8 +28,12 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center morale">
                             <a class="resource-label actor-button morale">{{localize "KNAVE2E.Morale"}}</a>
+                            {{#if system.settings.automaticRecruits}}
+                            <div class="resource-label character">{{system.morale}}</div>
+                            {{else}}
                             <input class="resource-label content narrow" type="text" name="system.morale"
                                 value="{{system.morale}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center movement">
                             <div class="resource-label">{{localize "KNAVE2E.Movement"}}</div>
@@ -45,14 +49,14 @@
                     <div class="grid grid-4col no-wrap flex-between flex-group-center info-2" style="margin-top: 5px;">
                         <div class="grid-span-1 flexcol no-wrap flex-group-center type">
                             <div class="resource-label">{{localize "KNAVE2E.Type"}}</div>
-                            <select name="system.category">
+                            <select class="actor-select category" name="system.category">
                                 {{selectOptions recruitCategories selected=system.category localize=true}}
                             </select>
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center rarity">
                             <div class="resource-label">{{localize "KNAVE2E.Rarity"}}</div>
                             {{#if (eq system.category "expert")}}
-                            <select name="system.rarity">
+                            <select class="actor-select rarity" name="system.rarity">
                                 {{selectOptions rarityCategories selected=system.rarity localize=true}}
                             </select>
                             {{else}}
@@ -62,13 +66,16 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center cost">
                             <div class="resource-label">{{localize "KNAVE2E.Cost"}}</div>
-                            <div class="resource-label content narrow" name="system.costPerMonth">
-                                {{system.costPerMonth}}</div>
+                            {{#if system.settings.automaticRecruits}}
+                            <div class="resource-label character">{{system.costPerMonth}}</div>
+                            {{else}}
+                            <input class="resource-label content narrow" type="text" name="system.costPerMonth"
+                                value="{{system.costPerMonth}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center rest">
                             <button class="resource-label rounded transparent narrow actor-button rest"
-                                type="button">{{localize
-                                "KNAVE2E.Rest"}}</button>
+                                type="button">{{localize "KNAVE2E.Rest"}}</button>
                         </div>
                     </div>
                     <div class="grid grid-4col no-wrap flex-between flex-group-center info-3" style="margin-top: 5px;">
@@ -90,13 +97,21 @@
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <div class="resource-label content shield character">{{system.armorClass}}</div>
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label shield character">{{system.armorClass}}</div>
+                            {{else}}
+                            <input class="resource-label shield character" type="text" name="system.armorClass"
+                                value="{{system.armorClass}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
-                            <div class="resource-label content circle character">
-                                {{system.armorPoints}}
-                            </div>
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label circle character">{{system.armorPoints}}</div>
+                            {{else}}
+                            <input class="resource-label circle character" type="text" name="system.armorPoints"
+                                value="{{system.armorPoints}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -108,19 +123,35 @@
                     <div class="grid grid-3col flex-group-center">
                         <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Slots"}}</div>
                         <i class="fa-solid fa-weight-hanging grid-span-1 align-right"></i>
+                        {{#if system.settings.automaticRecruits}}
                         <div class="resource-label grid-span-1 align-center">{{system.slots.value}} /
                             {{system.slots.max}}</div>
+                        {{else}}
+                        <div class="resource-label grid-span-1 align-center">{{system.slots.value}}
+                            <span>/</span>
+                            <input class="resource-label content character" type="text" name="system.slots.max"
+                                value="{{system.slots.max}}" data-dtype="Number" />
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="grid grid-3col flex-group-center">
                         <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Spells"}}</div>
                         <i class="fa-solid fa-book grid-span-1 align-right"></i>
+                        {{#if system.settings.automaticRecruits}}
                         <div class="resource-label grid-span-1 align-center">{{system.spells.value}} /
                             {{system.spells.max}}</div>
+                        {{else}}
+                        <div class="resource-label grid-span-1 align-center">{{system.spells.value}}
+                            <span>/</span>
+                            <input class="resource-label content character" type="text" name="system.spells.max"
+                                value="{{system.spells.max}}" data-dtype="Number" />
+                        </div>
+                        {{/if}}
                     </div>
                     <div class="grid grid-3col flex-group-center">
                         <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.AmmoBow"}}</div>
                         <i class="fa-solid fa-arrow-up-long grid-span-1 align-right"></i>
-                        <input class="resource-label narrow grid-span-1 align-center" type="text"
+                        <input class="resource-label narrow content grid-span-1 align-center" type="text"
                             name="system.ammo.arrow" value="{{system.ammo.arrow}}" data-dtype="Number" />
                     </div>
                     <div class="grid grid-3col flex-group-center">
@@ -128,7 +159,7 @@
                             "KNAVE2E.AmmoSling"}}
                         </div>
                         <i class="fa-solid fa-baseball grid-span-1 align-right"></i>
-                        <input class="resource-label narrow grid-span-1 align-center" type="text"
+                        <input class="resource-label narrow content grid-span-1 align-center" type="text"
                             name="system.ammo.bullet" value="{{system.ammo.bullet}}" data-dtype="Number" />
                     </div>
                 </div>
@@ -148,8 +179,8 @@
                         <li class="item grid grid-12col {{#if system.dropped}}dropped{{/if}}"
                             data-item-id="{{item._id}}">
 
-                            <div class="item-image"><a class="item-image item-name grid-span-1"><img
-                                        src="{{item.img}}" title="{{item.name}}" width="36" height="36" /></a></div>
+                            <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
+                                        title="{{item.name}}" width="36" height="36" /></a></div>
 
                             {{#if (eq item.type "weapon")}}
                             <a class="item-name detail grid-span-5">{{#if item.system.dropped}}({{localize

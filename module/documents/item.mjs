@@ -1,23 +1,5 @@
 export default class Knave2eItem extends Item {
 
-  prepareData() {
-    super.prepareData();
-  }
-
-  prepareDerivedData() {
-    const itemData = this;
-
-    this._prepareWeaponData(itemData);
-    
-  }
-
-  _prepareWeaponData(itemData) {
-    if (itemData.type !== 'weapon') return;
-
-    // this.damageRoll = this._calculateDamageRoll(itemData);
-  }
-
-
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item
    * @private

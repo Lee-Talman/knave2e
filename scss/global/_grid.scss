@@ -412,6 +412,13 @@
   grid-template-rows: 1fr;
   gap: 0px 0px;
 
+  .progress-bar {
+    .progress-input:focus {
+      box-shadow: 0 0 7px var(--color-shadow-primary);
+      outline: 1px solid transparent;
+    }
+  }
+
   &.vertical {
     width: 50px;
     max-width: 50px;
@@ -432,6 +439,7 @@
       right: 0;
       bottom: 0;
       transform: rotate(180deg);
+      max-height: 100%;
 
       &.hitPoints {
         background-color: #7cd000;
@@ -452,6 +460,7 @@
       border-color: #ffffff00;
       border: none;
       text-align: center;
+      font-weight: normal;
     }
   }
 
@@ -486,6 +495,7 @@
 
     .progress-fill {
       background-color: var(--color-border-highlight);
+      max-width: 100%;
 
       &.hitPoints {
         background-color: #7cd000;
@@ -506,6 +516,7 @@
       border-color: #ffffff00;
       border: none;
       text-align: center;
+      font-weight: normal;
     }
   }
 }

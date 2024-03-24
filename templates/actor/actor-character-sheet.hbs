@@ -14,8 +14,8 @@
                 <div class="info">
                     <div class="flexrow no-wrap flex-between flex-group-left dotted name">
                         <div class="resource-label flex1">{{localize "KNAVE2E.Name"}}</div>
-                        <input class="transparent flex3 no-border detail name" name="name" type="text" value="{{actor.name}}"
-                            placeholder="{{actor.name}}" />
+                        <input class="transparent flex3 no-border detail name" name="name" type="text"
+                            value="{{actor.name}}" placeholder="{{actor.name}}" />
                     </div>
                     <div class="flexrow no-wrap flex-between flex-group-left dotted careers">
                         <div class="resource-label flex1">{{localize "KNAVE2E.Careers"}}</div>
@@ -80,15 +80,21 @@
                     <div class="armor flexrow no-wrap">
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.ArmorClass"}}</div>
-                            <div class="resource-label content shield character">
-                                {{system.armorClass}}
-                            </div>
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label shield character">{{system.armorClass}}</div>
+                            {{else}}
+                            <input class="resource-label content shield character" type="text" name="system.armorClass"
+                                value="{{system.armorClass}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                         <div class="flexcol no-wrap flex-group-center">
                             <a class="resource-label transparent actor-button ap">{{localize "KNAVE2E.ArmorPoints"}}</a>
-                            <div class="resource-label content circle character">
-                                {{system.armorPoints}}
-                            </div>
+                            {{#if system.settings.automaticArmor}}
+                            <div class="resource-label circle character">{{system.armorPoints}}</div>
+                            {{else}}
+                            <input class="resource-label content circle character" type="text" name="system.armorPoints"
+                                value="{{system.armorPoints}}" data-dtype="Number" />
+                            {{/if}}
                         </div>
                     </div>
 
@@ -99,11 +105,16 @@
                                 <div class="grid-span-1 flexcol no-wrap flex-group-center">
                                     <div class="resource-label">{{localize "KNAVE2E.HitPointsMax"}}</div>
                                     <input class="resource-label content transparent rounded character"
-                                        name="system.hitPoints.max" value="{{system.hitPoints.max}}"/>
+                                        name="system.hitPoints.max" value="{{system.hitPoints.max}}" />
                                 </div>
                                 <div class="grid-span-1 flexcol no-wrap flex-group-center">
                                     <div class="resource-label">{{localize "KNAVE2E.WoundsMax"}}</div>
-                                    <div class="resource-label content rounded character">{{system.wounds.max}}</div>
+                                    {{#if system.settings.automaticWounds}}
+                                    <div class="resource-label rounded character">{{system.wounds.max}}</div>
+                                    {{else}}
+                                    <input class="resource-label narrow content rounded character" type="text"
+                                        name="system.wounds.max" value="{{system.wounds.max}}" data-dtype="Number" />
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>
@@ -114,8 +125,8 @@
                                         <div class="progress-fill hitPoints"
                                             style="height:{{system.hitPoints.progress}}%">
                                         </div>
-                                        <input class="progress-input resource-label content" name="system.hitPoints.value"
-                                            value="{{system.hitPoints.value}}" />
+                                        <input class="progress-input resource-label content"
+                                            name="system.hitPoints.value" value="{{system.hitPoints.value}}" />
                                     </div>
                                 </div>
                                 <div class="progress-container grid-span-1 vertical">
@@ -129,7 +140,8 @@
                             </div>
                         </div>
                         <div class="health-rest">
-                            <button class="resource-label rounded transparent actor-button rest" type="button">{{localize
+                            <button class="resource-label rounded transparent actor-button rest"
+                                type="button">{{localize
                                 "KNAVE2E.Rest"}}</button>
                         </div>
                     </div>
@@ -138,9 +150,12 @@
                     <div class="level flexrow no-wrap">
                         <div class="flexcol no-wrap flex-group-center">
                             <div class="resource-label">{{localize "KNAVE2E.Level"}}</div>
-                            <div class="resource-label content rounded character">
-                                {{system.level}}
-                            </div>
+                                    {{#if system.settings.automaticLevel}}
+                                    <div class="resource-label rounded character">{{system.level}}</div>
+                                    {{else}}
+                                    <input class="resource-label narrow content rounded character" type="text"
+                                        name="system.level" value="{{system.level}}" data-dtype="Number" />
+                                    {{/if}}
                         </div>
                         <div class="xp flex-group-left">
                             <div class="resource-label">&nbsp;{{localize "KNAVE2E.XP"}}</div>
@@ -172,7 +187,8 @@
                 {{!-- Description Tab --}}
                 <div class="tab description" data-group="primary" data-tab="description">
                     <section class="editor">
-                    {{editor system.enrichedHTML target="system.description" button=true owner=owner editable=editable}}
+                        {{editor system.enrichedHTML target="system.description" button=true owner=owner
+                        editable=editable}}
                     </section>
                 </div>
 

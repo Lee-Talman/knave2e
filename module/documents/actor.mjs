@@ -2,10 +2,10 @@ export default class Knave2eActor extends Actor {
 
   async _preCreate(data) {
     if (data.type === 'character' || data.type === 'recruit') {
-      this.updateSource({"prototypeToken.actorLink" : true});
+      this.updateSource({ "prototypeToken.actorLink": true });
     }
     super._preCreate(data)
-}
+  }
 
   prepareData() {
     super.prepareData();
@@ -29,13 +29,17 @@ export default class Knave2eActor extends Actor {
 
     const systemData = actorData.system;
 
-    // Define Maximum Values
-    // systemData.armorClass = (systemData.armorPoints + 11);
-    systemData.blessings.max = systemData.abilities.charisma.value;
-    systemData.companions.max = systemData.abilities.charisma.value;
-    systemData.spells.max = systemData.abilities.intelligence.value;
-    systemData.slots.max, 
-    systemData.wounds.max = (systemData.abilities.constitution.value + 10);
+    if (game.settings.get('knave2e', 'automaticBlessings')) {
+      systemData.blessings.max = systemData.abilities.charisma.value;
+    }
+
+    if (game.settings.get('knave2e', 'automaticCompanions')) {
+      systemData.companions.max = systemData.abilities.charisma.value;
+    }
+
+    if (game.settings.get('knave2e', 'automaticSpells')) {
+      systemData.spells.max = systemData.abilities.intelligence.value;
+    }
 
   }
 
@@ -43,24 +47,25 @@ export default class Knave2eActor extends Actor {
     if (actorData.type !== 'recruit') return;
 
     const systemData = actorData.system;
-    if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare'){
-      systemData.spells.max = 1;
-    }
-    else {
-      systemData.spells.max = 0;
+
+    if (game.settings.get('knave2e', 'automaticRecruits')) {
+      if (actorData.system.category == 'expert' && actorData.system.rarity == 'KNAVE2E.Rare') {
+        systemData.spells.max = 1;
+      }
+      else {
+        systemData.spells.max = 0;
+      }
     }
   }
 
-    /**
-   * Prepare Monster-type specific data.
-   */
-    _prepareMonsterData(actorData) {
-      if (actorData.type !== 'monster') return;
-  
-      const systemData = actorData.system;
-      systemData.armorPoints = systemData.armorClass - 11;
+  /**
+ * Prepare Monster-type specific data.
+ */
+  _prepareMonsterData(actorData) {
+    if (actorData.type !== 'monster') return;
 
-      }
+    const systemData = actorData.system;
+  }
 
   /**
  * Prepare Vehicle-type specific data.

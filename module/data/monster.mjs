@@ -23,9 +23,6 @@ export default class Knave2eRecruit extends Knave2eActorType {
 
     prepareDerivedData() {
 
-        // Prepare armorPoints in reverse
-        this.armorPoints = this.armorClass - 11;
-
         // Rip single NA roll of format 1d6(3d6) into separate rolls
         const combined = this.numberAppearing.combined;
 

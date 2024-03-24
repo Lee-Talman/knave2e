@@ -19,12 +19,6 @@ export const DAMAGE_DICE_SIZES = {
     d12: "d12",
 }
 
-// export const AMMO_TYPES = {
-//     arrow: "Arrow",
-//     slingBullet: "Bullet",
-//     none: "None",
-// }
-
 export const SYSTEM = {
     id: SYSTEM_ID,
     ABILITIES,
