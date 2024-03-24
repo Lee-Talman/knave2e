@@ -3,26 +3,55 @@
     <div class="grid grid-3col flex-group-center">
       <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Slots"}}</div>
       <i class="fa-solid fa-weight-hanging grid-span-1 align-right"></i>
+      {{#if system.settings.automaticSlots}}
       <div class="resource-label grid-span-1 align-center">{{system.slots.value}} / {{system.slots.max}}</div>
+      {{else}}
+      <div class="resource-label grid-span-1 align-center">{{system.slots.value}}
+        <span>/</span>
+        <input class="resource-label content character" type="text" name="system.slots.max" value="{{system.slots.max}}"
+          data-dtype="Number" />
+      </div>
+      {{/if}}
     </div>
+
     <div class="grid grid-3col flex-group-center">
       <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Spells"}}</div>
       <i class="fa-solid fa-book grid-span-1 align-right"></i>
+      {{#if system.settings.automaticSpells}}
       <div class="resource-label grid-span-1 align-center">{{system.spells.value}} / {{system.spells.max}}</div>
+      {{else}}
+      <div class="resource-label grid-span-1 align-center">{{system.spells.value}}
+        <span>/</span>
+        <input class="resource-label content character" type="text" name="system.spells.max"
+          value="{{system.spells.max}}" data-dtype="Number" />
+      </div>
+      {{/if}}
     </div>
+
     <div class="grid grid-3col flex-group-center">
       <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Blessings"}}</div>
       <i class="fa-solid fa-sun grid-span-1 align-right"></i>
+      {{#if system.settings.automaticBlessings}}
       <div class="resource-label grid-span-1 align-center">{{system.blessings.value}} / {{system.blessings.max}}</div>
+      {{else}}
+      <div class="resource-label grid-span-1 align-center">{{system.blessings.value}}
+        <span>/</span>
+        <input class="resource-label content character" type="text" name="system.blessings.max"
+          value="{{system.blessings.max}}" data-dtype="Number" />
+      </div>
+      {{/if}}
     </div>
+
     <div class="grid grid-3col flex-group-center">
       <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.AmmoBow"}}</div>
       <i class="fa-solid fa-arrow-up-long grid-span-1 align-right"></i>
       <input class="resource-label narrow grid-span-1 align-center" type="text" name="system.ammo.arrow"
         value="{{system.ammo.arrow}}" data-dtype="Number" />
     </div>
+
     <div class="grid grid-3col flex-group-center">
-      <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Sling"}} {{localize "KNAVE2E.AmmoSling"}}
+      <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Sling"}} {{localize
+        "KNAVE2E.AmmoSling"}}
       </div>
       <i class="fa-solid fa-baseball grid-span-1 align-right"></i>
       <input class="resource-label narrow grid-span-1 align-center" type="text" name="system.ammo.bullet"
@@ -44,8 +73,8 @@
     {{#each items as |item id|}}
     <li class="item grid grid-12col {{#if system.dropped}}dropped{{/if}}" data-item-id="{{item._id}}">
 
-      <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
-            title="{{item.name}}" width="36" height="36" /></a></div>
+      <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}" title="{{item.name}}"
+            width="36" height="36" /></a></div>
 
       {{#if (eq item.type "weapon")}}
       <a class="item-name detail grid-span-5">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})

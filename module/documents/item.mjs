@@ -1,5 +1,19 @@
 export default class Knave2eItem extends Item {
 
+  // async _preCreate(data, options, user) {
+  //   await super._preCreate(data, options, user);
+  
+  //   const type = this.type;
+  //   let imagePath = ''
+  
+  //   switch(type) {
+  //     case 'weapon':
+        
+  //   }
+  
+  //   this.updateSource({'img' : imagePath});
+  // }
+
   prepareData() {
     super.prepareData();
   }
@@ -8,7 +22,7 @@ export default class Knave2eItem extends Item {
     const itemData = this;
 
     this._prepareWeaponData(itemData);
-    
+
   }
 
   _prepareWeaponData(itemData) {

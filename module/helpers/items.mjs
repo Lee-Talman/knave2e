@@ -52,50 +52,98 @@ export async function onCast(event) {
     const itemData = item.system;
     const systemData = this.actor.system;
 
-    // Reminder if actor cannot cast spells
-    if (systemData.spells.max <= 0) {
-        Dialog.prompt({
-            title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
-            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentMax")}`,
-            label: "OK",
-            callback: (html) => { return }
-        })
-        return
-    }
-    else if (systemData.spells.value >= systemData.spells.max) {
-        Dialog.prompt({
-            title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
-            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentValue")}`,
-            label: "OK",
-            callback: (html) => { return }
-        })
-        return
-    }
-    else if (itemData.cast === true) {
-        Dialog.prompt({
-            title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
-            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentUsed")}`,
-            label: "OK",
-            callback: (html) => { return }
-        })
-        return
-    }
-    else {
-        ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({actor: this.actor}),
-            // flavor: `${this.actor.name} ${game.i18n.localize("KNAVE2E.Casts")}`,
-            content: `<br><h3>${item.name}</h3>${itemData.description}`,
-            rollMode: game.settings.get('core', 'rollMode')
-        });
+    if (game.settings.get('knave2e', 'automaticSpells')) {
+        // Reminder if actor cannot cast spells
+        if (systemData.spells.max <= 0) {
+            Dialog.prompt({
+                title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+                content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentMax")}`,
+                label: "OK",
+                callback: (html) => { return }
+            })
+            return
+        }
+        else if (systemData.spells.value >= systemData.spells.max) {
+            Dialog.prompt({
+                title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+                content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentValue")}`,
+                label: "OK",
+                callback: (html) => { return }
+            })
+            return
+        }
+        else if (itemData.cast === true) {
+            Dialog.prompt({
+                title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+                content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentUsed")}`,
+                label: "OK",
+                callback: (html) => { return }
+            })
+            return
+        }
+        else {
+            ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                // flavor: `${this.actor.name} ${game.i18n.localize("KNAVE2E.Casts")}`,
+                content: `<br><h3>${item.name}</h3>${itemData.description}`,
+                rollMode: game.settings.get('core', 'rollMode')
+            });
 
-        // Cast spell and increment actor's used spells
-        item.update({
-            "system.cast" : true
-        });
-        this.actor.update({
-            "system.spells.value": systemData.spells.value + 1
-        });
+            // Cast spell and increment actor's used spells
+            if (game.settings.get('knave2e', 'enforceSpells')) {
+                item.update({
+                    "system.cast": true
+                });
+            }
+            this.actor.update({
+                "system.spells.value": systemData.spells.value + 1
+            });
+        }
     }
+
+    else {
+        if (game.settings.get('knave2e', 'enforceSpells')) {
+            if (itemData.cast === true) {
+                Dialog.prompt({
+                    title: `${game.i18n.localize("KNAVE2E.CastDialogTitle")}`,
+                    content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.CastDialogContentUsed")}`,
+                    label: "OK",
+                    callback: (html) => { return }
+                })
+                return
+            }
+            else {
+                ChatMessage.create({
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    // flavor: `${this.actor.name} ${game.i18n.localize("KNAVE2E.Casts")}`,
+                    content: `<br><h3>${item.name}</h3>${itemData.description}`,
+                    rollMode: game.settings.get('core', 'rollMode')
+                });
+
+                item.update({
+                    "system.cast": true
+                });
+
+                this.actor.update({
+                    "system.spells.value": systemData.spells.value + 1
+                });
+            }
+        }
+        else {
+            ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                // flavor: `${this.actor.name} ${game.i18n.localize("KNAVE2E.Casts")}`,
+                content: `<br><h3>${item.name}</h3>${itemData.description}`,
+                rollMode: game.settings.get('core', 'rollMode')
+            });
+
+            this.actor.update({
+                "system.spells.value": systemData.spells.value + 1
+            });
+        }
+    }
+
+
 }
 
 export async function onAttack(event) {
@@ -105,11 +153,11 @@ export async function onAttack(event) {
     const li = a.closest("li");
     const item = li.dataset.itemId ? this.actor.items.get(li.dataset.itemId) : null;
     const itemData = item.system;
-    const hasDescription = itemData.description === "" ? false: true;
+    const hasDescription = itemData.description === "" ? false : true;
     const systemData = this.actor.system;
 
     // Return if the weapon is broken
-    if (item.type === 'weapon' && itemData.broken === true) {
+    if (item.type === 'weapon' && itemData.broken === true && game.settings.get('knave2e', 'enforceBreaks')) {
         Dialog.prompt({
             title: `${game.i18n.localize("KNAVE2E.Item")} ${game.i18n.localize("KNAVE2E.Broken")}`,
             content: `${item.name} ${game.i18n.localize("KNAVE2E.IsBroken")}!`,
@@ -150,13 +198,15 @@ export async function onAttack(event) {
     }
 
     // Return early if a ranged weapon is out of ammo
-    if (!hasAmmo(item, this.actor)) {
-        ChatMessage.create({
-            speaker: speaker,
-            flavor: flavor,
-            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.OutOfAmmo")} ${item.name}!`,
-            rollMode: rollMode
-        });
+    if (!hasAmmo(item, this.actor) && game.settings.get('knave2e', 'enforceAmmo')) {
+
+        Dialog.prompt({
+            title: `${game.i18n.localize("KNAVE2E.OutOfAmmoTitleDialog")}`,
+            content: `${this.actor.name} ${game.i18n.localize("KNAVE2E.OutOfAmmoContentDialog")} ${item.name}!`,
+            label: "OK",
+            callback: (html) => { return }
+        })
+
         return
     }
 
@@ -199,22 +249,19 @@ export async function onAttack(event) {
     // Weapons from characters or recruits can break
     if (item.type === 'weapon') {
 
-        // Check for weapon break on natural 1
-        if (r.terms[0].results[0].result === 1) {
-            rollData.flavor = `${item.name} ${game.i18n.localize("KNAVE2E.Breaks")}!`
+        if (game.settings.get('knave2e', 'enforceBreaks')) {
+            // Check for weapon break on natural 1
+            if (r.terms[0].results[0].result === 1) {
+                rollData.flavor = `${item.name} ${game.i18n.localize("KNAVE2E.Breaks")}!`
 
-            item.update({
-                "system.broken": true
-            });
+                item.update({
+                    "system.broken": true
+                });
 
-            // Turn off buttons for broken weapons
-            rollData.data.buttons = false;
+                // Turn off buttons for broken weapons
+                rollData.data.buttons = false;
+            }
         }
-
-        // // Send relic descriptions to chat when active
-        // if (itemData.relic.isRelic && itemData.relic.isActive) {
-        //     rollData.data.relic = true;
-        // }
     }
 
     // Attack from characters get free maneuvers
@@ -241,7 +288,6 @@ export async function onAttack(event) {
     messageData = mergeObject(messageData, rollData);
     messageData.content = await renderTemplate('systems/knave2e/templates/item/item-chat-message.hbs', rollData);
     ChatMessage.create(messageData);
-
     // Check for ammo and decrement ammo counter
     function hasAmmo(item, actor) {
         const systemData = actor.system;
@@ -253,23 +299,28 @@ export async function onAttack(event) {
 
         const ammoType = item.system.ammoType;
 
-        if (ammoType === "arrow" && systemData.ammo[ammoType] >= 1) {
-            actor.update({
-                "system.ammo.arrow": systemData.ammo.arrow - 1
-            });
-            return true
-        }
-        else if (ammoType === "bullet" && systemData.ammo[ammoType] >= 1) {
-            actor.update({
-                "system.ammo.bullet": systemData.ammo.bullet - 1
-            });
-            return true
-        }
-        else if (ammoType === "none") {
-            return true
+        if (game.settings.get('knave2e', 'enforceAmmo')) {
+            if (ammoType === "arrow" && systemData.ammo[ammoType] >= 1) {
+                actor.update({
+                    "system.ammo.arrow": systemData.ammo.arrow - 1
+                });
+                return true
+            }
+            else if (ammoType === "bullet" && systemData.ammo[ammoType] >= 1) {
+                actor.update({
+                    "system.ammo.bullet": systemData.ammo.bullet - 1
+                });
+                return true
+            }
+            else if (ammoType === "none") {
+                return true
+            }
+            else {
+                return false
+            }
         }
         else {
-            return false
+            return true
         }
     }
 }
@@ -305,7 +356,7 @@ async function _rollDamage(a, actor, item) {
     const rollMode = game.settings.get('core', 'rollMode');
 
     // Return if the weapon is broken
-    if (item.type === 'weapon' && itemData.broken === true) {
+    if (item.type === 'weapon' && itemData.broken === true && game.settings.get('knave2e', 'enforceBreaks')) {
         Dialog.prompt({
             title: `${game.i18n.localize("KNAVE2E.Item")} ${game.i18n.localize("KNAVE2E.Broken")}`,
             content: `${item.name} ${game.i18n.localize("KNAVE2E.IsBroken")}!`,
@@ -330,10 +381,13 @@ async function _rollDamage(a, actor, item) {
             const powerAttack = await damageDialog();
             if (powerAttack) {
                 amount = amount * 2; // double dice on power attack
-                item.update({ // power attacks break item
-                    "system.broken": true
-                });
-                rollFlavor = rollFlavor + `. ${game.i18n.localize("KNAVE2E.PowerAttack")} ${game.i18n.localize("KNAVE2E.Breaks")} ${item.name}!`;
+
+                if (game.settings.get('knave2e', 'enforceBreaks')) {
+                    item.update({ // power attacks break item
+                        "system.broken": true
+                    });
+                    rollFlavor = rollFlavor + `. ${game.i18n.localize("KNAVE2E.PowerAttack")} ${game.i18n.localize("KNAVE2E.Breaks")} ${item.name}!`;
+                }
             }
         }
     }
@@ -358,7 +412,7 @@ export async function onLinkFromChat(event) {
     const link = a.closest("a");
     const item = game.items.get(link.dataset.id);
 
-    ChatMessage.create ({
+    ChatMessage.create({
         flavor: `${item.name}`,
         content: `${item.system.description}`
     });

@@ -33,6 +33,7 @@
   "KNAVE2E.ArmorClass": "AC",
   "KNAVE2E.Coins": "Coins",
 
+
   "KNAVE2E.HitPoints": "HP",
   "KNAVE2E.HitPointsMax": "Max HP",
   "KNAVE2E.Level": "Level",
@@ -148,7 +149,6 @@
   "KNAVE2E.CreateItemDialogTitle": "Create New Item",
   "KNAVE2E.CreateItemDialogContent": "Choose an item type:",
 
-
   "KNAVE2E.EffectCreate": "Create Effect",
   "KNAVE2E.EffectToggle": "Toggle Effect",
   "KNAVE2E.EffectEdit": "Edit Effect",
@@ -174,7 +174,8 @@
   "KNAVE2E.SkipDialog": "In the future, you can Shift + Click to skip this dialog.",
   "KNAVE2E.DamageDialog": "Standard or Power Attack?",
   "KNAVE2E.SkipDamageDialog": ". Shift + Click to skip pop-up.",
-  "KNAVE2E.OutOfAmmo": "has no ammo for",
+  "KNAVE2E.OutOfAmmoContentDialog": "has no ammo for",
+  "KNAVE2E.OutOfAmmoTitleDialog": "Out of Ammo!",
   "KNAVE2E.PowerAttack": "Power Attack",
   
   "KNAVE2E.CastDialogTitle": "Cannot Cast",
@@ -182,6 +183,12 @@
   "KNAVE2E.CastDialogContentValue": "does not have any spells remaining!",
   "KNAVE2E.CastDialogContentUsed": "has already used this spellbook today!",
   "KNAVE2E.Casts": "casts a spell!",
+
+  "KNAVE2E.BlessingDialogTitle": "Cannot Activate Blessing!",
+  "KNAVE2E.BlessingDialogContentMax": "cannot have any more active blessings!",
+
+  "KNAVE2E.CompanionDialogTitle": "Cannot Add Companion!",
+  "KNAVE2E.CompanionDialogContentMax": "cannot recruit any more companions!",
 
   "KNAVE2E.RestDialogTitle": "Choose Rest Type",
   "KNAVE2E.RestDialogContent": "To rest, eat a meal & sleep at least two watches. Resting in a safe haven additionally restores 1 Wound."

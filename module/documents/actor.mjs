@@ -29,29 +29,6 @@ export default class Knave2eActor extends Actor {
 
     const systemData = actorData.system;
 
-    // Define Maximum Values
-    
-    if (game.settings.get('knave2e', 'automaticBlessings')){
-      systemData.blessings.max = systemData.abilities.charisma.value;
-    }
-    
-    
-    if (game.settings.get('knave2e', 'automaticCompanions')){
-      systemData.companions.max = systemData.abilities.charisma.value;
-    }
-    
-    
-    if (game.settings.get('knave2e', 'automaticSpells')){
-      systemData.spells.max = systemData.abilities.intelligence.value;
-    }
-    
-
-    if (game.settings.get('knave2e', 'automaticWounds')) {
-      systemData.wounds.max = (systemData.abilities.constitution.value + 10);
-    }
-    systemData.slots.max 
-    
-
   }
 
   _prepareRecruitData(actorData) {
