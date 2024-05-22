@@ -14,7 +14,7 @@
   "readme": "https://github.com/Lee-Talman/knave2e/blob/main/README.md",
   "bugs": "https://github.com/Lee-Talman/knave2e/issues",
   "changelog": "https://github.com/Lee-Talman/knave2e/blob/main/CHANGELOG.md",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "compatibility": {
     "minimum": "10",
     "verified": "11",
@@ -35,7 +35,7 @@
     }
   ],
   "manifest": "https://raw.githubusercontent.com/Lee-Talman/knave2e/main/system.json",
-  "download": "https://github.com/Lee-Talman/knave2e/releases/download/0.3.0/system.zip",
+  "download": "https://github.com/Lee-Talman/knave2e/releases/download/0.3.1/system.zip",
   "background": "systems/knave2e/assets/anvil-bg.png",
   "gridDistance": 5,
   "gridUnits": "ft",
