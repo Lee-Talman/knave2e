@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.2
+- Fixed bug affecting item drag-and-drop caused by 0.3.1 release
+
 ## 0.3.1
 - Fixed bug affecting automatic maximum wound calculation
 - Simplified weapon/monster attack damage into a single user input
