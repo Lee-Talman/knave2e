@@ -1,6 +1,4 @@
 export default class Knave2eItemSheet extends ItemSheet {
-
-
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "item"],
@@ -10,16 +8,14 @@ export default class Knave2eItemSheet extends ItemSheet {
     });
   }
 
-
   get template() {
     const path = "systems/knave2e/templates/item";
     let specificPath = `${path}/item-${this.item.type}-sheet.hbs`;
-    
+
     return specificPath;
   }
 
   /* -------------------------------------------- */
-
 
   async getData() {
     // Retrieve base data structure.
@@ -67,24 +63,28 @@ export default class Knave2eItemSheet extends ItemSheet {
       this._prepareMonsterAttackData(context);
     }
 
-    context.system.enrichedHTML = await TextEditor.enrichHTML(context.system.description);
-    
+    context.system.enrichedHTML = await TextEditor.enrichHTML(
+      context.system.description
+    );
+
     return context;
   }
 
   _prepareWeaponData(context) {
-    const systemData = context.system;
 
-    context.weaponCategories = this._labelOptions(CONFIG.SYSTEM.WEAPON.CATEGORIES);
+    context.weaponCategories = this._labelOptions(
+      CONFIG.SYSTEM.WEAPON.CATEGORIES
+    );
     context.ammoCategories = this._labelOptions(CONFIG.SYSTEM.AMMO.CATEGORIES);
-    context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
+    // context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
 
     return context;
   }
 
-
   _prepareSpellbookData(context) {
-    context.spellbookCategories = this._labelOptions(CONFIG.SYSTEM.SPELLBOOK.CATEGORIES);
+    context.spellbookCategories = this._labelOptions(
+      CONFIG.SYSTEM.SPELLBOOK.CATEGORIES
+    );
 
     return context;
   }
@@ -92,18 +92,21 @@ export default class Knave2eItemSheet extends ItemSheet {
   _prepareLightSourceData(context) {
     const systemData = context.system;
 
-    context.lightSourceCategories = this._labelOptions(CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES);
+    context.lightSourceCategories = this._labelOptions(
+      CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES
+    );
 
     return context;
   }
 
   _prepareEquipmentData(context) {
-
     return context;
   }
 
   _prepareArmorData(context) {
-    context.armorCategories = this._labelOptions(CONFIG.SYSTEM.ARMOR.CATEGORIES);
+    context.armorCategories = this._labelOptions(
+      CONFIG.SYSTEM.ARMOR.CATEGORIES
+    );
   }
 
   _prepareMonsterAttackData(context) {
@@ -126,10 +129,4 @@ export default class Knave2eItemSheet extends ItemSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
   }
-
-  // async _onSubmit(event) {
-  //   console.log(event)
-  //   super._onSubmit(event)
-  // }
-
 }
