@@ -3,10 +3,9 @@
  * Pre-loaded templates are compiled and cached for fast access when rendering
  * @return {Promise}
  */
- export const preloadHandlebarsTemplates = async function() {
+export const preloadHandlebarsTemplates = async function () {
   return loadTemplates([
-
     // Actor partials.
-    "systems/knave2e/templates/actor/parts/actor-character-items.hbs"
+    "systems/knave2e/templates/actor/parts/actor-character-items.hbs",
   ]);
 };

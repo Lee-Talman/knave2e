@@ -55,10 +55,6 @@ export default class Knave2eWeapon extends Knave2eItemType {
     let m;
 
     if ((m = rollDamage.exec(this.damageRoll)) !== null) {
-      m.forEach((match, groupIndex) => {
-        console.log(`Found match, group ${groupIndex}: ${match}`);
-      });
-
       this.damageDiceAmount = m[1] === "" ? 1 : m[1];
       this.damageDiceSize = m[2];
 
