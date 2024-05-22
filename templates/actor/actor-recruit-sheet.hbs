@@ -165,7 +165,7 @@
                 </div>
                 <div class="items">
                     <ol class="items-list">
-                        <li class="item grid grid-12col items-header">
+                        <li class="knave-item grid grid-12col items-header">
                             <div class="resource-label item-name-header grid-span-9">{{localize "KNAVE2E.ItemName"}}
                             </div>
                             <div class="resource-label item-slots-header grid-span-1">{{localize "KNAVE2E.Slots"}}</div>
@@ -176,7 +176,7 @@
                             </div>
                         </li>
                         {{#each items as |item id|}}
-                        <li class="item grid grid-12col {{#if system.dropped}}dropped{{/if}}"
+                        <li class="knave-item grid grid-12col {{#if system.dropped}}dropped{{/if}}"
                             data-item-id="{{item._id}}">
 
                             <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
