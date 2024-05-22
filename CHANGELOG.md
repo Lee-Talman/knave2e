@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.3.1
+- Fixed bug affecting automatic maximum wound calculation
+- Simplified weapon/monster attack damage into a single user input
+- Changed styling overrides for compatibility with Monk's Enhanced Journal mod
+
 ## 0.3.0
 - Added options to disable automation and rule-enforcement features in system settings
 - Added options to adjust consumable weights and base level XP in system settings
