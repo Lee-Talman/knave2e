@@ -8,6 +8,7 @@ export default class Knave2eActorSheet extends ActorSheet {
             classes: ["knave2e", "sheet", "actor"],
             width: 640,
             height: 670,
+            dragDrop: [{dragSelector: '.item-list .item', dropSelector: null}, {dragSelector: '.knave-item', dropSelector: null}],
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "character" }]
         });
     }
