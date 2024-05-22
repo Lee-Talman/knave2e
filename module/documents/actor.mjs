@@ -40,6 +40,10 @@ export default class Knave2eActor extends Actor {
     if (game.settings.get('knave2e', 'automaticSpells')) {
       systemData.spells.max = systemData.abilities.intelligence.value;
     }
+    
+    if (game.settings.get('knave2e', 'automaticWounds')) {
+      systemData.wounds.max = 10 + systemData.abilities.constitution.value;
+    }
 
   }
 
