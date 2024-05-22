@@ -97,6 +97,7 @@
   "KNAVE2E.DamageDiceSize": "Damage Die",
   "KNAVE2E.DamageDiceAmount": "# of Dice",
   "KNAVE2E.DamageDiceBonus": "Bonus",
+  "KNAVE2E.DamageRollFormula" : "Roll Formula",
   "KNAVE2E.Melee": "Melee",
   "KNAVE2E.Ranged": "Ranged",
   "KNAVE2E.Sling": "Sling",

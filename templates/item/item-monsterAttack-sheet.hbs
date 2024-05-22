@@ -1,54 +1,73 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{!-- Item Sheet Header --}}
+  {{! Item Sheet Header }}
   <header class="sheet-header">
     <div class="item-header-grid">
 
-      {{!-- Item Image --}}
+      {{! Item Image }}
       <div class="item-header-img">
-        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+        <img
+          class="profile-img"
+          src="{{item.img}}"
+          data-edit="img"
+          title="{{item.name}}"
+        />
       </div>
 
-      {{!-- Item Info --}}
+      {{! Item Info }}
       <div class="item-info-grid">
         <div class="item-header-name">
-          <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
+          <input
+            type="text"
+            name="name"
+            value="{{item.name}}"
+            data-dtype="String"
+          />
         </div>
       </div>
     </div>
   </header>
 
-  {{!-- Item Sheet Body --}}
+  {{! Item Sheet Body }}
   <section class="sheet-body">
     <div class="item-body-grid">
 
-      {{!-- Item Aside --}}
+      {{! Item Aside }}
       <div class="item-body-aside">
         <div class="flexrow flex-group-left flex-between">
           <div class="resource-label aside">{{localize "KNAVE2E.Attacks"}}</div>
-          <input type="text" name="system.attackAmount" value="{{system.attackAmount}}" data-dtype="Number" />
+          <input
+            type="text"
+            name="system.attackAmount"
+            value="{{system.attackAmount}}"
+            data-dtype="Number"
+          />
         </div>
-        <hr class="separator">
+        <hr class="separator" />
         <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize "KNAVE2E.DamageDiceSize"}}</div>
-          <select name="system.damageDiceSize">
-            {{selectOptions damageDiceCategories selected=system.damageDiceSize localize=true}}</select>
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize "KNAVE2E.DamageDiceAmount"}}</div>
-          <input type="text" name="system.damageDiceAmount" value="{{system.damageDiceAmount}}" data-dtype="Number" />
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize "KNAVE2E.DamageDiceBonus"}}</div>
-          <input type="text" name="system.damageDiceBonus" value="{{system.damageDiceBonus}}" data-dtype="Number" />
+          <div class="resource-label aside">{{localize
+              "KNAVE2E.DamageRollFormula"
+            }}</div>
+          <input
+            class="damage-roll-formula"
+            type="text"
+            name="system.damageRoll"
+            value="{{system.damageRoll}}"
+            data-dtype="String"
+          />
         </div>
       </div>
 
-      {{!-- Item Description --}}
+      {{! Item Description }}
       <div class="item-body-description">
         <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
         <section class="editor">
-          {{editor system.enrichedHTML target="system.description" button=true owner=owner
-          editable=editable}}
+          {{editor
+            system.enrichedHTML
+            target="system.description"
+            button=true
+            owner=owner
+            editable=editable
+          }}
         </section>
       </div>
     </div>
