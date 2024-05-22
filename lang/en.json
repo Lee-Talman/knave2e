@@ -33,7 +33,6 @@
   "KNAVE2E.ArmorClass": "AC",
   "KNAVE2E.Coins": "Coins",
 
-
   "KNAVE2E.HitPoints": "HP",
   "KNAVE2E.HitPointsMax": "Max HP",
   "KNAVE2E.Level": "Level",
@@ -50,7 +49,7 @@
   "KNAVE2E.ArmorPoints": "AP",
   "KNAVE2E.Blessings": "Blessings",
   "KNAVE2E.Careers": "Careers",
-  
+
   "KNAVE2E.Companions": "Companions",
   "KNAVE2E.Hireling": "Hireling",
   "KNAVE2E.Mercenary": "Mercenary",
@@ -59,7 +58,7 @@
   "KNAVE2E.Uncommon": "Uncommon",
   "KNAVE2E.Rare": "Rare",
   "KNAVE2E.Rarity": "Rarity",
-  
+
   "KNAVE2E.Spells": "Spells Cast",
   "KNAVE2E.Wounds": "Wounds",
   "KNAVE2E.WoundsMax": "Max Wnd",
@@ -80,7 +79,7 @@
   "KNAVE2E.NumberAppearing": "NA",
   "KNAVE2E.NumberAppearingDungeon": "Dungeon: ",
   "KNAVE2E.NumberAppearingWilderness": "Wilderness: ",
-  
+
   "KNAVE2E.Morale": "Morale",
   "KNAVE2E.CostPerMonth": "Cost Per Month",
   "KNAVE2E.Movement": "Movement",
@@ -97,7 +96,7 @@
   "KNAVE2E.DamageDiceSize": "Damage Die",
   "KNAVE2E.DamageDiceAmount": "# of Dice",
   "KNAVE2E.DamageDiceBonus": "Bonus",
-  "KNAVE2E.DamageRollFormula" : "Roll Formula",
+  "KNAVE2E.DamageRollFormula": "Roll Formula",
   "KNAVE2E.Melee": "Melee",
   "KNAVE2E.Ranged": "Ranged",
   "KNAVE2E.Sling": "Sling",
@@ -109,7 +108,6 @@
   "KNAVE2E.Slots": "Slots",
   "KNAVE2E.Range": "Range",
   "KNAVE2E.Rest": "Rest",
-  
 
   "KNAVE2E.Candle": "Candle",
   "KNAVE2E.Torch": "Torch",
@@ -140,7 +138,6 @@
   "KNAVE2E.ItemName": "Item Name",
   "KNAVE2E.Item": "Item",
   "KNAVE2E.Portrait": "Portrait",
-  
 
   "KNAVE2E.AddBonusToCheck": "Add Bonus to Check: ",
   "KNAVE2E.NumberAppearingDialogTitle": "Roll Number Appearing",
@@ -178,7 +175,7 @@
   "KNAVE2E.OutOfAmmoContentDialog": "has no ammo for",
   "KNAVE2E.OutOfAmmoTitleDialog": "Out of Ammo!",
   "KNAVE2E.PowerAttack": "Power Attack",
-  
+
   "KNAVE2E.CastDialogTitle": "Cannot Cast",
   "KNAVE2E.CastDialogContentMax": "cannot cast spells from spellbooks!",
   "KNAVE2E.CastDialogContentValue": "does not have any spells remaining!",
@@ -192,5 +189,15 @@
   "KNAVE2E.CompanionDialogContentMax": "cannot recruit any more companions!",
 
   "KNAVE2E.RestDialogTitle": "Choose Rest Type",
-  "KNAVE2E.RestDialogContent": "To rest, eat a meal & sleep at least two watches. Resting in a safe haven additionally restores 1 Wound."
+  "KNAVE2E.RestDialogContent": "To rest, eat a meal & sleep at least two watches. Resting in a safe haven additionally restores 1 Wound.",
+
+  "TYPES.Actor.character": "Character",
+  "TYPES.Actor.recruit": "Recruit",
+  "TYPES.Actor.monster": "Monster",
+  "TYPES.Item.armor": "Armor",
+  "TYPES.Item.equipment": "Equipment",
+  "TYPES.Item.lightSource": "Light Source",
+  "TYPES.Item.monsterAttack": "Monster Attack",
+  "TYPES.Item.spellbook": "Spellbook",
+  "TYPES.Item.weapon": "Weapon"
 }
