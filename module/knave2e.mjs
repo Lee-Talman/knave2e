@@ -2,11 +2,14 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 
 // Import DataModel classes.
 
-import * as DataModels from "./data/_module.mjs"
-import { Knave2eActor, Knave2eItem, Knave2eChatMessage } from "./documents/_module.mjs";
+import * as DataModels from "./data/_module.mjs";
+import {
+  Knave2eActor,
+  Knave2eItem,
+  Knave2eChatMessage,
+} from "./documents/_module.mjs";
 import { Knave2eActorSheet, Knave2eItemSheet } from "./sheets/_module.mjs";
 import { SYSTEM } from "./config/system.mjs";
-
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -26,14 +29,19 @@ Hooks.on("init", () => {
 
 Hooks.once("init", () => {
   CONFIG.SYSTEM = SYSTEM;
-
 });
 
 Hooks.once("i18nInit", function () {
-
   // Apply localizations
   const toLocalize = [
-    "ABILITIES", "AMMO", "ARMOR", "COIN", "EQUIPMENT", "SPELLBOOK", "WEAPON"];
+    "ABILITIES",
+    "AMMO",
+    "ARMOR",
+    "COIN",
+    "EQUIPMENT",
+    "SPELLBOOK",
+    "WEAPON",
+  ];
   for (let c of toLocalize) {
     const conf = foundry.utils.getProperty(SYSTEM, c);
     for (let [k, v] of Object.entries(conf)) {
@@ -44,21 +52,20 @@ Hooks.once("i18nInit", function () {
   }
 });
 
-Hooks.once('init', function () {
-
+Hooks.once("init", function () {
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.knave2e = {
     Knave2eActor,
     Knave2eItem,
     Knave2eChatMessage,
-    rollItemMacro
+    rollItemMacro,
   };
 
   // Set globals from game settings (TODO: localize)
 
   // Automatic AC/AP
-  game.settings.register('knave2e', 'automaticArmor', {
+  game.settings.register("knave2e", "automaticArmor", {
     name: "Automate AC and AP",
     hint: "Derive AP from equipped armor and AC from 11 + AP. Defaults to TRUE.",
     scope: "world",
@@ -69,7 +76,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Blessings
-  game.settings.register('knave2e', 'automaticBlessings', {
+  game.settings.register("knave2e", "automaticBlessings", {
     name: "Automate Blessings",
     hint: "Derive maximum active blessings from CHA. Defaults to TRUE.",
     scope: "world",
@@ -80,7 +87,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Companions
-  game.settings.register('knave2e', 'automaticCompanions', {
+  game.settings.register("knave2e", "automaticCompanions", {
     name: "Automate Companions",
     hint: "Derive maximum lifetime companions from CHA. Defaults to TRUE.",
     scope: "world",
@@ -91,7 +98,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Levels
-  game.settings.register('knave2e', 'automaticLevel', {
+  game.settings.register("knave2e", "automaticLevel", {
     name: "Automate Level",
     hint: "Derive current level from XP. Defaults to TRUE.",
     scope: "world",
@@ -102,7 +109,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Lights
-  game.settings.register('knave2e', 'automaticLight', {
+  game.settings.register("knave2e", "automaticLight", {
     name: "Automate Lights",
     hint: "Derive light radius from active light sources. Disable for increased performance on slower hardware. Defaults to TRUE.",
     scope: "world",
@@ -113,7 +120,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Recruits
-  game.settings.register('knave2e', 'automaticRecruits', {
+  game.settings.register("knave2e", "automaticRecruits", {
     name: "Automate Recruits",
     hint: "Derive monthly cost, morale, rarity, and max slots/spells for recruited followers. Defaults to TRUE.",
     scope: "world",
@@ -124,7 +131,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Slots
-  game.settings.register('knave2e', 'automaticSlots', {
+  game.settings.register("knave2e", "automaticSlots", {
     name: "Automate Slots",
     hint: "Derive maximum item slots from 10 + CON. Defaults to TRUE.",
     scope: "world",
@@ -135,7 +142,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Spells
-  game.settings.register('knave2e', 'automaticSpells', {
+  game.settings.register("knave2e", "automaticSpells", {
     name: "Automate Spells",
     hint: "Derive maximum spells from INT. Defaults to TRUE.",
     scope: "world",
@@ -146,7 +153,7 @@ Hooks.once('init', function () {
   });
 
   // Automatic Wounds
-  game.settings.register('knave2e', 'automaticWounds', {
+  game.settings.register("knave2e", "automaticWounds", {
     name: "Automate Wounds",
     hint: "Derive maximum wounds from 10 + CON. Defaults to TRUE.",
     scope: "world",
@@ -157,7 +164,7 @@ Hooks.once('init', function () {
   });
 
   // Enforce Armor Restriction
-  game.settings.register('knave2e', 'enforceArmor', {
+  game.settings.register("knave2e", "enforceArmor", {
     name: "Enforce Unique Armor Types",
     hint: "Prevents equipping multiple armor pieces of the same type (e.g. two Helmets). Defaults to TRUE.",
     scope: "world",
@@ -168,7 +175,7 @@ Hooks.once('init', function () {
   });
 
   // Enforce Maximum Blessings
-  game.settings.register('knave2e', 'enforceBlessings', {
+  game.settings.register("knave2e", "enforceBlessings", {
     name: "Enforce Active Blessings",
     hint: "Prevents activating more blessings than a PC's CHA. Defaults to True.",
     scope: "world",
@@ -179,7 +186,7 @@ Hooks.once('init', function () {
   });
 
   // Enforce Maximum Companions
-  game.settings.register('knave2e', 'enforceCompanions', {
+  game.settings.register("knave2e", "enforceCompanions", {
     name: "Enforce Lifetime Companions",
     hint: "Prevents recording more lifetime companions than a PC's CHA. Defaults to True.",
     scope: "world",
@@ -190,9 +197,9 @@ Hooks.once('init', function () {
   });
 
   // Enforce Item Dropping
-  game.settings.register('knave2e', 'enforceDrop', {
+  game.settings.register("knave2e", "enforceDrop", {
     name: "Enforce Dropping Items",
-    hint: "Mark items as \"Dropped\" after receiving wounds. Defaults to TRUE.",
+    hint: 'Mark items as "Dropped" after receiving wounds. Defaults to TRUE.',
     scope: "world",
     config: true,
     type: Boolean,
@@ -201,7 +208,7 @@ Hooks.once('init', function () {
   });
 
   // Enforce Integer Slots
-  game.settings.register('knave2e', 'enforceIntegerSlots', {
+  game.settings.register("knave2e", "enforceIntegerSlots", {
     name: "Enforce Integer Slots",
     hint: "Fractional slots rounded up to the nearest integer. Defaults to TRUE.",
     scope: "world",
@@ -212,9 +219,9 @@ Hooks.once('init', function () {
   });
 
   // Enforce Spellbook Casting
-  game.settings.register('knave2e', 'enforceSpells', {
+  game.settings.register("knave2e", "enforceSpells", {
     name: "Enforce Casting Spellbooks",
-    hint: "Mark spellbooks as \"Cast\" after use. Defaults to True.",
+    hint: 'Mark spellbooks as "Cast" after use. Defaults to True.',
     scope: "world",
     config: true,
     type: Boolean,
@@ -223,9 +230,9 @@ Hooks.once('init', function () {
   });
 
   // Enforce Weapon Breaking
-  game.settings.register('knave2e', 'enforceBreaks', {
+  game.settings.register("knave2e", "enforceBreaks", {
     name: "Enforce Breaking Weapons",
-    hint: "Mark weapons as \"Broken\" after a power attack or natural 1. Defaults to True.",
+    hint: 'Mark weapons as "Broken" after a power attack or natural 1. Defaults to True.',
     scope: "world",
     config: true,
     type: Boolean,
@@ -234,7 +241,7 @@ Hooks.once('init', function () {
   });
 
   // Enforce Ammunition Usage
-  game.settings.register('knave2e', 'enforceAmmo', {
+  game.settings.register("knave2e", "enforceAmmo", {
     name: "Enforce Ammunition Usage",
     hint: "Ranged weapons consume ammunition, and will not fire if the PC has no ammunition of the required type. Defaults to True.",
     scope: "world",
@@ -245,7 +252,7 @@ Hooks.once('init', function () {
   });
 
   // XP to Level 2
-  game.settings.register('knave2e', 'baseLevelXP', {
+  game.settings.register("knave2e", "baseLevelXP", {
     name: "Override XP to Level 2",
     hint: "Override XP required to reach level 2. Each subsequent level requires approximately twice as much XP. Defaults to 2000.",
     scope: "world",
@@ -256,41 +263,41 @@ Hooks.once('init', function () {
   });
 
   // Arrows Per Slot
-  game.settings.register('knave2e', 'arrowsPerSlot', {
+  game.settings.register("knave2e", "arrowsPerSlot", {
     name: "Override Arrows Per Slot",
     hint: "Set to 0 to disable automatic slot tracking for arrows. Defaults to 20.",
     scope: "world",
     config: true,
     type: Number,
     default: 20,
-    requiresReload: true
+    requiresReload: true,
   });
 
   // Sling Bullets Per Slot
-  game.settings.register('knave2e', 'slingBulletsPerSlot', {
+  game.settings.register("knave2e", "slingBulletsPerSlot", {
     name: "Override Sling Bullets Per Slot",
     hint: "Set to 0 to disable automatic slot tracking for sling bullets. Defaults to 5.",
     scope: "world",
     config: true,
     type: Number,
     default: 5,
-    requiresReload: true
+    requiresReload: true,
   });
 
   // Coins Per Slot
-  game.settings.register('knave2e', 'coinsPerSlot', {
+  game.settings.register("knave2e", "coinsPerSlot", {
     name: "Override Coins Per Slot",
     hint: "Set to 0 to disable automatic slot tracking for coins. Defaults to 500.",
     scope: "world",
     config: true,
     type: Number,
     default: 500,
-    requiresReload: true
+    requiresReload: true,
   });
 
   CONFIG.Combat.initiative = {
     formula: "1d20 + @abilities.charisma.value",
-    decimals: 2
+    decimals: 2,
   };
 
   // Define custom Document classes
@@ -310,7 +317,7 @@ Hooks.once('init', function () {
 
 class AutomationMenuClass extends FormApplication {
   getData() {
-    return game.settings.get()
+    return game.settings.get();
   }
 }
 
@@ -319,17 +326,17 @@ class AutomationMenuClass extends FormApplication {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here are a few useful examples:
-Handlebars.registerHelper('concat', function () {
-  var outStr = '';
+Handlebars.registerHelper("concat", function () {
+  var outStr = "";
   for (var arg in arguments) {
-    if (typeof arguments[arg] != 'object') {
+    if (typeof arguments[arg] != "object") {
       outStr += arguments[arg];
     }
   }
   return outStr;
 });
 
-Handlebars.registerHelper('toLowerCase', function (str) {
+Handlebars.registerHelper("toLowerCase", function (str) {
   return str.toLowerCase();
 });
 
@@ -356,22 +363,26 @@ Hooks.once("ready", function () {
 async function createItemMacro(data, slot) {
   // First, determine if this is a valid owned item.
   if (data.type !== "Item") return;
-  if (!data.uuid.includes('Actor.') && !data.uuid.includes('Token.')) {
-    return ui.notifications.warn("You can only create macro buttons for owned Items");
+  if (!data.uuid.includes("Actor.") && !data.uuid.includes("Token.")) {
+    return ui.notifications.warn(
+      "You can only create macro buttons for owned Items"
+    );
   }
   // If it is, retrieve it based on the uuid.
   const item = await Item.fromDropData(data);
 
   // Create the macro command using the uuid.
   const command = `game.knave2e.rollItemMacro("${data.uuid}");`;
-  let macro = game.macros.find(m => (m.name === item.name) && (m.command === command));
+  let macro = game.macros.find(
+    (m) => m.name === item.name && m.command === command
+  );
   if (!macro) {
     macro = await Macro.create({
       name: item.name,
       type: "script",
       img: item.img,
       command: command,
-      flags: { "knave2e.itemMacro": true }
+      flags: { "knave2e.itemMacro": true },
     });
   }
   game.user.assignHotbarMacro(macro, slot);
@@ -386,15 +397,17 @@ async function createItemMacro(data, slot) {
 function rollItemMacro(itemUuid) {
   // Reconstruct the drop data so that we can load the item.
   const dropData = {
-    type: 'Item',
-    uuid: itemUuid
+    type: "Item",
+    uuid: itemUuid,
   };
   // Load the item from the uuid.
-  Item.fromDropData(dropData).then(item => {
+  Item.fromDropData(dropData).then((item) => {
     // Determine if the item loaded and if it's an owned item.
     if (!item || !item.parent) {
       const itemName = item?.name ?? itemUuid;
-      return ui.notifications.warn(`Could not find item ${itemName}. You may need to delete and recreate this macro.`);
+      return ui.notifications.warn(
+        `Could not find item ${itemName}. You may need to delete and recreate this macro.`
+      );
     }
 
     // Trigger the item roll

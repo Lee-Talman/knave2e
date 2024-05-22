@@ -499,3 +499,7 @@ packs/actors/CURRENT
 
 # VSCode Workspace
 *.code-workspace
+
+# Batch Files
+*.bat 
+*.cmd 

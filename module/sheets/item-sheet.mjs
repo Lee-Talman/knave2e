@@ -1,6 +1,6 @@
 export default class Knave2eItemSheet extends ItemSheet {
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["knave2e", "sheet", "item"],
       width: 580,
       height: 350,
@@ -71,7 +71,6 @@ export default class Knave2eItemSheet extends ItemSheet {
   }
 
   _prepareWeaponData(context) {
-
     context.weaponCategories = this._labelOptions(
       CONFIG.SYSTEM.WEAPON.CATEGORIES
     );

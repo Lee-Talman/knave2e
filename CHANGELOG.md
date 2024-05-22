@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.3
+- Update system for v12 compatibility
+- Fix deprecation warnings after migration to v12
+
 ## 0.3.2
 - Fixed bug affecting item drag-and-drop caused by 0.3.1 release
 
