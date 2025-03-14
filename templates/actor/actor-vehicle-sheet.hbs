@@ -32,7 +32,7 @@
                                 value="{{system.cost}}" data-dtype="Number" />
                         </div>
                         <div class="grid-span-1 flexcol no-wrap flex-group-center coins">
-                            <div class="resource-label">{{localize "KNAVE2E.Coins"}}</div>
+                            <div class="resource-label">{{localize "KNAVE2E.Stored"}} {{localize "KNAVE2E.Coins"}}</div>
                             <input class="resource-label content narrow" type="text" name="system.coins"
                                 value="{{system.coins}}" data-dtype="Number" />
                         </div>
@@ -48,13 +48,13 @@
                             </div>
                         </div>
                         <div class="grid grid-3col flex-group-center">
-                            <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.AmmoBow"}}</div>
+                            <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Stored"}} {{localize "KNAVE2E.AmmoBow"}}</div>
                             <i class="fa-solid fa-arrow-up-long grid-span-1 align-right"></i>
                             <input class="resource-label narrow content grid-span-1 align-center" type="text"
                                 name="system.ammo.arrow" value="{{system.ammo.arrow}}" data-dtype="Number" />
                         </div>
                         <div class="grid grid-3col flex-group-center">
-                            <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Sling"}} {{localize
+                            <div class="resource-label grid-span-3 align-center">{{localize "KNAVE2E.Stored"}} {{localize "KNAVE2E.Sling"}} {{localize
                                 "KNAVE2E.AmmoSling"}}
                             </div>
                             <i class="fa-solid fa-baseball grid-span-1 align-right"></i>
@@ -85,35 +85,9 @@
                             <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
                                         title="{{item.name}}" width="36" height="36" /></a></div>
 
-                            {{#if (eq item.type "weapon")}}
-                            <a class="item-name detail grid-span-5">{{#if item.system.dropped}}({{localize
-                                "KNAVE2E.Dropped"}})
-                                {{/if}}{{item.name}}</a>
-                            <div class="item-buttons grid-span-3 flexrow flex-group-center">
-                                <button class="item-button attack sheet" data-action="attack" type="button"
-                                    title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
-                                <button class="item-button damage sheet" data-action="damage" type="button"
-                                    title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
-                                <button class="item-button damage sheet" data-action="direct" type="button"
-                                    title={{localize "KNAVE2E.DirectRoll" }}>{{localize "KNAVE2E.DirectAbbr"}}</button>
-                            </div>
-
-                            {{else}}
-                            {{#if (eq item.type "spellbook")}}
-                            <a class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize
-                                "KNAVE2E.Dropped"}})
-                                {{/if}}{{item.name}}</a>
-                            <div class="item-buttons grid-span-1 flexrow flex-group-center">
-                                <button class="item-button cast" data-action="cast" type="button">{{localize
-                                    "KNAVE2E.CastAbbr"}}</button>
-                            </div>
-
-                            {{else}}
                             <a class="item-name detail grid-span-8">{{#if item.system.dropped}}({{localize
                                 "KNAVE2E.Dropped"}})
                                 {{/if}}{{item.name}}</a>
-                            {{/if}}
-                            {{/if}}
 
                             <div class="item-slots grid-span-1 item-prop">{{item.system.slots}}</div>
                             <div class="item-controls grid-span-2">
@@ -127,12 +101,6 @@
                                 <a class="item-toggle" data-action="cast" title={{localize "KNAVE2E.CastSpellbookDetail"
                                     }}>
                                     <i class="fas {{#if item.system.cast}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
-                                {{/if}}
-                                {{#if (eq item.type "armor")}}
-                                <a class="item-toggle" data-action="equip" title={{localize "KNAVE2E.EquipArmorDetail"
-                                    }}>
-                                    <i
-                                        class="{{#if item.system.equipped}}fas fa-shirt{{else}}far fa-shirt{{/if}}"></i></a>
                                 {{/if}}
                                 {{#if (eq item.type "lightSource")}}
                                 <a class="item-toggle" data-action="light"

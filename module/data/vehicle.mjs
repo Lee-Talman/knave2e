@@ -15,10 +15,6 @@ export default class Knave2eVehicle extends Knave2eActorType {
         min: 0,
       }),
     });
-    schema.slots = new fields.SchemaField({
-      value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
-      max: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
-    });
     schema.coins = new fields.NumberField({
       ...requiredInteger,
       initial: 0,
@@ -26,13 +22,17 @@ export default class Knave2eVehicle extends Knave2eActorType {
     });
     schema.cost = new fields.NumberField({
       ...requiredInteger,
-      initial: 0,
+      initial: 30,
       min: 0,
     });
     schema.crew = new fields.NumberField({
       ...requiredInteger,
       initial: 0,
       min: 0,
+    });
+    schema.slots = new fields.SchemaField({
+      value: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
+      max: new fields.NumberField({ ...requiredInteger, initial: 50, min: 0 }),
     });
     return schema;
   }
