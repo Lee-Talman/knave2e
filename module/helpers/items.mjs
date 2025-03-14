@@ -225,7 +225,6 @@ export async function onAttack(event) {
       actor: this.actor._id,
       buttons: true,
       character: true,
-      // relic: false,
       description: itemData.description,
       hasDescription: hasDescription,
     },
@@ -343,7 +342,7 @@ export async function onAttack(event) {
     const systemData = actor.system;
 
     // Reject monster and melee weapon attacks
-    if (item.type !== "weapon" || item.system.category !== "ranged") {
+    if (actor.type == "monster" || item.type !== "weapon" || item.system.category !== "ranged") {
       return true;
     }
 
