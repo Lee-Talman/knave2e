@@ -103,6 +103,7 @@
   "KNAVE2E.WeaponType": "Weapon Type",
   "KNAVE2E.Weapon": "Weapon",
 
+  "KNAVE2E.Crew": "Crew",
   "KNAVE2E.Type": "Type",
   "KNAVE2E.Name": "Name",
   "KNAVE2E.Slots": "Slots",
@@ -194,6 +195,7 @@
   "TYPES.Actor.character": "Character",
   "TYPES.Actor.recruit": "Recruit",
   "TYPES.Actor.monster": "Monster",
+  "TYPES.Actor.vehicle": "Vehicle",
   "TYPES.Item.armor": "Armor",
   "TYPES.Item.equipment": "Equipment",
   "TYPES.Item.lightSource": "Light Source",

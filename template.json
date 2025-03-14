@@ -1,9 +1,10 @@
 {
   "Actor": {
-    "types": ["character", "recruit", "monster"],
+    "types": ["character", "recruit", "monster", "vehicle"],
     "character": {},
     "recruit": {},
-    "monster": {}
+    "monster": {},
+    "vehicle": {}
   },
   "Item": {
     "types": ["armor", "equipment", "lightSource", "spellbook", "weapon", "monsterAttack"],

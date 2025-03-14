@@ -60,81 +60,16 @@ export default class Knave2eActor extends Actor {
     }
   }
 
-  /**
-   * Prepare Monster-type specific data.
-   */
-  _prepareMonsterData(actorData) {
-    if (actorData.type !== "monster") return;
-
-    const systemData = actorData.system;
-  }
-
-  /**
-   * Prepare Vehicle-type specific data.
-   */
   _prepareVehicleData(actorData) {
     if (actorData.type !== "vehicle") return;
 
     const systemData = actorData.system;
+  }
 
-    let subType = systemData.subType;
-    switch (subType) {
-      case "mule":
-        systemData.cost = 30;
-        systemData.slots = 50;
-        systemData.crew = 0;
-        break;
-      case "ridingHorse":
-        systemData.cost = 200;
-        systemData.slots = 80;
-        systemData.crew = 0;
-        break;
-      case "warHorse":
-        systemData.cost = 10000;
-        systemData.slots = 80;
-        systemData.crew = 0;
-        break;
-      case "cart":
-        systemData.cost = 50;
-        systemData.slots = 200;
-        systemData.crew = 0;
-        break;
-      case "carriage":
-        systemData.cost = 320;
-        systemData.slots = 200;
-        systemData.crew = 0;
-        break;
-      case "wagon":
-        systemData.cost = 120;
-        systemData.slots = 800;
-        systemData.crew = 0;
-        break;
-      case "rowboat":
-        systemData.cost = 50;
-        systemData.slots = 320;
-        systemData.crew = 0;
-        break;
-      case "fishingBoat":
-        systemData.cost = 500;
-        systemData.slots = 2000;
-        systemData.crew = 2;
-        break;
-      case "sloop":
-        systemData.cost = 5000;
-        systemData.slots = 8000;
-        systemData.crew = 10;
-        break;
-      case "caravel":
-        systemData.cost = 25000;
-        systemData.slots = 40000;
-        systemData.crew = 50;
-        break;
-      case "galleon":
-        systemData.cost = 125000;
-        systemData.slots = 200000;
-        systemData.crew = 200;
-        break;
-    }
+  _prepareMonsterData(actorData) {
+    if (actorData.type !== "monster") return;
+
+    const systemData = actorData.system;
   }
 
   /**
@@ -147,13 +82,11 @@ export default class Knave2eActor extends Actor {
     this._getCharacterRollData(data);
     this._getRecruitRollData(data);
     this._getMonsterRollData(data);
+    this._getVehicleRollData(data);
 
     return data;
   }
 
-  /**
-   * Prepare character roll data.
-   */
   _getCharacterRollData(data) {
     if (this.type !== "character") return;
 
@@ -166,9 +99,6 @@ export default class Knave2eActor extends Actor {
     data.rollMode = game.settings.get("core", "rollMode");
   }
 
-  /**
-   * Prepare Recruit roll data.
-   */
   _getRecruitRollData(data) {
     if (this.type !== "recruit") return;
 
@@ -180,4 +110,11 @@ export default class Knave2eActor extends Actor {
 
     // Process additional Monster data here.
   }
+
+  _getVehicleRollData(data) {
+    if (this.type !== "vehicle") return;
+
+    // Process additional Vehicle data here.
+  }
+
 }
