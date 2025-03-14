@@ -210,12 +210,11 @@ export async function onAttack(event) {
 
   // Override base roll function to deliver to ChatMessage
   let messageData = {
-    data: {},
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     from: game.user._id,
     sound: "sounds/dice.wav",
     speaker: speaker,
     rollMode: rollMode,
+    rolls: []
   };
 
   // Pass item info for clickable Damage & Direct buttons in-chat. Will update item/buttons/flavor in-method
