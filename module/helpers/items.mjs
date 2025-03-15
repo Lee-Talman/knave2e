@@ -330,7 +330,7 @@ export async function onAttack(event) {
   rollData.rolls.push(r);
 
   // Merge and push to chat message
-  messageData = foundry.utils.mergeObject(messageData, rollData);
+  //messageData = foundry.utils.mergeObject(messageData, rollData);
   messageData.content = await renderTemplate(
     "systems/knave2e/templates/item/item-chat-message.hbs",
     rollData
