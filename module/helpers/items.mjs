@@ -210,12 +210,11 @@ export async function onAttack(event) {
 
   // Override base roll function to deliver to ChatMessage
   let messageData = {
-    data: {},
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     from: game.user._id,
     sound: "sounds/dice.wav",
     speaker: speaker,
     rollMode: rollMode,
+    rolls: []
   };
 
   // Pass item info for clickable Damage & Direct buttons in-chat. Will update item/buttons/flavor in-method
@@ -225,7 +224,6 @@ export async function onAttack(event) {
       actor: this.actor._id,
       buttons: true,
       character: true,
-      // relic: false,
       description: itemData.description,
       hasDescription: hasDescription,
     },
@@ -332,7 +330,7 @@ export async function onAttack(event) {
   rollData.rolls.push(r);
 
   // Merge and push to chat message
-  messageData = foundry.utils.mergeObject(messageData, rollData);
+  //messageData = foundry.utils.mergeObject(messageData, rollData);
   messageData.content = await renderTemplate(
     "systems/knave2e/templates/item/item-chat-message.hbs",
     rollData
@@ -343,7 +341,7 @@ export async function onAttack(event) {
     const systemData = actor.system;
 
     // Reject monster and melee weapon attacks
-    if (item.type !== "weapon" || item.system.category !== "ranged") {
+    if (actor.type == "monster" || item.type !== "weapon" || item.system.category !== "ranged") {
       return true;
     }
 

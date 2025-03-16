@@ -9,7 +9,6 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
       blank: false,
       initial: this.DEFAULT_CATEGORY,
     });
-    // schema.quantity = new fields.NumberField({ ...requiredInteger, initial: 1, min: 1 });
     schema.slots = new fields.NumberField({
       required: true,
       nullable: false,

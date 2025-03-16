@@ -47,6 +47,10 @@ export default class Knave2eActorSheet extends ActorSheet {
       this._prepareMonsterData(context);
     }
 
+    if (actorData.type == "vehicle") {
+      this._prepareVehicleData(context);
+    }
+
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
@@ -190,6 +194,23 @@ export default class Knave2eActorSheet extends ActorSheet {
     if (game.settings.get("knave2e", "automaticArmor")) {
       systemData.armorPoints = systemData.armorClass - 11;
     }
+    
+  }
+
+  _prepareVehicleData(context) {
+    const systemData = context.system;
+    systemData.slots.value = this._updateUsedSlots(context);
+    
+    if (game.settings.get("knave2e", "enforceIntegerSlots")) {
+      systemData.slots.value = Math.ceil(systemData.slots.value);
+      systemData.slots.max = Math.ceil(systemData.slots.max);
+    } else {
+      systemData.slots.value = Number(systemData.slots.value.toPrecision(2));
+      systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
+    }
+
+    systemData.crew = Math.ceil(systemData.crew)
+    systemData.cost = Math.ceil(systemData.cost)
   }
 
   _updateTotalSlots(context) {

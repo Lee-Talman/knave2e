@@ -8,4 +8,5 @@ export { default as Knave2eMonster } from "./monster.mjs";
 export { default as Knave2eMonsterAttack } from "./monster-attack.mjs";
 export { default as Knave2eRecruit } from "./recruit.mjs";
 export { default as Knave2eSpellbook } from "./spellbook.mjs";
+export { default as Knave2eVehicle } from "./vehicle.mjs";
 export { default as Knave2eWeapon } from "./weapon.mjs";

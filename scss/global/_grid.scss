@@ -263,6 +263,54 @@
 
 }
 
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content max-content auto;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+
+  .header {
+    grid-area: 1 / 1 / 2 / 4;
+    display: grid;
+    grid-template-columns: minmax(80px, 100px) auto auto;
+    grid-template-rows: 1fr;
+    gap: 0px 10px;
+    grid-auto-flow: row;
+
+    .image {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+    
+    .info {
+      grid-area: 1 / 2 / 2 / 4;
+    }
+  }
+
+  .sheet-body {
+    grid-area: 2 / 1 / 3 / 4;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content auto;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+
+    .resources {
+      grid-area: 1 / 1 / 2 / 2;
+      min-height: 10px;
+    }
+
+    .items {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+  }
+
+  .footer {
+    grid-area: 3 / 1 / 4 / 4;
+  }
+}
+  
+
 .npc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
