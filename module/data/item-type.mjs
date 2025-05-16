@@ -9,6 +9,7 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
       blank: false,
       initial: this.DEFAULT_CATEGORY,
     });
+    schema.description = new fields.StringField({ initial: "" });
     schema.slots = new fields.NumberField({
       required: true,
       nullable: false,
@@ -26,7 +27,18 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
       isRelic: new fields.BooleanField({ initial: false }),
       isActive: new fields.BooleanField({ initial: false }),
     });
-    schema.description = new fields.StringField({ initial: "" });
+    schema.quantityPerSlot = new fields.NumberField({
+      required: true,
+      nullable: false,
+      integer: false,
+      initial: 1,
+      min: 1,
+    });
+    schema.quantity = new fields.NumberField({
+      ...requiredInteger,
+      initial: 1,
+      min: 1,
+    });
 
     return schema;
   }

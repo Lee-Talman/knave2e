@@ -194,13 +194,12 @@ export default class Knave2eActorSheet extends ActorSheet {
     if (game.settings.get("knave2e", "automaticArmor")) {
       systemData.armorPoints = systemData.armorClass - 11;
     }
-    
   }
 
   _prepareVehicleData(context) {
     const systemData = context.system;
     systemData.slots.value = this._updateUsedSlots(context);
-    
+
     if (game.settings.get("knave2e", "enforceIntegerSlots")) {
       systemData.slots.value = Math.ceil(systemData.slots.value);
       systemData.slots.max = Math.ceil(systemData.slots.max);
@@ -209,8 +208,8 @@ export default class Knave2eActorSheet extends ActorSheet {
       systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
     }
 
-    systemData.crew = Math.ceil(systemData.crew)
-    systemData.cost = Math.ceil(systemData.cost)
+    systemData.crew = Math.ceil(systemData.crew);
+    systemData.cost = Math.ceil(systemData.cost);
   }
 
   _updateTotalSlots(context) {
@@ -260,10 +259,14 @@ export default class Knave2eActorSheet extends ActorSheet {
 
   _updateUsedSlots(context) {
     const systemData = context.system;
-    // Sum item slots...
-    const itemSlots = context.items.reduce((total, item) => {
-      return total + item.system.slots;
-    }, 0);
+    
+    // Sum item slots.
+    let itemSlots = 0;
+    if (context.items.length > 0) {
+      context.items.forEach(
+        (item) => (itemSlots += item.system.slots * item.system.quantity)
+      );
+    }
 
     const coinsPerSlot = game.settings.get("knave2e", "coinsPerSlot");
     const arrowsPerSlot = game.settings.get("knave2e", "arrowsPerSlot");
