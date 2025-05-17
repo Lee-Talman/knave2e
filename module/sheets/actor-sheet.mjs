@@ -101,17 +101,6 @@ export default class Knave2eActorSheet extends ActorSheet {
     systemData.hitPoints.progress = hitPointsProgress;
     systemData.wounds.progress = woundsProgress;
 
-    // Handle Level/XP
-    if (game.settings.get("knave2e", "automaticLevel")) {
-      const { currentLevel, progress } = this._updateLevelAndXP(
-        systemData.xp.value
-      );
-      systemData.level = currentLevel;
-      systemData.xp.progress = progress;
-    } else {
-      systemData.xp.progress = 0;
-    }
-
     // Handle Light
     if (game.settings.get("knave2e", "automaticLight")) {
       this._updateLight(context);
@@ -929,6 +918,10 @@ export default class Knave2eActorSheet extends ActorSheet {
     let currentLevel = 1;
     let progress = 0;
     const base = game.settings.get("knave2e", "baseLevelXP");
+
+    //CONFIG.SYSTEM.XP
+
+
 
     switch (true) {
       case xp >= 0 && xp < base:
