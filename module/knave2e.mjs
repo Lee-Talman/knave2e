@@ -153,6 +153,17 @@ Hooks.once("init", function () {
     requiresReload: true,
   });
 
+  // Automatic Vision for Characters
+  game.settings.register("knave2e", "automaticVision", {
+    name: "Automate Vision",
+    hint: "Enables Vision when creating a new Character. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
   // Automatic Wounds
   game.settings.register("knave2e", "automaticWounds", {
     name: "Automate Wounds",

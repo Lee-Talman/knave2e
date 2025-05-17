@@ -5,7 +5,9 @@ export default class Knave2eActor extends Actor {
       this.updateSource({ "prototypeToken.actorLink": true });
     }
     if (data.type === "character") {
-      this.updateSource({ "prototypeToken.sight.enabled": true });
+      if (game.settings.get("knave2e", "automaticVision")) {
+        this.updateSource({ "prototypeToken.sight.enabled": true });
+      }
     }
   }
 
