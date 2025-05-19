@@ -14,6 +14,10 @@ export default class Knave2eWeapon extends Knave2eItemType {
       choices: SYSTEM.AMMO_TYPES,
       initial: "none",
     });
+    schema.attackBonus = new fields.NumberField({
+        ...requiredInteger,
+        initial: 0
+    })
     schema.broken = new fields.BooleanField({ initial: false });
     schema.range = new fields.NumberField({
       ...requiredInteger,

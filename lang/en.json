@@ -31,6 +31,7 @@
   "KNAVE2E.AmmoBow": "Arrows",
   "KNAVE2E.AmmoSling": "Bullets",
   "KNAVE2E.ArmorClass": "AC",
+  "KNAVE2E.AttackBonus" : "Attack Bonus",
   "KNAVE2E.Coins": "Coins",
 
   "KNAVE2E.HitPoints": "HP",
@@ -71,6 +72,7 @@
   "KNAVE2E.None": "None",
   "KNAVE2E.Relic": "Relic",
   "KNAVE2E.Quantity": "Quantity",
+  "KNAVE2E.QuantityAbbr": "#",
 
   "KNAVE2E.Cancel": "Cancel",
 
@@ -192,7 +194,7 @@
 
   "KNAVE2E.RestDialogTitle": "Choose Rest Type",
   "KNAVE2E.RestDialogContent": "To rest, eat a meal & sleep at least two watches. Resting in a safe haven additionally restores 1 Wound.",
-  
+
   "TYPES.Actor.character": "Character",
   "TYPES.Actor.recruit": "Recruit",
   "TYPES.Actor.monster": "Monster",
