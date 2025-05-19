@@ -60,4 +60,25 @@ export default class Knave2eRecruit extends Knave2eActorType {
 
     return schema;
   }
+
+  prepareDerivedData() {
+    this._deriveHP();
+  }
+
+  _deriveHP() {
+    if (this.hitPoints.value > 0) {
+      this.hitPoints.value = Math.min(this.hitPoints.value, this.hitPoints.max);
+      this.hitPoints.progress = Math.floor(
+        (this.hitPoints.value / this.hitPoints.max) * 100
+      );
+    } else {
+      this.hitPoints.value = 0;
+      this.hitPoints.progress = 0;
+    }
+  }
+
+  async getRestData() {
+    const actorRestData = await super.getRestData();
+    return { ...actorRestData, "system.spells.value": 0 };
+  }
 }

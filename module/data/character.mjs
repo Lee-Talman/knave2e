@@ -92,53 +92,123 @@ export default class Knave2eCharacter extends Knave2eActorType {
         max: 100,
       }),
     });
+
+    schema.hitPoints.fields.value.min = -999;
     return schema;
   }
 
   prepareBaseData() {}
 
   prepareDerivedData() {
-    console.log(this);
-    if (game.settings.get("knave2e", "automaticLevel")) {
-      const {level, label, progress} = this._prepareLevel(this.xp.value);
-      this.level = level;
-      this.label = label;
-      this.xp.progress = progress;
-    } else {
-      this.xp.progress = 0;
-    }
+    //if (game.settings.get("knave2e", "automaticLevel")) {
+    //  const { level, label, progress } = this._deriveLevel(this.xp.value);
+    //  this.level = level;
+    //  this.label = label;
+    //  this.xp.progress = progress;
+    //} else {
+    //  this.xp.progress = 0;
+    //}
+
+    //const {}
+    this._deriveLevel();
+    this._deriveHP();
   }
 
-  _prepareLevel(currentXP) {
-    // Filter out levels with 0 XP
-    const validLevels = Object.entries(SYSTEM.LEVELS.LEVELS)
-      .filter(([_, value]) => value.xp >= 0)
-      .map(([key, value]) => ({
-        level: parseInt(key),
-        xp: value.xp,
-        label: value.label,
-      }));
+  _deriveHP() {
+    //Cap current HP/wounds to max HP/wounds
+    this.hitPoints.value = Math.min(this.hitPoints.value, this.hitPoints.max);
+    this.wounds.value = Math.min(this.wounds.value, this.wounds.max);
 
-    // Find which level bracket the currentXP falls into
-    for (let i = 0; i < validLevels.length - 1; i++) {
-      const currentLevel = validLevels[i];
-      const nextLevel = validLevels[i + 1];
+    //Overflow any negative HP into wounds
+    if (this.hitPoints.value < 0) {
+      const overflowDamage = -this.hitPoints.value;
+      this.hitPoints.value = 0;
 
-      if (currentXP >= currentLevel.xp && currentXP < nextLevel.xp) {
-        return {
-          level: currentLevel.level,
-          label: game.i18n.localize(currentLevel.label),
-          progress: Math.floor((currentXP / nextLevel.xp) * 100),
-        };
+      this.wounds.value = this.wounds.value - overflowDamage;
+      if (this.wounds.value <= 0) {
+        this.wounds.value = 0;
       }
     }
 
-    // If we've reached here, the input is at or above the highest level
-    const highestLevel = validLevels[validLevels.length - 1];
-    return {
-      level: highestLevel.level,
-      label: game.i18n.localize(highestLevel.label),
-      progress: 100,
-    };
+    // Update progress bars for HP/wounds
+    this.hitPoints.progress = Math.floor(
+      (this.hitPoints.value / this.hitPoints.max) * 100
+    );
+
+    this.wounds.progress = Math.floor(
+      (this.wounds.value / this.wounds.max) * 100
+    );
+  }
+
+  _deriveLevel() {
+    if (game.settings.get("knave2e", "automaticLevel") === false) {
+      this.xp.progress = 0;
+    } else {
+      // Ignore level keys with an 'xp' value < 0
+      //const validLevels = Object.entries(SYSTEM.LEVELS.LEVELS)
+      const validLevels = Object.entries(JSON.parse(game.settings.get("knave2e", "xpPerLevel")))
+        .filter(([_, value]) => value.xp >= 0)
+        .map(([key, value]) => ({
+          level: parseInt(key),
+          xp: value.xp,
+          label: value.label,
+        }));
+
+      // Determine level from this.xp.value
+      for (let i = 0; i < validLevels.length - 1; i++) {
+        const currentLevel = validLevels[i];
+        const nextLevel = validLevels[i + 1];
+
+        if (this.xp.value >= currentLevel.xp && this.xp.value < nextLevel.xp) {
+          (this.level = currentLevel.level),
+            (this.label = currentLevel.label),
+            (this.xp.progress = Math.floor(
+              ((this.xp.value - currentLevel.xp) / (nextLevel.xp-currentLevel.xp)) * 100
+            ));
+          return;
+        }
+      }
+
+      const highestLevel = validLevels[validLevels.length - 1];
+      (this.level = highestLevel.level),
+        (this.label = game.i18n.localize(highestLevel.label)),
+        (this.xp.progress = 100);
+    }
+  }
+  
+  async getRestData() {
+    const actorRestData = await super.getRestData()
+    const update = { ...actorRestData, "system.spells.value" : 0}
+    
+    const type = await Dialog.wait({
+        title: `${game.i18n.localize("KNAVE2E.RestDialogTitle")}`,
+        content: `${game.i18n.localize("KNAVE2E.RestDialogContent")}`,
+        buttons: {
+          standard: {
+            label: game.i18n.localize("KNAVE2E.Standard"),
+            callback: () => {
+              return "standard";
+            },
+          },
+          safe: {
+            label: game.i18n.localize("KNAVE2E.SafeHaven"),
+            callback: () => {
+              return "safe";
+            },
+          },
+        },
+        default: "standard",
+      });
+
+    if (type === "standard") {
+        return update
+    }
+    else if (type === "safe") {
+        return {...update, "system.wounds.value" : Math.min(this.wounds.value + 1, this.wounds.max)}
+    }
+    else {
+        ui.notifications.warn("No rest type selected. Defaulting to standard rest...");
+        return update
+    }
   }
 }

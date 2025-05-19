@@ -96,11 +96,6 @@ export default class Knave2eActorSheet extends ActorSheet {
       }
     }
 
-    // Handle HP & Wounds
-    const { hitPointsProgress, woundsProgress } = this._updateHealth(context);
-    systemData.hitPoints.progress = hitPointsProgress;
-    systemData.wounds.progress = woundsProgress;
-
     // Handle Light
     if (game.settings.get("knave2e", "automaticLight")) {
       this._updateLight(context);
@@ -149,7 +144,6 @@ export default class Knave2eActorSheet extends ActorSheet {
     }
 
     // Handle HP
-    systemData.hitPoints.progress = this._updateHealth(context);
 
     // Handle Light
     if (game.settings.get("knave2e", "automaticLight")) {
@@ -176,8 +170,6 @@ export default class Knave2eActorSheet extends ActorSheet {
 
   _prepareMonsterData(context) {
     const systemData = context.system;
-
-    systemData.hitPoints.progress = this._updateHealth(context);
 
     // Automatic AC, AP, and Armor Types
     if (game.settings.get("knave2e", "automaticArmor")) {
@@ -309,35 +301,6 @@ export default class Knave2eActorSheet extends ActorSheet {
 
     armorClass = armorPoints + 11;
     return { armorPoints, armorClass };
-  }
-
-  _updateHealth(context) {
-    const systemData = context.system;
-    const hitPointsProgress = Math.floor(
-      (systemData.hitPoints.value / systemData.hitPoints.max) * 100
-    );
-
-    if (this.actor.type === "recruit" || this.actor.type === "monster") {
-      systemData.hitPoints.value = Math.min(
-        systemData.hitPoints.value,
-        systemData.hitPoints.max
-      );
-      return hitPointsProgress;
-    } else if (this.actor.type === "character") {
-      systemData.hitPoints.value = Math.min(
-        systemData.hitPoints.value,
-        systemData.hitPoints.max
-      );
-      systemData.wounds.value = Math.min(
-        systemData.wounds.value,
-        systemData.wounds.max
-      );
-      const woundsProgress = Math.floor(
-        (systemData.wounds.value / systemData.wounds.max) * 100
-      );
-
-      return { hitPointsProgress, woundsProgress };
-    }
   }
 
   _updateBlessings(context) {
@@ -829,58 +792,8 @@ export default class Knave2eActorSheet extends ActorSheet {
 
   async _onRest(event) {
     event.preventDefault();
-    const systemData = this.actor.system;
-
-    let spellbookChanges = this.actor.items
-      .filter((i) => i.type === "spellbook")
-      .map((i) => ({ _id: i.id, "system.cast": false }));
-    this.actor.updateEmbeddedDocuments("Item", spellbookChanges);
-
-    // Recruits have no wounds to recover
-    if (this.actor.type === "recruit") {
-      return this.actor.update({
-        "system.hitPoints.value": systemData.hitPoints.max,
-        "system.spells.value": 0,
-      });
-    } else {
-      const restType = await Dialog.wait({
-        title: `${game.i18n.localize("KNAVE2E.RestDialogTitle")}`,
-        content: `${game.i18n.localize("KNAVE2E.RestDialogContent")}`,
-        buttons: {
-          standard: {
-            label: game.i18n.localize("KNAVE2E.Standard"),
-            callback: () => {
-              return "standard";
-            },
-          },
-          safe: {
-            label: game.i18n.localize("KNAVE2E.SafeHaven"),
-            callback: () => {
-              return "safe";
-            },
-          },
-        },
-        default: "standard",
-        // close: () => { reject() },
-      });
-
-      if (restType === "standard") {
-        return this.actor.update({
-          "system.hitPoints.value": systemData.hitPoints.max,
-          "system.spells.value": 0,
-        });
-      } else if (restType === "safe") {
-        return this.actor.update({
-          "system.hitPoints.value": systemData.hitPoints.max,
-          "system.wounds.value": Math.min(
-            systemData.wounds.value + 1,
-            systemData.wounds.max
-          ),
-          "system.spells.value": 0,
-        });
-      }
+    await this.actor.system.rest();
     }
-  }
 
   async _onRollable(event) {
     // event.preventDefault();
