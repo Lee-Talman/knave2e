@@ -240,7 +240,7 @@ export default class Knave2eActorSheet extends ActorSheet {
 
   _updateUsedSlots(context) {
     const systemData = context.system;
-    
+
     // Sum item slots.
     let itemSlots = 0;
     if (context.items.length > 0) {
@@ -449,6 +449,9 @@ export default class Knave2eActorSheet extends ActorSheet {
     // Item Description to chat
     html.on("click", ".item-name", this._onItemName.bind(this));
 
+    // Adjust Item Quantity
+    html.on("click", ".item-toggle.quantity", this._onQuantity.bind(this));
+
     // Toggle Item Icons
     html.on("click", ".item-toggle", this._onItemToggle.bind(this));
 
@@ -571,6 +574,24 @@ export default class Knave2eActorSheet extends ActorSheet {
         }
       case "light":
         return item.update({ "system.lit": !item.system.lit });
+      default:
+        break;
+    }
+  }
+
+  _onQuantity(event) {
+    event.preventDefault();
+    const a = event.currentTarget;
+    // Find closest <li> element containing a "data-item-id" attribute
+    const li = a.closest("li");
+    const item = li.dataset.itemId
+      ? this.actor.items.get(li.dataset.itemId)
+      : null;
+    switch (a.dataset.action) {
+      case "increment":
+        return item.update({ "system.quantity": item.system.quantity + 1 });
+      case "decrement":
+        return item.update({ "system.quantity": item.system.quantity - 1 });
       default:
         break;
     }
@@ -793,7 +814,7 @@ export default class Knave2eActorSheet extends ActorSheet {
   async _onRest(event) {
     event.preventDefault();
     await this.actor.system.rest();
-    }
+  }
 
   async _onRollable(event) {
     // event.preventDefault();
@@ -825,63 +846,5 @@ export default class Knave2eActorSheet extends ActorSheet {
 
       return r;
     }
-  }
-
-  _updateLevelAndXP(xp) {
-    let currentLevel = 1;
-    let progress = 0;
-    const base = game.settings.get("knave2e", "baseLevelXP");
-
-    //CONFIG.SYSTEM.XP
-
-
-
-    switch (true) {
-      case xp >= 0 && xp < base:
-        currentLevel = 1;
-        progress = Math.floor((xp / base) * 100);
-        break;
-      case xp >= base && xp < base * 2:
-        currentLevel = 2;
-        progress = Math.floor(((xp - base) / base) * 100);
-        break;
-      case xp >= base * 2 && xp < base * 4:
-        currentLevel = 3;
-        progress = Math.floor(((xp - base * 2) / (base * 2)) * 100);
-        break;
-      case xp >= base * 4 && xp < base * 8:
-        currentLevel = 4;
-        progress = Math.floor(((xp - base * 4) / (base * 4)) * 100);
-        break;
-      case xp >= base * 8 && xp < base * 16:
-        currentLevel = 5;
-        progress = Math.floor(((xp - base * 8) / (base * 8)) * 100);
-        break;
-      case xp >= base * 16 && xp < base * 32:
-        currentLevel = 6;
-        progress = Math.floor(((xp - base * 16) / (base * 16)) * 100);
-        break;
-      case xp >= base * 32 && xp < base * 62.5:
-        currentLevel = 7;
-        progress = Math.floor(((xp - base * 32) / (base * 32)) * 100);
-        break;
-      case xp >= base * 62.5 && xp < base * 125:
-        currentLevel = 8;
-        progress = Math.floor(((xp - base * 62.5) / (base * 62.5)) * 100);
-        break;
-      case xp >= base * 125 && xp < base * 250:
-        currentLevel = 9;
-        progress = Math.floor(((xp - base * 125) / (base * 125)) * 100);
-        break;
-      case xp >= base * 250:
-        currentLevel = 10;
-        progress = 100;
-        break;
-      default:
-        currentLevel = 1;
-        progress = 0;
-        break;
-    }
-    return { currentLevel, progress };
   }
 }

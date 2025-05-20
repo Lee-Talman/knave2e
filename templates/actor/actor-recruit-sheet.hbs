@@ -166,9 +166,10 @@
                 <div class="items">
                     <ol class="items-list">
                         <li class="knave-item grid grid-12col items-header">
-                            <div class="resource-label item-name-header grid-span-9">{{localize "KNAVE2E.ItemName"}}
+                            <div class="resource-label item-name-header grid-span-8">{{localize "KNAVE2E.ItemName"}}
                             </div>
                             <div class="resource-label item-slots-header grid-span-1">{{localize "KNAVE2E.Slots"}}</div>
+                            <div class="resource-label item-slots-header grid-span-1">{{localize "KNAVE2E.QuantityAbbr"}}</div>
                             <div class="resource-label item-controls-header grid-span-2">
                                 <a class="item-control item-create" title="Create item" data-type="item"><i
                                         class="fas fa-plus"></i> Add
@@ -183,7 +184,7 @@
                                         title="{{item.name}}" width="36" height="36" /></a></div>
 
                             {{#if (eq item.type "weapon")}}
-                            <a class="item-name detail grid-span-5">{{#if item.system.dropped}}({{localize
+                            <a class="item-name detail grid-span-4">{{#if item.system.dropped}}({{localize
                                 "KNAVE2E.Dropped"}})
                                 {{/if}}{{item.name}}</a>
                             <div class="item-buttons grid-span-3 flexrow flex-group-center">
@@ -197,7 +198,7 @@
 
                             {{else}}
                             {{#if (eq item.type "spellbook")}}
-                            <a class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize
+                            <a class="item-name detail grid-span-6">{{#if item.system.dropped}}({{localize
                                 "KNAVE2E.Dropped"}})
                                 {{/if}}{{item.name}}</a>
                             <div class="item-buttons grid-span-1 flexrow flex-group-center">
@@ -206,13 +207,22 @@
                             </div>
 
                             {{else}}
-                            <a class="item-name detail grid-span-8">{{#if item.system.dropped}}({{localize
+                            <a class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize
                                 "KNAVE2E.Dropped"}})
                                 {{/if}}{{item.name}}</a>
                             {{/if}}
                             {{/if}}
 
                             <div class="item-slots grid-span-1 item-prop">{{item.system.slots}}</div>
+                            <div class="item-slots grid-span-1 item-prop">
+                                <div class="grid-span-3 flexrow flex-group-center">
+                                    <a class="item-toggle quantity" data-action="decrement">
+                                        <i class="fas fa-caret-down"></i></a>
+                                    <div class="item-prop">{{item.system.quantity}}</div>
+                                    <a class="item-toggle quantity" data-action="increment">
+                                        <i class="fas fa-caret-up"></i></a>
+                                </div>
+                            </div>
                             <div class="item-controls grid-span-2">
                                 {{#if (eq item.type "weapon")}}
                                 <a class="item-toggle" data-action="break" title={{localize "KNAVE2E.BreakWeaponDetail"
