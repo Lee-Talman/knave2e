@@ -278,6 +278,11 @@ export async function onAttack(event) {
         : systemData.abilities.wisdom.value.toString();
   }
 
+  if (item.type === "weapon" || item.type === "monsterAttack") {
+    attackRollBonus += (item.system.attackBonus ?? 0)
+  }
+  
+
   /* -------------------------------------------- */
   /*  Attack Formula                              */
   /* -------------------------------------------- */

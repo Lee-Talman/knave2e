@@ -30,5 +30,5 @@ export const SYSTEM = {
     LIGHTSOURCE,
     RECRUIT,
     SPELLBOOK,
-    WEAPON
+    WEAPON,
 }

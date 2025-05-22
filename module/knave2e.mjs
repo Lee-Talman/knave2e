@@ -153,6 +153,17 @@ Hooks.once("init", function () {
     requiresReload: true,
   });
 
+  // Automatic Vision for Characters
+  game.settings.register("knave2e", "automaticVision", {
+    name: "Automate Vision",
+    hint: "Enables Vision when creating a new Character. Defaults to TRUE.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+    requiresReload: true,
+  });
+
   // Automatic Wounds
   game.settings.register("knave2e", "automaticWounds", {
     name: "Automate Wounds",
@@ -296,6 +307,17 @@ Hooks.once("init", function () {
     requiresReload: true,
   });
 
+  // XP Per Level
+  game.settings.register("knave2e", "xpPerLevel", {
+    name: "Override XP required per Level",
+    hint: "Modify the required XP for each level. Advanced users can add additional levels beyond 10. Defaults to the Knave 2E Leveling Rules.",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "{\"1\":{\"xp\":0,\"label\":\"Wretch\"},\"2\":{\"xp\":2000,\"label\":\"Lowlife\"},\"3\":{\"xp\":4000,\"label\":\"Hoodlum\"},\"4\":{\"xp\":8000,\"label\":\"Fool\"},\"5\":{\"xp\":16000,\"label\":\"Dastard\"},\"6\":{\"xp\":32000,\"label\":\"Cad\"},\"7\":{\"xp\":64000,\"label\":\"Gadabout\"},\"8\":{\"xp\":125000,\"label\":\"Rogue\"},\"9\":{\"xp\":250000,\"label\":\"Jack\"},\"10\":{\"xp\":500000,\"label\":\"Knave\"}}",
+    requiresReload: true,
+  });
+
   CONFIG.Combat.initiative = {
     formula: "1d20 + @abilities.charisma.value",
     decimals: 2,
@@ -315,12 +337,6 @@ Hooks.once("init", function () {
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
-
-class AutomationMenuClass extends FormApplication {
-  getData() {
-    return game.settings.get();
-  }
-}
 
 /* -------------------------------------------- */
 /*  Handlebars Helpers                          */

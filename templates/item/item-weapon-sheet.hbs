@@ -1,136 +1,105 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{! Item Sheet Header }}
-  <header class="sheet-header">
-    <div class="item-header-grid">
+    {{! Item Sheet Header }}
+    <header class="sheet-header">
+        <div class="item-header-grid">
 
-      {{! Item Image }}
-      <div class="item-header-img">
-        <img
-          class="profile-img"
-          src="{{item.img}}"
-          data-edit="img"
-          title="{{item.name}}"
-        />
-      </div>
-
-      {{! Item Info }}
-      <div class="item-info-grid">
-        <div class="item-header-name">
-          <input
-            type="text"
-            name="name"
-            value="{{item.name}}"
-            data-dtype="String"
-          />
-        </div>
-        <div class="item-header-info">
-          <div class="flexrow flex-group-center">
-            <div class="flexrow flex-group-center">
-              <div class="resource-label">{{localize "KNAVE2E.Slots"}}</div>
-              <input
-                type="text"
-                name="system.slots"
-                value="{{system.slots}}"
-                data-dtype="Number"
-              />
+            {{! Item Image }}
+            <div class="item-header-img">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
             </div>
-            <div class="flexrow flex-group-center">
-              <div class="resource-label">{{localize "KNAVE2E.Cost"}}</div>
-              <input
-                type="text"
-                name="system.cost"
-                value="{{system.cost}}"
-                data-dtype="Number"
-              />
+
+            {{! Item Info }}
+            <div class="item-info-grid">
+                <div class="item-header-name">
+                    <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
+                </div>
+                <div class="item-header-info">
+                    <div class="flexrow flex-group-center">
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Slots"}}</div>
+                            <input type="text" name="system.slots" value="{{system.slots}}" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Cost"}}</div>
+                            <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
+                        </div>
+                        <div class="flexrow flex-group-center">
+                            <div class="resource-label">{{localize "KNAVE2E.Relic"}}</div>
+                            <input type="checkbox" name="system.relic.isRelic" {{checked system.relic.isRelic}} />
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flexrow flex-group-center">
-              <div class="resource-label">{{localize "KNAVE2E.Relic"}}</div>
-              <input
-                type="checkbox"
-                name="system.relic.isRelic"
-                {{checked system.relic.isRelic}}
-              />
+        </div>
+    </header>
+
+    {{! Item Sheet Body }}
+    <section class="sheet-body">
+        <div class="item-body-grid">
+
+            {{! Item Aside }}
+            <div class="item-body-aside">
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize "KNAVE2E.Type"}}</div>
+                    <select name="system.category">
+                        {{selectOptions
+                        weaponCategories
+                        selected=system.category
+                        localize=true
+                        }}</select>
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize
+                        "KNAVE2E.AmmoType"
+                        }}</div>
+                    <select name="system.ammoType">
+                        {{selectOptions
+                        ammoCategories
+                        selected=system.ammoType
+                        localize=true
+                        }}</select>
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize "KNAVE2E.Range"}}</div>
+                    <input type="text" name="system.range" value="{{system.range}}" data-dtype="Number" />
+                </div>
+                <hr class="separator" />
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize
+                        "KNAVE2E.AttackBonus"
+                        }}</div>
+                    <input class="attack-bonus" type="text" name="system.attackBonus" value="{{system.attackBonus}}"
+                        data-dtype="Number" />
+                </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize
+                        "KNAVE2E.DamageRollFormula"
+                        }}</div>
+                    <input class="damage-roll-formula" type="text" name="system.damageRoll"
+                        value="{{system.damageRoll}}" data-dtype="String" />
+                </div>
+
+            <hr class="separator" />
+
+            <div class="flexrow flex-group-left flex-between">
+                <div class="resource-label aside">{{localize "KNAVE2E.Broken"}}</div>
+                <input type="checkbox" name="system.broken" {{checked system.broken}} />
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  {{! Item Sheet Body }}
-  <section class="sheet-body">
-    <div class="item-body-grid">
-
-      {{! Item Aside }}
-      <div class="item-body-aside">
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize "KNAVE2E.Type"}}</div>
-          <select name="system.category">
-            {{selectOptions
-              weaponCategories
-              selected=system.category
-              localize=true
-            }}</select>
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize
-              "KNAVE2E.AmmoType"
-            }}</div>
-          <select name="system.ammoType">
-            {{selectOptions
-              ammoCategories
-              selected=system.ammoType
-              localize=true
-            }}</select>
-        </div>
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize "KNAVE2E.Range"}}</div>
-          <input
-            type="text"
-            name="system.range"
-            value="{{system.range}}"
-            data-dtype="Number"
-          />
-        </div>
-        <hr class="separator" />
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize
-              "KNAVE2E.DamageRollFormula"
-            }}</div>
-          <input
-            class="damage-roll-formula"
-            type="text"
-            name="system.damageRoll"
-            value="{{system.damageRoll}}"
-            data-dtype="String"
-          />
         </div>
 
-        <hr class="separator" />
-
-        <div class="flexrow flex-group-left flex-between">
-          <div class="resource-label aside">{{localize "KNAVE2E.Broken"}}</div>
-          <input
-            type="checkbox"
-            name="system.broken"
-            {{checked system.broken}}
-          />
+        {{! Item Description }}
+        <div class="item-body-description">
+            <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+            <section class="editor">
+                {{editor
+                system.enrichedHTML
+                target="system.description"
+                button=true
+                owner=owner
+                editable=editable
+                }}
+            </section>
         </div>
-      </div>
-
-      {{! Item Description }}
-      <div class="item-body-description">
-        <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
-        <section class="editor">
-          {{editor
-            system.enrichedHTML
-            target="system.description"
-            button=true
-            owner=owner
-            editable=editable
-          }}
-        </section>
-      </div>
-    </div>
-  </section>
+        </div>
+    </section>
 </form>

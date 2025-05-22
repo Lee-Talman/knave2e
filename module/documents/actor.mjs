@@ -1,9 +1,14 @@
 export default class Knave2eActor extends Actor {
   async _preCreate(data) {
+    if ((await super._preCreate(data)) === false) return false;
     if (data.type === "character" || data.type === "recruit") {
       this.updateSource({ "prototypeToken.actorLink": true });
     }
-    super._preCreate(data);
+    if (data.type === "character") {
+      if (game.settings.get("knave2e", "automaticVision")) {
+        this.updateSource({ "prototypeToken.sight.enabled": true });
+      }
+    }
   }
 
   prepareData() {
@@ -116,5 +121,4 @@ export default class Knave2eActor extends Actor {
 
     // Process additional Vehicle data here.
   }
-
 }

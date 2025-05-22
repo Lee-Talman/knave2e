@@ -35,20 +35,7 @@ export default class Knave2eLightSource extends Knave2eItemType {
       min: 0,
       max: 10,
     });
-    schema.quantityPerSlot = new fields.NumberField({
-      required: true,
-      nullable: false,
-      integer: false,
-      initial: this.DEFAULT_QUANTITYPERSLOT,
-      min: 1,
-    });
 
     return schema;
-  }
-
-  prepareBaseData() {}
-
-  prepareDerivedData() {
-    this.slots = 1 / this.quantityPerSlot;
   }
 }

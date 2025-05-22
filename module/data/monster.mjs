@@ -30,6 +30,11 @@ export default class Knave2eRecruit extends Knave2eActorType {
   }
 
   prepareDerivedData() {
+    this._deriveNA();
+    this._deriveHP();
+  }
+
+  _deriveNA() {
     // Rip single NA roll of format 1d6(3d6) into separate rolls
     const combined = this.numberAppearing.combined;
 
@@ -45,5 +50,17 @@ export default class Knave2eRecruit extends Knave2eActorType {
       openingParenIndex + 1,
       closingParenIndex
     );
+  }
+
+  _deriveHP() {
+    if (this.hitPoints.value > 0) {
+      this.hitPoints.value = Math.min(this.hitPoints.value, this.hitPoints.max);
+      this.hitPoints.progress = Math.floor(
+        (this.hitPoints.value / this.hitPoints.max) * 100
+      );
+    } else {
+      this.hitPoints.value = 0;
+      this.hitPoints.progress = 0;
+    }
   }
 }

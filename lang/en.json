@@ -31,6 +31,7 @@
   "KNAVE2E.AmmoBow": "Arrows",
   "KNAVE2E.AmmoSling": "Bullets",
   "KNAVE2E.ArmorClass": "AC",
+  "KNAVE2E.AttackBonus" : "Attack Bonus",
   "KNAVE2E.Coins": "Coins",
 
   "KNAVE2E.HitPoints": "HP",
@@ -71,6 +72,7 @@
   "KNAVE2E.None": "None",
   "KNAVE2E.Relic": "Relic",
   "KNAVE2E.Quantity": "Quantity",
+  "KNAVE2E.QuantityAbbr": "Qty",
 
   "KNAVE2E.Cancel": "Cancel",
 

@@ -47,6 +47,66 @@ The game system provides many other similar automations:
 - [x] Light sources can be customized and activated from a character's inventory
 - [x] Characters can perform a standard or "safe haven" rest to restore Wounds
 
+## Custom Levels & XP
+`knave2e` supports custom level XP, levels beyond 1-10, and custom level labels. These are defined as a single JSON structure:
+
+```json
+{
+    "1": {
+        "xp": 0,
+        "label": "Wretch"
+    },
+    "2": {
+        "xp": 2000,
+        "label": "Lowlife"
+    },
+    "3": {
+        "xp": 4000,
+        "label": "Hoodlum"
+    },
+    "4": {
+        "xp": 8000,
+        "label": "Fool"
+    },
+    "5": {
+        "xp": 16000,
+        "label": "Dastard"
+    },
+    "6": {
+        "xp": 32000,
+        "label": "Cad"
+    },
+    "7": {
+        "xp": 640000,
+        "label": "Gadabout"
+    },
+    "8": {
+        "xp": 125000,
+        "label": "Rogue"
+    },
+    "9": {
+        "xp": 250000,
+        "label": "Jack"
+    },
+    "10": {
+        "xp": 5000000,
+        "label": "Knave"
+    }
+}
+```
+
+This is represented in the in-game settings as a single string:
+
+```json
+{"1":{"xp":0,"label":"Wretch"},"2":{"xp":2000,"label":"Lowlife"},"3":{"xp":4000,"label":"Hoodlum"},"4":{"xp":8000,"label":"Fool"},"5":{"xp":16000,"label":"Dastard"},"6":{"xp":32000,"label":"Cad"},"7":{"xp":64000,"label":"Gadabout"},"8":{"xp":125000,"label":"Rogue"},"9":{"xp":250000,"label":"Jack"},"10":{"xp":500000,"label":"Knave"}}
+```
+
+You can add/modify levels easily by editing this string. Here's an example that adds an 11th level called "Questing Beast", which requires 1,000,000 XP:
+
+```json
+{"1":{"xp":0,"label":"Wretch"},"2":{"xp":2000,"label":"Lowlife"},"3":{"xp":4000,"label":"Hoodlum"},"4":{"xp":8000,"label":"Fool"},"5":{"xp":16000,"label":"Dastard"},"6":{"xp":32000,"label":"Cad"},"7":{"xp":64000,"label":"Gadabout"},"8":{"xp":125000,"label":"Rogue"},"9":{"xp":250000,"label":"Jack"},"10":{"xp":500000,"label":"Knave"},"11":{"xp":1000000,"label":"Questing Beast"}}
+```
+
 ## Bug Reporting
 Knave Second Edition for FoundryVTT is still in a beta stage, and is likely to have many missing features, bugs, and edge cases. Report any issues (preferably with `F12 > Inspect Editor` screenshots) in the [Issues](https://github.com/Lee-Talman/knave2e/issues) page.
 

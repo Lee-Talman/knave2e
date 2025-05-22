@@ -32,4 +32,20 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
 
     return schema;
   }
+
+  async rest() {
+    const update = await this.getRestData();
+    return this.parent.update(update);
+  }
+
+  async getRestData() {
+    // Reset "cast" field on each owned spellbook
+    let spellbookChanges = this.parent.items
+      .filter((i) => i.type === "spellbook")
+      .map((i) => ({ _id: i.id, "system.cast": false }));
+    this.parent.updateEmbeddedDocuments("Item", spellbookChanges);
+
+    // Recover all HP on rest
+    return {"system.hitPoints.value" : this.hitPoints.max}
+  }
 }
