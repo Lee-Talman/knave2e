@@ -74,70 +74,77 @@
         </li>
         {{#each items as |item id|}}
         <li class="knave-item grid grid-12col {{#if system.dropped}}dropped{{/if}}" data-item-id="{{item._id}}">
+            <div class="item-progress-wrapper grid grid-span-12 grid-12col">
+                <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: {{item.system.progress}}%;"></div>
+                <div class="item-progress-content grid grid-span-12 grid-12col">
+                    <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
+                                title="{{item.name}}" width="36" height="36" /></a></div>
 
-            <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
-                        title="{{item.name}}" width="36" height="36" /></a></div>
+                    {{#if (eq item.type "weapon")}}
+                    <a class="item-name detail grid-span-4">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
+                        {{/if}}{{item.name}}</a>
+                    <div class="item-buttons grid-span-3 flexrow flex-group-center">
+                        <button class="item-button attack sheet" data-action="attack" type="button"
+                            title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
+                        <button class="item-button damage sheet" data-action="damage" type="button"
+                            title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
+                        <button class="item-button damage sheet" data-action="direct" type="button"
+                            title={{localize "KNAVE2E.DirectRoll" }}>{{localize "KNAVE2E.DirectAbbr"}}</button>
+                    </div>
 
-            {{#if (eq item.type "weapon")}}
-            <a class="item-name detail grid-span-4">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
-                {{/if}}{{item.name}}</a>
-            <div class="item-buttons grid-span-3 flexrow flex-group-center">
-                <button class="item-button attack sheet" data-action="attack" type="button"
-                    title={{localize "KNAVE2E.AttackRoll" }}>{{localize "KNAVE2E.AttackAbbr"}}</button>
-                <button class="item-button damage sheet" data-action="damage" type="button"
-                    title={{localize "KNAVE2E.DamageRoll" }}>{{localize "KNAVE2E.DamageAbbr"}}</button>
-                <button class="item-button damage sheet" data-action="direct" type="button"
-                    title={{localize "KNAVE2E.DirectRoll" }}>{{localize "KNAVE2E.DirectAbbr"}}</button>
-            </div>
+                    {{else}}
+                    {{#if (eq item.type "spellbook")}}
+                    <a class="item-name detail grid-span-6">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
+                        {{/if}}{{item.name}}</a>
+                    <div class="item-buttons grid-span-1 flexrow flex-group-center">
+                        <button class="item-button cast" data-action="cast" type="button">{{localize
+                            "KNAVE2E.CastAbbr"}}</button>
+                    </div>
 
-            {{else}}
-            {{#if (eq item.type "spellbook")}}
-            <a class="item-name detail grid-span-6">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
-                {{/if}}{{item.name}}</a>
-            <div class="item-buttons grid-span-1 flexrow flex-group-center">
-                <button class="item-button cast" data-action="cast" type="button">{{localize
-                    "KNAVE2E.CastAbbr"}}</button>
-            </div>
+                    {{else}}
+                    <a class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
+                        {{/if}}{{item.name}}</a>
+                    {{/if}}
+                    {{/if}}
 
-            {{else}}
-            <a class="item-name detail grid-span-7">{{#if item.system.dropped}}({{localize "KNAVE2E.Dropped"}})
-                {{/if}}{{item.name}}</a>
-            {{/if}}
-            {{/if}}
-
-            <div class="item-slots grid-span-1 item-prop">{{item.system.slots}}</div>
-            <div class="item-slots grid-span-1 item-prop">
-                <div class="grid-span-3 flexrow flex-group-center">
-                    <a class="item-toggle quantity" data-action="decrement">
-                        <i class="fas fa-caret-down"></i></a>
-                    <div class="item-prop">{{item.system.quantity}}</div>
-                    <a class="item-toggle quantity" data-action="increment">
-                        <i class="fas fa-caret-up"></i></a>
+                    <div class="item-slots grid-span-1 item-prop">{{item.system.slots}}</div>
+                    <div class="item-slots grid-span-1 item-prop">
+                        <div class="grid-span-3 flexrow flex-group-center">
+                            <a class="item-toggle quantity" data-action="decrement">
+                                <i class="fas fa-caret-down"></i></a>
+                            <div class="item-prop">{{item.system.quantity}}</div>
+                            <a class="item-toggle quantity" data-action="increment">
+                                <i class="fas fa-caret-up"></i></a>
+                        </div>
+                    </div>
+                    <div class="item-controls grid-span-2">
+                        {{#if (eq item.type "weapon")}}
+                        <a class="item-toggle" data-action="break" title={{localize "KNAVE2E.BreakWeaponDetail" }}>
+                            <i class="fas {{#if item.system.broken}}fa-heart-broken{{else}}fa-heart{{/if}}"></i></a>
+                        {{/if}}
+                        {{#if (eq item.type "spellbook")}}
+                        <a class="item-toggle" data-action="cast" title={{localize "KNAVE2E.CastSpellbookDetail" }}>
+                            <i class="fas {{#if item.system.cast}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
+                        {{/if}}
+                        {{#if (eq item.type "lightSource")}}
+                        <a class="item-toggle" data-action="light" title={{localize "KNAVE2E.ActivateLightSourceDetail"
+                            }}>
+                            <i class="{{#if item.system.lit}}fas fa-lightbulb{{else}}far fa-lightbulb{{/if}}"></i></a>
+                        {{/if}}
+                        {{#if (eq item.type "armor")}}
+                        <a class="item-toggle" data-action="equip" title={{localize "KNAVE2E.EquipArmorDetail" }}>
+                            <i class="{{#if item.system.equipped}}fas fa-shirt{{else}}far fa-shirt{{/if}}"></i></a>
+                        {{/if}}
+                        {{#if (eq item.system.relic.isRelic true)}}
+                        <a class="item-toggle" data-action="blessing" title={{localize "KNAVE2E.ActiveBlessingDetail"
+                            }}>
+                            <i
+                                class="{{#if item.system.relic.isActive}}fas fa-sun{{else}}fa-regular fa-sun{{/if}}"></i></a>
+                        {{/if}}
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="item-controls grid-span-2">
-                {{#if (eq item.type "weapon")}}
-                <a class="item-toggle" data-action="break" title={{localize "KNAVE2E.BreakWeaponDetail" }}>
-                    <i class="fas {{#if item.system.broken}}fa-heart-broken{{else}}fa-heart{{/if}}"></i></a>
-                {{/if}}
-                {{#if (eq item.type "spellbook")}}
-                <a class="item-toggle" data-action="cast" title={{localize "KNAVE2E.CastSpellbookDetail" }}>
-                    <i class="fas {{#if item.system.cast}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
-                {{/if}}
-                {{#if (eq item.type "lightSource")}}
-                <a class="item-toggle" data-action="light" title={{localize "KNAVE2E.ActivateLightSourceDetail" }}>
-                    <i class="{{#if item.system.lit}}fas fa-lightbulb{{else}}far fa-lightbulb{{/if}}"></i></a>
-                {{/if}}
-                {{#if (eq item.type "armor")}}
-                <a class="item-toggle" data-action="equip" title={{localize "KNAVE2E.EquipArmorDetail" }}>
-                    <i class="{{#if item.system.equipped}}fas fa-shirt{{else}}far fa-shirt{{/if}}"></i></a>
-                {{/if}}
-                {{#if (eq item.system.relic.isRelic true)}}
-                <a class="item-toggle" data-action="blessing" title={{localize "KNAVE2E.ActiveBlessingDetail" }}>
-                    <i class="{{#if item.system.relic.isActive}}fas fa-sun{{else}}fa-regular fa-sun{{/if}}"></i></a>
-                {{/if}}
-                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
             </div>
         </li>
         {{/each}}

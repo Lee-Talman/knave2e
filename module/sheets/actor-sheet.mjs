@@ -100,23 +100,6 @@ export default class Knave2eActorSheet extends ActorSheet {
     if (game.settings.get("knave2e", "automaticLight")) {
       this._updateLight(context);
     }
-
-    // Handle Slots
-    if (game.settings.get("knave2e", "automaticSlots")) {
-      const { maxSlots, usedSlots } = this._updateTotalSlots(context);
-      systemData.slots.max = maxSlots;
-      systemData.slots.value = usedSlots;
-    } else {
-      systemData.slots.value = this._updateUsedSlots(context);
-    }
-
-    if (game.settings.get("knave2e", "enforceIntegerSlots")) {
-      systemData.slots.value = Math.ceil(systemData.slots.value);
-      systemData.slots.max = Math.ceil(systemData.slots.max);
-    } else {
-      systemData.slots.value = Number(systemData.slots.value.toPrecision(2));
-      systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
-    }
   }
 
   _prepareRecruitData(context) {
@@ -149,23 +132,6 @@ export default class Knave2eActorSheet extends ActorSheet {
     if (game.settings.get("knave2e", "automaticLight")) {
       this._updateLight(context);
     }
-
-    // Handle Slots
-    if (game.settings.get("knave2e", "automaticRecruits")) {
-      const { maxSlots, usedSlots } = this._updateTotalSlots(context);
-      systemData.slots.max = maxSlots;
-      systemData.slots.value = usedSlots;
-    } else {
-      systemData.slots.value = this._updateUsedSlots(context);
-    }
-
-    if (game.settings.get("knave2e", "enforceIntegerSlots")) {
-      systemData.slots.value = Math.ceil(systemData.slots.value);
-      systemData.slots.max = Math.ceil(systemData.slots.max);
-    } else {
-      systemData.slots.value = Number(systemData.slots.value.toPrecision(2));
-      systemData.slots.max = Number(systemData.slots.max.toPrecision(2));
-    }
   }
 
   _prepareMonsterData(context) {
@@ -191,82 +157,6 @@ export default class Knave2eActorSheet extends ActorSheet {
 
     systemData.crew = Math.ceil(systemData.crew);
     systemData.cost = Math.ceil(systemData.cost);
-  }
-
-  _updateTotalSlots(context) {
-    const systemData = context.system;
-    let maxSlots;
-
-    // Check max slots
-    if (game.settings.get("knave2e", "automaticSlots")) {
-      if (this.actor.type === "character") {
-        maxSlots =
-          10 +
-          systemData.abilities["constitution"].value -
-          (systemData.wounds.max - systemData.wounds.value);
-      } else if (this.actor.type === "recruit") {
-        maxSlots = 10;
-      }
-    } else {
-      maxSlots = systemData.slots.max;
-    }
-
-    const usedSlots = this._updateUsedSlots(context);
-
-    if (game.settings.get("knave2e", "enforceDrop")) {
-      // If slots > max, start dropping items...
-      if (usedSlots > maxSlots) {
-        const overflowSlots = usedSlots - maxSlots;
-        let slotCounter = 0; // count up to systemData.slots.value to derive how many discrete items to drop
-        for (
-          let i = 0;
-          i < Math.min(overflowSlots, context.items.length);
-          i++
-        ) {
-          const currentItem = context.items[i];
-          currentItem.system.dropped = true;
-
-          // Make sure to account for multi-slot items
-          slotCounter = slotCounter + currentItem.system.slots;
-          if (slotCounter >= overflowSlots) {
-            break;
-          }
-        }
-      }
-    }
-
-    return { maxSlots, usedSlots };
-  }
-
-  _updateUsedSlots(context) {
-    const systemData = context.system;
-
-    // Sum item slots.
-    let itemSlots = 0;
-    if (context.items.length > 0) {
-      context.items.forEach(
-        (item) => (itemSlots += item.system.slots * item.system.quantity)
-      );
-    }
-
-    const coinsPerSlot = game.settings.get("knave2e", "coinsPerSlot");
-    const arrowsPerSlot = game.settings.get("knave2e", "arrowsPerSlot");
-    const bulletsPerSlot = game.settings.get("knave2e", "slingBulletsPerSlot");
-
-    // Sum coin slots
-    const coinSlots = coinsPerSlot === 0 ? 0 : systemData.coins / coinsPerSlot;
-
-    // Sum ammo slots
-    const arrowSlots =
-      arrowsPerSlot === 0 ? 0 : systemData.ammo.arrow / arrowsPerSlot;
-    const bulletSlots =
-      bulletsPerSlot === 0 ? 0 : systemData.ammo.bullet / bulletsPerSlot;
-    const ammoSlots = arrowSlots + bulletSlots;
-
-    // Add up used slots
-    const usedSlots = itemSlots + coinSlots + ammoSlots;
-
-    return usedSlots;
   }
 
   _updateArmor(context) {
