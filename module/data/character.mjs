@@ -198,7 +198,8 @@ export default class Knave2eCharacter extends Knave2eActorType {
     deriveItemSlots() {
         const itemUpdates = [];
         let itemSlots = 0;
-        for (const item of this.parent.items) {
+        const items = this.parent.items.contents;
+        for (const item of items) {
             item.system.held = item.system.quantity;
             if (item.system.quantity > 0) {
                 item.system.dropped = false;
@@ -214,7 +215,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
 
     deriveDroppedItems(remainder) {
         const modifiedItems = [];
-        const sortedItems = [...this.parent.items.values()].sort((a, b) => a.sort - b.sort);
+        const sortedItems = this.parent.items.contents.sort((a, b) => a.sort - b.sort);
         iterateRemainder: while (remainder > 0) {
             for (const item of sortedItems) {
                 for (let i = 0; i < item.system.quantity; i++) {
