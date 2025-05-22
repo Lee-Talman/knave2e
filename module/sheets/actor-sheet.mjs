@@ -651,13 +651,14 @@ export default class Knave2eActorSheet extends ActorSheet {
     async _onDropItem(event, data) {
         if (!this.actor.isOwner) return false;
         const item = await Item.implementation.fromDropData(data);
-        const itemData = item.toObject();
+        if (item.parent !== null && !item.parent?.isOwner) return false;
 
         //Handle item sorting within the same Actor
+        const itemData = item.toObject();
         if (this.actor.uuid === item.parent?.uuid) return this._onSortItem(event, itemData);
 
         //Check to see if item can be added to an existing stack
-        if (this._isIdentical(itemData)) {
+        if (await this._isIdentical(item)) {
             return false;
         }
 
@@ -665,9 +666,10 @@ export default class Knave2eActorSheet extends ActorSheet {
         return super._onDropItemCreate(itemData, event);
     }
 
-    _isIdentical(newItem) {
+    async _isIdentical(item) {
         let inventory = [];
         let match;
+        const newItem = item.toObject();
         switch (newItem.type) {
             case 'armor':
                 inventory = this.actor.items.filter((existingItem) => existingItem.type === 'armor');
@@ -729,11 +731,34 @@ export default class Knave2eActorSheet extends ActorSheet {
                 break;
         }
         if (match) {
-            let incrementItem = this.actor.items.map((i) => ({
+            let moveQuantity = 0;
+            if (newItem.system.quantity > 1) {
+                try {
+                    moveQuantity = await foundry.applications.api.DialogV2.prompt({
+                        window: { title: `Move Quantity?` }, //todo: localize this
+                        content: `<input name="moveQuantity" type="number" min="0" max="${newItem.system?.quantity}" step="1" autofocus>`,
+                        ok: {
+                            label: 'Move',
+                            callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
+                        },
+                    });
+                } catch {
+                    return;
+                }
+            } else {
+                moveQuantity = newItem.system.quantity;
+            }
+            let incrementItem = this.actor.items.map(() => ({
                 _id: match.id,
-                'system.quantity': match.system.quantity + 1,
+                'system.quantity': match.system.quantity + moveQuantity,
             }));
             this.actor.updateEmbeddedDocuments('Item', incrementItem);
+
+            let decrementItem = item.parent.items.map(() => ({
+                _id: item.id,
+                'system.quantity': item.system.quantity - moveQuantity,
+            }));
+            item.parent.updateEmbeddedDocuments('Item', decrementItem);
             return true;
         } else {
             false;
