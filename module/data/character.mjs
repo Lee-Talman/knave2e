@@ -103,7 +103,6 @@ export default class Knave2eCharacter extends Knave2eActorType {
         this._deriveHP();
         this._deriveLevel();
         this._deriveSlots();
-        //this._deriveDroppedItems();
     }
 
     _deriveHP() {
@@ -204,6 +203,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
             if (item.system.quantity > 0) {
                 item.system.dropped = false;
             } else {
+                item.system.held = 0;
                 item.system.dropped = true;
             }
             itemUpdates.push(item);

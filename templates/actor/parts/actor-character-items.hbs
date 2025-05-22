@@ -73,9 +73,9 @@
             </div>
         </li>
         {{#each items as |item id|}}
-        <li class="knave-item grid grid-12col {{#if system.dropped}}dropped{{/if}}" data-item-id="{{item._id}}">
+        <li class="knave-item grid grid-12col" data-item-id="{{item._id}}">
             <div class="item-progress-wrapper grid grid-span-12 grid-12col">
-                <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: {{item.system.progress}}%;"></div>
+                <div class="item-progress-fill grid grid-span-12 grid-12col" style="width: {{#if item.system.dropped}}100{{else}}{{item.system.progress}}{{/if}}%;"></div>
                 <div class="item-progress-content grid grid-span-12 grid-12col">
                     <div class="item-image"><a class="item-image item-name grid-span-1"><img src="{{item.img}}"
                                 title="{{item.name}}" width="36" height="36" /></a></div>
