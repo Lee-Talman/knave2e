@@ -23,6 +23,12 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
       min: 0,
     });
     schema.dropped = new fields.BooleanField({ initial: false });
+    schema.held = new fields.NumberField({
+      ...requiredInteger,
+      initial: 1,
+      min: 0,
+    });
+    schema.progress = new fields.NumberField({initial: 0, min: 0, max: 100})
     schema.relic = new fields.SchemaField({
       isRelic: new fields.BooleanField({ initial: false }),
       isActive: new fields.BooleanField({ initial: false }),
@@ -37,11 +43,12 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
     schema.quantity = new fields.NumberField({
       ...requiredInteger,
       initial: 1,
-      min: 1,
+      min: 0,
     });
 
     return schema;
   }
 
   static DEFAULT_CATEGORY = "";
+
 }
