@@ -78,28 +78,34 @@
                     <input class="damage-roll-formula" type="text" name="system.damageRoll"
                         value="{{system.damageRoll}}" data-dtype="String" />
                 </div>
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize "KNAVE2E.Broken"}}</div>
+                    <input type="checkbox" name="system.broken" {{checked system.broken}} />
+                </div>
 
-            <hr class="separator" />
+                <hr class="separator" />
 
-            <div class="flexrow flex-group-left flex-between">
-                <div class="resource-label aside">{{localize "KNAVE2E.Broken"}}</div>
-                <input type="checkbox" name="system.broken" {{checked system.broken}} />
+                <div class="flexrow flex-group-left flex-between">
+                    <div class="resource-label aside">{{localize
+                        "KNAVE2E.Quantity"
+                        }}</div>
+                    <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" />
+                </div>
             </div>
-        </div>
 
-        {{! Item Description }}
-        <div class="item-body-description">
-            <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
-            <section class="editor">
-                {{editor
-                system.enrichedHTML
-                target="system.description"
-                button=true
-                owner=owner
-                editable=editable
-                }}
-            </section>
-        </div>
+            {{! Item Description }}
+            <div class="item-body-description">
+                <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
+                <section class="editor">
+                    {{editor
+                    system.enrichedHTML
+                    target="system.description"
+                    button=true
+                    owner=owner
+                    editable=editable
+                    }}
+                </section>
+            </div>
         </div>
     </section>
 </form>
