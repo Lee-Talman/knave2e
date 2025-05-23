@@ -100,13 +100,30 @@ export default class Knave2eCharacter extends Knave2eActorType {
     prepareBaseData() {}
 
     prepareDerivedData() {
+        this._deriveBlessings();
+        this._deriveCompanions();
         this._deriveHP();
         this._deriveLevel();
         this._deriveSlots();
+        this._deriveSpells();
+    }
+
+    _deriveBlessings() {
+        if (game.settings.get('knave2e', 'automaticBlessings')) {
+            this.blessings.max = this.abilities.charisma.value;
+        }
+    }
+
+    _deriveCompanions() {
+        if (game.settings.get('knave2e', 'automaticCompanions')) {
+            this.companions.max = this.abilities.charisma.value;
+        }
     }
 
     _deriveHP() {
-        //Cap current HP/wounds to max HP/wounds
+        if (game.settings.get('knave2e', 'automaticWounds')) {
+            this.wounds.max = 10 + this.abilities.constitution.value;
+        }
         this.hitPoints.value = Math.min(this.hitPoints.value, this.hitPoints.max);
         this.wounds.value = Math.min(this.wounds.value, this.wounds.max);
 
@@ -191,6 +208,12 @@ export default class Knave2eCharacter extends Knave2eActorType {
 
         if (usedSlots > this.slots.max) {
             this.deriveDroppedItems(usedSlots - this.slots.max);
+        }
+    }
+
+    _deriveSpells() {
+        if (game.settings.get('knave2e', 'automaticSpells')) {
+            this.spells.max = this.abilities.intelligence.value;
         }
     }
 
