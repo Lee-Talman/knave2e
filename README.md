@@ -114,8 +114,8 @@ Knave Second Edition for FoundryVTT is still in a beta stage, and is likely to h
 This system would not have been possible without the following people:
 1. Ben Milton and Questing Beast LLC. Thank you for a fantastic follow-up to Knave First Edition, and thank you for the permission to distribute this system to other fans!
 
-2. The FoundryVTT Boilerplate System developer `asacolips`, who is responsible for indirectly birthing more FoundryVTT game systems than anyone.
+2. The FoundryVTT Boilerplate System developer [asacolips](https://github.com/asacolips), who is responsible for indirectly birthing more FoundryVTT game systems than anyone.
 
-3. `mxzf`, `chaosOS`, `Ethaks`, `Draft`, and the rest of the incredible FoundryVTT development gurus in the FoundryVTT Discord server. Partially for their wisdom, but mostly for their patience.
+3. [mxzf](https://gitlab.com/mxzf), [chaosOS](https://github.com/JPMeehan), [Ethaks](https://github.com/Ethaks), `Draft`, and the rest of the incredible FoundryVTT development gurus in the FoundryVTT Discord server. Partially for their wisdom, but mostly for their patience.
 
 
