@@ -714,6 +714,18 @@ export default class Knave2eActorSheet extends ActorSheet {
                         existingItem.system?.speed === itemData.system?.speed
                 );
                 break;
+            case 'spellbook':
+                inventory = this.actor.items.filter((existingItem) => existingItem.type === 'spellbook');
+                match = inventory.find(
+                    (existingItem) =>
+                        existingItem.name === itemData.name &&
+                        existingItem.img === itemData.img &&
+                        existingItem.system?.category === itemData.system?.category &&
+                        existingItem.system?.description === itemData.system?.description &&
+                        existingItem.system?.relic.isRelic === itemData.system?.relic.isRelic &&
+                        existingItem.system?.slots === itemData.system?.slots
+                );
+                break;
             case 'weapon':
                 inventory = this.actor.items.filter((existingItem) => existingItem.type === 'weapon');
                 match = inventory.find(
@@ -757,7 +769,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                     },
                 });
             } catch {
-                return;
+                moveQuantity = 1;
             }
         } else {
             moveQuantity = itemData.system.quantity;
