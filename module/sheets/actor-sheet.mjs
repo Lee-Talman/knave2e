@@ -658,110 +658,143 @@ export default class Knave2eActorSheet extends ActorSheet {
         if (this.actor.uuid === item.parent?.uuid) return this._onSortItem(event, itemData);
 
         //Check to see if item can be added to an existing stack
-        if (await this._isIdentical(item)) {
-            return false;
+        let match = await this._isIdentical(itemData);
+        if (match !== null) {
+            await this._moveItems(item.parent, itemData, match);
+        } else {
+            await this._moveItems(item.parent, itemData);
         }
 
-        //Create the owned item
-        return super._onDropItemCreate(itemData, event);
+        // Create the owned item
+        //super._onDropItemCreate(itemData, event);
     }
 
-    async _isIdentical(item) {
+    async _isIdentical(itemData) {
         let inventory = [];
         let match;
-        const newItem = item.toObject();
-        switch (newItem.type) {
+        switch (itemData.type) {
             case 'armor':
                 inventory = this.actor.items.filter((existingItem) => existingItem.type === 'armor');
                 match = inventory.find(
                     (existingItem) =>
-                        existingItem.name === newItem.name &&
-                        existingItem.system?.category === existingItem.system?.category &&
-                        existingItem.system?.description === newItem.system?.description &&
-                        existingItem.system?.relic.isRelic === existingItem.system?.relic.isRelic &&
-                        existingItem.system?.slots === newItem.system?.slots &&
-                        existingItem.system?.armorPoints === newItem.system?.armorPoints
+                        existingItem.name === itemData.name &&
+                        existingItem.img === itemData.img &&
+                        existingItem.system?.category === itemData.system?.category &&
+                        existingItem.system?.description === itemData.system?.description &&
+                        existingItem.system?.relic.isRelic === itemData.system?.relic.isRelic &&
+                        existingItem.system?.slots === itemData.system?.slots &&
+                        existingItem.system?.armorPoints === itemData.system?.armorPoints
                 );
                 break;
             case 'equipment':
                 inventory = this.actor.items.filter((existingItem) => existingItem.type === 'equipment');
                 match = inventory.find(
                     (existingItem) =>
-                        existingItem.name === newItem.name &&
-                        existingItem.system?.category === existingItem.system?.category &&
-                        existingItem.system?.description === newItem.system?.description &&
-                        existingItem.system?.relic.isRelic === existingItem.system?.relic.isRelic &&
-                        existingItem.system?.slots === newItem.system?.slots
+                        existingItem.name === itemData.name &&
+                        existingItem.img === itemData.img &&
+                        existingItem.system?.category === itemData.system?.category &&
+                        existingItem.system?.description === itemData.system?.description &&
+                        existingItem.system?.relic.isRelic === itemData.system?.relic.isRelic &&
+                        existingItem.system?.slots === itemData.system?.slots
                 );
                 break;
             case 'lightSource':
                 inventory = this.actor.items.filter((existingItem) => existingItem.type === 'lightSource');
                 match = inventory.find(
                     (existingItem) =>
-                        existingItem.name === newItem.name &&
-                        existingItem.system?.category === existingItem.system?.category &&
-                        existingItem.system?.description === newItem.system?.description &&
-                        existingItem.system?.relic.isRelic === existingItem.system?.relic.isRelic &&
-                        existingItem.system?.slots === newItem.system?.slots &&
-                        existingItem.system?.dimRadius === newItem.system?.dimRadius &&
-                        existingItem.system?.brightRadius === newItem.system?.brightRadius &&
-                        existingItem.system?.intensity === existingItem.system?.intensity &&
-                        existingItem.system?.speed === existingItem.system?.speed
+                        existingItem.name === itemData.name &&
+                        existingItem.img === itemData.img &&
+                        existingItem.system?.category === itemData.system?.category &&
+                        existingItem.system?.description === itemData.system?.description &&
+                        existingItem.system?.relic.isRelic === itemData.system?.relic.isRelic &&
+                        existingItem.system?.slots === itemData.system?.slots &&
+                        existingItem.system?.dimRadius === itemData.system?.dimRadius &&
+                        existingItem.system?.brightRadius === itemData.system?.brightRadius &&
+                        existingItem.system?.intensity === itemData.system?.intensity &&
+                        existingItem.system?.speed === itemData.system?.speed
+                );
+                break;
+            case 'spellbook':
+                inventory = this.actor.items.filter((existingItem) => existingItem.type === 'spellbook');
+                match = inventory.find(
+                    (existingItem) =>
+                        existingItem.name === itemData.name &&
+                        existingItem.img === itemData.img &&
+                        existingItem.system?.category === itemData.system?.category &&
+                        existingItem.system?.description === itemData.system?.description &&
+                        existingItem.system?.relic.isRelic === itemData.system?.relic.isRelic &&
+                        existingItem.system?.slots === itemData.system?.slots
                 );
                 break;
             case 'weapon':
                 inventory = this.actor.items.filter((existingItem) => existingItem.type === 'weapon');
                 match = inventory.find(
                     (existingItem) =>
-                        existingItem.name === newItem.name &&
-                        existingItem.system?.category === existingItem.system?.category &&
-                        existingItem.system?.description === newItem.system?.description &&
-                        existingItem.system?.relic.isRelic === existingItem.system?.relic.isRelic &&
-                        existingItem.system?.slots === newItem.system?.slots &&
-                        existingItem.system?.ammoType === newItem.system?.ammoType &&
-                        existingItem.system?.attackBonus === newItem.system?.attackBonus &&
-                        existingItem.system?.range === existingItem.system?.range &&
-                        existingItem.system?.damageDiceAmount === existingItem.system?.damageDiceAmount &&
-                        existingItem.system?.damageDiceSize === newItem.system?.damageDiceSize &&
-                        existingItem.system?.damageDiceBonus === newItem.system?.damageDiceBonus &&
-                        existingItem.system?.damageRoll === existingItem.system?.damageRoll
+                        existingItem.name === itemData.name &&
+                        existingItem.img === itemData.img &&
+                        existingItem.system?.category === itemData.system?.category &&
+                        existingItem.system?.description === itemData.system?.description &&
+                        existingItem.system?.relic.isRelic === itemData.system?.relic.isRelic &&
+                        existingItem.system?.slots === itemData.system?.slots &&
+                        existingItem.system?.ammoType === itemData.system?.ammoType &&
+                        existingItem.system?.attackBonus === itemData.system?.attackBonus &&
+                        existingItem.system?.range === itemData.system?.range &&
+                        existingItem.system?.damageDiceAmount === itemData.system?.damageDiceAmount &&
+                        existingItem.system?.damageDiceSize === itemData.system?.damageDiceSize &&
+                        existingItem.system?.damageDiceBonus === itemData.system?.damageDiceBonus &&
+                        existingItem.system?.damageRoll === itemData.system?.damageRoll
                 );
                 break;
             default:
                 break;
         }
         if (match) {
-            let moveQuantity = 0;
-            if (newItem.system.quantity > 1) {
-                try {
-                    moveQuantity = await foundry.applications.api.DialogV2.prompt({
-                        window: { title: `Move Quantity?` }, //todo: localize this
-                        content: `<input name="moveQuantity" type="number" min="0" max="${newItem.system?.quantity}" step="1" autofocus>`,
-                        ok: {
-                            label: 'Move',
-                            callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
-                        },
-                    });
-                } catch {
-                    return;
-                }
-            } else {
-                moveQuantity = newItem.system.quantity;
-            }
+            return match;
+        } else {
+            return null;
+        }
+    }
+
+    async _moveItems(parent, itemData, match = null) {
+        let moveQuantity = 0;
+        if (itemData.system.quantity > 1 || parent === null) {
+            moveQuantity = await foundry.applications.api.DialogV2.prompt({
+                window: { title: `Move Quantity?` }, //todo: localize this
+                content: `<input name="moveQuantity" type="number" min="0" max="${itemData.system?.quantity}" value = "1" step="1" autofocus>`,
+                ok: {
+                    label: 'Move',
+                    icon: 'fa-solid fa-arrow-right',
+                    callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
+                },
+                rejectClose : false
+            });
+        } else {
+            moveQuantity = itemData.system.quantity;
+        }
+        // Cap move quantity at the amount that exists in the parent, as long as the parent is a sheet
+        if (parent !== null) {
+            moveQuantity = Math.min(moveQuantity, itemData.system.quantity);
+        }
+
+        const startingQuantity = itemData.system.quantity;
+
+        if (match !== null) {
             let incrementItem = this.actor.items.map(() => ({
-                _id: match.id,
+                _id: match._id,
                 'system.quantity': match.system.quantity + moveQuantity,
             }));
             this.actor.updateEmbeddedDocuments('Item', incrementItem);
-
-            let decrementItem = item.parent.items.map(() => ({
-                _id: item.id,
-                'system.quantity': item.system.quantity - moveQuantity,
-            }));
-            item.parent.updateEmbeddedDocuments('Item', decrementItem);
-            return true;
         } else {
-            false;
+            itemData.system.quantity = moveQuantity;
+            const createItemData = itemData instanceof Array ? itemData : [itemData];
+            this.actor.createEmbeddedDocuments('Item', createItemData);
+        }
+        if (parent !== null) {
+            let decrementItem = parent.items.map(() => ({
+                _id: itemData._id,
+                'system.quantity': startingQuantity - moveQuantity,
+            }));
+            parent.updateEmbeddedDocuments('Item', decrementItem);
         }
     }
 

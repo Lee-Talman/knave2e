@@ -3,6 +3,8 @@
 
 This game system for [Foundry Virtual Tabletop](https://foundryvtt.com/) provides character sheets and rule automation for [Knave Second Edition](https://www.kickstarter.com/projects/questingbeast/knave-rpg-second-edition) by [Ben Milton and Questing Beast LLC](https://questingbeast.substack.com/). 
 
+![Sheet Screenshot](./assets/sheet-screenshot.png)
+
 Knave Second Edition for FoundryVTT is an independent production of Lee Talman and is not affiliated with Questing Beast LLC. 
 
 ## Automatic Installation
@@ -15,37 +17,32 @@ Knave Second Edition for FoundryVTT is now available to download from Foundry's 
 
 
 ## Features
-Knave Second Edition for FoundryVTT provides sheets for player characters, monster, recruits (hireling, mercenaries, and experts), and items (weapons, armor, light sources, spellbooks, and general equipment). The system provides many automations, such as the following example of "chaining" items together: by adding a spellbook to a weapon, then rolling that weapon's attack, you can automatically output both the weapon's roll *and* spell effect simultaneously:
+Knave Second Edition for FoundryVTT provides sheets for player characters, monster, recruits (hireling, mercenaries, and experts), and items (weapons, armor, light sources, spellbooks, and general equipment). The game system provides the following automations, with optional to disable most of them:
 
-![Relic-Weapon-Chaining](./assets/relic-weapon-screenshot.png)
+### Characters:
+- [x] Character ability scores determine slots, wounds, spells per day, *etc*.
+- [x] Character level automatically adjusts based on XP
+- [x] Automatically restore HP (and/or Wounds) depending on type of rest
+- [x] Active Relics and Companions cannot exceed CHA
 
-The game system provides many other similar automations:
-
-### Rolls:
-- [x] Ability Checks
-- [x] Attack, Damage, and Direct Damage
-- [x] Checks adding Level, half Level, or zero
-- [x] Monster and Recruit Morale checks, with automatic success or failure
+### Combat:
+- [x] Roll attack, damage, and direct damage from the sheet or chat buttons
+- [x] Add weapon attack/damage bonuses and set custom damage dice per weapon
 - [x] Weapons break on a natural 1, or after using a power attack
-- [x] Monsters roll number appearing in both wilderness and dungeons
-- [x] Maneuvers trigger on rolls >= 21
-
-### Slots:
-- [x] Characters gain slots with CON
-- [x] Characters lose slots from Wounds, starting with the first slot
-- [x] Stacking items (coins, ammo) calculate total slot encumberance
-- [x] Items in wounded/overencumbered slots cannot be used
-- [x] Item order can be rearranged
-
-### Items:
-- [x] Items can be labeled as "Relics"
-- [x] Relics can be active or inactive, and add to total Active Blessings
-- [x] Characters gain maximum Active Blessings with CHA
+- [x] Roll number appearing for each monster in either dungeon or wilderness
+- [x] Maneuver reminder trigger on rolls >= 21
+- [x] Monsters roll with level, half-level, or 0
+- [x] Roll morale checks for both monsters & recruits
 - [x] Spellbooks can only be cast once per rest
-- [x] Characters can only cast a number of spells based on INT
-- [x] Only certain recruits can cast spells
-- [x] Light sources can be customized and activated from a character's inventory
-- [x] Characters can perform a standard or "safe haven" rest to restore Wounds
+
+### Slots & Items:
+- [x] Character's maximum slots reduces upon receiving wounds
+- [x] Coins and ammo auto-calculate their slot value 
+- [x] Items in wounded/overencumbered slots cannot be used
+- [x] Items can be dragged between sheets, and will automatically stack
+- [x] Light sources can be customized and turned on/off from the sheet*
+
+*requires Token Vision enabled on the Scene
 
 ## Custom Levels & XP
 `knave2e` supports custom level XP, levels beyond 1-10, and custom level labels. These are defined as a single JSON structure:

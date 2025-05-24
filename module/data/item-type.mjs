@@ -51,11 +51,11 @@ export default class Knave2eItemType extends foundry.abstract.TypeDataModel {
 
     static DEFAULT_CATEGORY = '';
 
-    prepareBaseData() {
-        if (this.dropped || this.quantity === 0 || this.held === 0) {
-            this.progress = 100;
-        } else {
-            this.progress = Math.floor(((this.quantity - this.held) / this.quantity) * 100);
-        }
-    }
+    //prepareDerivedData() {
+    //    if (this.dropped || this.quantity === 0 || this.held === 0) {
+    //        this.progress = 100;
+    //    } else {
+    //        this.progress = Math.floor(((this.quantity - this.held) / this.quantity) * 100);
+    //    }
+    //}
 }

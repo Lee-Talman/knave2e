@@ -59,7 +59,7 @@ export default class Knave2eWeapon extends Knave2eItemType {
     let m;
 
     if ((m = rollDamage.exec(this.damageRoll)) !== null) {
-      this.damageDiceAmount = m[1] === "" ? 1 : m[1];
+      this.damageDiceAmount = parseInt(m[1] === "" ? 1 : m[1]);
       this.damageDiceSize = m[2];
 
       if (m[3] !== "" && m[3] !== undefined && m[3] !== null) {
