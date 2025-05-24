@@ -758,19 +758,16 @@ export default class Knave2eActorSheet extends ActorSheet {
     async _moveItems(parent, itemData, match = null) {
         let moveQuantity = 0;
         if (itemData.system.quantity > 1 || parent === null) {
-            try {
-                moveQuantity = await foundry.applications.api.DialogV2.prompt({
-                    window: { title: `Move Quantity?` }, //todo: localize this
-                    content: `<input name="moveQuantity" type="number" min="0" max="${itemData.system?.quantity}" step="1" autofocus>`,
-                    ok: {
-                        label: 'Move',
-                        icon: 'fa-solid fa-arrow-right',
-                        callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
-                    },
-                });
-            } catch {
-                moveQuantity = 1;
-            }
+            moveQuantity = await foundry.applications.api.DialogV2.prompt({
+                window: { title: `Move Quantity?` }, //todo: localize this
+                content: `<input name="moveQuantity" type="number" min="0" max="${itemData.system?.quantity}" value = "1" step="1" autofocus>`,
+                ok: {
+                    label: 'Move',
+                    icon: 'fa-solid fa-arrow-right',
+                    callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
+                },
+                rejectClose : false
+            });
         } else {
             moveQuantity = itemData.system.quantity;
         }
@@ -778,7 +775,7 @@ export default class Knave2eActorSheet extends ActorSheet {
         if (parent !== null) {
             moveQuantity = Math.min(moveQuantity, itemData.system.quantity);
         }
-        
+
         const startingQuantity = itemData.system.quantity;
 
         if (match !== null) {
