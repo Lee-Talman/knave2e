@@ -745,13 +745,14 @@ export default class Knave2eActorSheet extends ActorSheet {
 
     async _moveItems(parent, itemData, match = null) {
         let moveQuantity = 0;
-        if (itemData.system.quantity > 1) {
+        if (itemData.system.quantity > 1 || parent === null) {
             try {
                 moveQuantity = await foundry.applications.api.DialogV2.prompt({
                     window: { title: `Move Quantity?` }, //todo: localize this
                     content: `<input name="moveQuantity" type="number" min="0" max="${itemData.system?.quantity}" step="1" autofocus>`,
                     ok: {
                         label: 'Move',
+                        icon: 'fa-solid fa-arrow-right',
                         callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
                     },
                 });
@@ -761,8 +762,11 @@ export default class Knave2eActorSheet extends ActorSheet {
         } else {
             moveQuantity = itemData.system.quantity;
         }
-        // Cap move quantity at the amount that exists in the parent
-        moveQuantity = Math.min(moveQuantity, itemData.system.quantity)
+        // Cap move quantity at the amount that exists in the parent, as long as the parent is a sheet
+        if (parent !== null) {
+            moveQuantity = Math.min(moveQuantity, itemData.system.quantity);
+        }
+        
         const startingQuantity = itemData.system.quantity;
 
         if (match !== null) {
@@ -776,11 +780,13 @@ export default class Knave2eActorSheet extends ActorSheet {
             const createItemData = itemData instanceof Array ? itemData : [itemData];
             this.actor.createEmbeddedDocuments('Item', createItemData);
         }
-        let decrementItem = parent.items.map(() => ({
-            _id: itemData._id,
-            'system.quantity': startingQuantity - moveQuantity,
-        }));
-        parent.updateEmbeddedDocuments('Item', decrementItem);
+        if (parent !== null) {
+            let decrementItem = parent.items.map(() => ({
+                _id: itemData._id,
+                'system.quantity': startingQuantity - moveQuantity,
+            }));
+            parent.updateEmbeddedDocuments('Item', decrementItem);
+        }
     }
 
     async _onMorale(event) {
