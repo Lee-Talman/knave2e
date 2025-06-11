@@ -749,7 +749,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                         existingItem.system?.damageDiceSize === itemData.system?.damageDiceSize &&
                         existingItem.system?.damageDiceBonus === itemData.system?.damageDiceBonus &&
                         existingItem.system?.damageRoll === itemData.system?.damageRoll &&
-                        existingItem.system?.breakable === existingItem.system?.breakable
+                        existingItem.system?.breakable === itemData.system?.breakable
                 );
                 break;
             default:
