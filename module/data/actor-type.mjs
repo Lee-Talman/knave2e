@@ -42,7 +42,7 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
     // Reset "cast" field on each owned spellbook
     let spellbookChanges = this.parent.items
       .filter((i) => i.type === "spellbook")
-      .map((i) => ({ _id: i.id, "system.cast": false }));
+      .map((i) => ({ _id: i.id, "system.cast": false, "system.castQuantity" : 0}));
     this.parent.updateEmbeddedDocuments("Item", spellbookChanges);
 
     // Recover all HP on rest

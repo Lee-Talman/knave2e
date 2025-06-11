@@ -48,13 +48,7 @@
                         localize=true
                         }}</select>
                 </div>
-                <div class="flexrow flex-group-left flex-between">
-                    <div class="resource-label aside">{{localize "KNAVE2E.Cast"}}</div>
-                    <input type="checkbox" name="system.cast" {{checked system.cast}} />
-                </div>
-
                 <hr class="separator" />
-
                 <div class="flexrow flex-group-left flex-between">
                     <div class="resource-label aside">{{localize
                         "KNAVE2E.Quantity"
@@ -65,6 +59,15 @@
 
             {{! Item Description }}
             <div class="item-body-description">
+                <div class="flexrow flex-group-left">
+                    <div class="flexrow flex-group-left">
+                        <div class="resource-label aside" title="How many individual spellbooks have been cast?" title="">
+                            {{localize
+                            "KNAVE2E.CastQuantity"}}</div>
+                        {{rangePicker name="system.castQuantity" value=system.castQuantity min=0 max=system.quantity
+                        step=1}}
+                    </div>
+                </div>
                 <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
                 <section class="editor">
                     {{editor

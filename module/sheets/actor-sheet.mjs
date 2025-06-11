@@ -400,9 +400,17 @@ export default class Knave2eActorSheet extends ActorSheet {
 
         switch (a.dataset.action) {
             case 'break':
-                return item.update({ 'system.broken': !item.system.broken });
+                let newBreakQuantity = 0
+                if (item.system.broken === false) {
+                    newBreakQuantity = item.system.quantity
+                }
+                return item.update({ 'system.brokenQuantity': newBreakQuantity, 'system.broken': !item.system.broken });
             case 'cast':
-                return item.update({ 'system.cast': !item.system.cast });
+                let newCastQuantity = 0
+                if (item.system.cast === false) {
+                    newCastQuantity = item.system.quantity
+                }
+                return item.update({ 'system.castQuantity': newCastQuantity, 'system.cast': !item.system.cast });
             case 'equip':
                 return item.update({ 'system.equipped': !item.system.equipped });
             case 'blessing':
@@ -531,17 +539,15 @@ export default class Knave2eActorSheet extends ActorSheet {
             title: `${game.i18n.localize('KNAVE2E.NumberAppearingDialogTitle')}`,
             buttons: {
                 dungeon: {
-                    label: `${game.i18n.localize('KNAVE2E.NumberAppearingDungeon')} (${
-                        systemData.numberAppearing.dungeon
-                    })`,
+                    label: `${game.i18n.localize('KNAVE2E.NumberAppearingDungeon')} (${systemData.numberAppearing.dungeon
+                        })`,
                     callback: () => {
                         return 'dungeon';
                     },
                 },
                 wilderness: {
-                    label: `${game.i18n.localize('KNAVE2E.NumberAppearingWilderness')} (${
-                        systemData.numberAppearing.wilderness
-                    })`,
+                    label: `${game.i18n.localize('KNAVE2E.NumberAppearingWilderness')} (${systemData.numberAppearing.wilderness
+                        })`,
                     callback: () => {
                         return 'wilderness';
                     },
@@ -561,14 +567,14 @@ export default class Knave2eActorSheet extends ActorSheet {
                 type === 'dungeon'
                     ? systemData.numberAppearing.dungeon
                     : type === 'wilderness'
-                    ? systemData.numberAppearing.wilderness
-                    : null;
+                        ? systemData.numberAppearing.wilderness
+                        : null;
             rollFlavor =
                 type === 'dungeon'
                     ? 'KNAVE2E.AppearInDungeon'
                     : type === 'wilderness'
-                    ? 'KNAVE2E.AppearInWilderness'
-                    : null;
+                        ? 'KNAVE2E.AppearInWilderness'
+                        : null;
         }
 
         if (formula) {
@@ -743,7 +749,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                         existingItem.system?.damageDiceSize === itemData.system?.damageDiceSize &&
                         existingItem.system?.damageDiceBonus === itemData.system?.damageDiceBonus &&
                         existingItem.system?.damageRoll === itemData.system?.damageRoll &&
-                        existingItem.system?.breakable === existingItem.system?.breakable 
+                        existingItem.system?.breakable === existingItem.system?.breakable
                 );
                 break;
             default:
@@ -767,7 +773,7 @@ export default class Knave2eActorSheet extends ActorSheet {
                     icon: 'fa-solid fa-arrow-right',
                     callback: (event, button, dialog) => button.form.elements.moveQuantity.valueAsNumber,
                 },
-                rejectClose : false
+                rejectClose: false
             });
         } else {
             moveQuantity = itemData.system.quantity;

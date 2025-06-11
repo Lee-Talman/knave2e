@@ -104,7 +104,7 @@ export async function onCast(event) {
             // Cast spell and increment actor's used spells
             if (game.settings.get('knave2e', 'enforceSpells')) {
                 item.update({
-                    'system.cast': true,
+                    'system.castQuantity': itemData.castQuantity + 1,
                 });
             }
             this.actor.update({
