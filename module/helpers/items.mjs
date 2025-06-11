@@ -165,7 +165,19 @@ export async function onAttack(event) {
     const systemData = this.actor.system;
 
     // Return if the weapon is broken
-    if (item.type === 'weapon' && itemData.broken === true && game.settings.get('knave2e', 'enforceBreaks')) {
+    if (item.type === 'weapon' && itemData.broken === true && itemData.breakable && game.settings.get('knave2e', 'enforceBreaks')) {
+        if (itemData.quantity > 1) {
+        Dialog.prompt({
+            title: `${game.i18n.localize('KNAVE2E.Item')} ${game.i18n.localize('KNAVE2E.Broken')}`,
+            //TODO: localize this string
+            content: `All of ${this.actor.name}'s ${item.name}s are broken!`,
+            label: 'OK',
+            callback: (html) => {
+                return;
+            },
+        });
+        }
+        else {
         Dialog.prompt({
             title: `${game.i18n.localize('KNAVE2E.Item')} ${game.i18n.localize('KNAVE2E.Broken')}`,
             content: `${item.name} ${game.i18n.localize('KNAVE2E.IsBroken')}!`,
@@ -174,7 +186,7 @@ export async function onAttack(event) {
                 return;
             },
         });
-
+        }
         return;
     }
 
@@ -260,18 +272,26 @@ export async function onAttack(event) {
     await r.evaluate();
 
     // Weapons from characters or recruits can break
-    if (item.type === 'weapon') {
+    if (item.type === 'weapon' && item.system.breakable) {
         if (game.settings.get('knave2e', 'enforceBreaks')) {
             // Check for weapon break on natural 1
             if (r.terms[0].results[0].result === 1) {
-                rollData.flavor = `${item.name} ${game.i18n.localize('KNAVE2E.Breaks')}!`;
+                if (item.system.quantity > 0) {
+                    //TODO: localize this string
+                    rollData.flavor = `One of ${this.actor.name}'s ${item.name}s ${game.i18n.localize('KNAVE2E.Breaks')}!`;
+                }
+                else {
+                    rollData.flavor = `${item.name} ${game.i18n.localize('KNAVE2E.Breaks')}!`;
+                }
 
                 item.update({
-                    'system.broken': true,
+                    'system.brokenQuantity': item.system.brokenQuantity + 1,
                 });
 
                 // Turn off buttons for broken weapons
-                rollData.data.buttons = false;
+                if (item.system.broken) {
+                    rollData.data.buttons = false;
+                }
             }
         }
     }
@@ -364,7 +384,7 @@ async function _rollDamage(a, actor, item) {
     const rollMode = game.settings.get('core', 'rollMode');
 
     // Return if the weapon is broken
-    if (item.type === 'weapon' && itemData.broken === true && game.settings.get('knave2e', 'enforceBreaks')) {
+    if (item.type === 'weapon' && itemData.broken === true && itemData.breakable === false && game.settings.get('knave2e', 'enforceBreaks')) {
         Dialog.prompt({
             title: `${game.i18n.localize('KNAVE2E.Item')} ${game.i18n.localize('KNAVE2E.Broken')}`,
             content: `${item.name} ${game.i18n.localize('KNAVE2E.IsBroken')}!`,
@@ -392,16 +412,25 @@ async function _rollDamage(a, actor, item) {
             if (powerAttack) {
                 amount = amount * 2; // double dice on power attack
 
-                if (game.settings.get('knave2e', 'enforceBreaks')) {
+                if (game.settings.get('knave2e', 'enforceBreaks') && itemData.breakable) {
                     item.update({
                         // power attacks break item
-                        'system.broken': true,
+                        'system.brokenQuantity': itemData.brokenQuantity + 1,
                     });
-                    rollFlavor =
-                        rollFlavor +
-                        `. ${game.i18n.localize('KNAVE2E.PowerAttack')} ${game.i18n.localize('KNAVE2E.Breaks')} ${
-                            item.name
-                        }!`;
+                    if (itemData.broken) {
+                        rollFlavor =
+                            rollFlavor +
+                            `. ${game.i18n.localize('KNAVE2E.PowerAttack')} ${game.i18n.localize('KNAVE2E.Breaks')} ${item.name
+                            }!`;
+                    }
+                    else {
+                        //TODO: localize this string
+                        rollFlavor =
+                            rollFlavor +
+                            `. ${game.i18n.localize('KNAVE2E.PowerAttack')} ${game.i18n.localize('KNAVE2E.Breaks')} one of ${this.actor.name}'s ${item.name
+                            }s!`;
+                    }
+
                 }
             }
         }

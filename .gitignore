@@ -503,3 +503,6 @@ packs/actors/CURRENT
 # Batch Files
 *.bat 
 *.cmd 
+
+# Foundry Config
+jsconfig.json

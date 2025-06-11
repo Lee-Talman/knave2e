@@ -78,10 +78,10 @@
                     <input class="damage-roll-formula" type="text" name="system.damageRoll"
                         value="{{system.damageRoll}}" data-dtype="String" />
                 </div>
-                <div class="flexrow flex-group-left flex-between">
+                {{!-- <div class="flexrow flex-group-left flex-between">
                     <div class="resource-label aside">{{localize "KNAVE2E.Broken"}}</div>
                     <input type="checkbox" name="system.broken" {{checked system.broken}} />
-                </div>
+                </div> --}}
 
                 <hr class="separator" />
 
@@ -95,6 +95,21 @@
 
             {{! Item Description }}
             <div class="item-body-description">
+                <div class="grid grid-6col flexrow flex-group-left">
+                    <div class="grid-span-2 flexrow flex-group-left">
+                        <div class="resource-label aside" title="Can this weapon be broken?">{{localize
+                            "KNAVE2E.Breakable"}}
+                        </div>
+                        <input type="checkbox" name="system.breakable" {{checked system.breakable}} />
+                    </div>
+                    <div class="grid-span-4 flexrow flex-group-left">
+                        <div class="resource-label aside" title="How many individual weapons are broken?" title="">
+                            {{localize
+                            "KNAVE2E.BrokenQuantity"}}</div>
+                        {{rangePicker name="system.brokenQuantity" value=system.brokenQuantity min=0 max=system.quantity
+                        step=1}}
+                    </div>
+                </div>
                 <div class="resource-label">{{localize "KNAVE2E.Description"}}</div>
                 <section class="editor">
                     {{editor

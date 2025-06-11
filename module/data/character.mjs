@@ -97,7 +97,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
         return schema;
     }
 
-    prepareBaseData() {}
+    prepareBaseData() { }
 
     prepareDerivedData() {
         this._deriveBlessings();
@@ -239,6 +239,14 @@ export default class Knave2eCharacter extends Knave2eActorType {
     deriveDroppedItems(remainder) {
         const modifiedItems = [];
         const sortedItems = this.parent.items.contents.sort((a, b) => a.sort - b.sort);
+        if (this.wounds.value <= 0) {
+            for (const droppedItem of sortedItems) {
+                droppedItem.system.held === 0;
+                modifiedItems.push(droppedItem)
+            }
+            this.parent.updateEmbeddedDocuments('Item', modifiedItems);
+            return;
+        }
         iterateRemainder: while (remainder > 0) {
             for (const item of sortedItems) {
                 for (let i = 0; i < item.system.quantity; i++) {
@@ -261,6 +269,18 @@ export default class Knave2eCharacter extends Knave2eActorType {
             }
         }
         this.parent.updateEmbeddedDocuments('Item', modifiedItems);
+    }
+
+    _deriveBrokenWeapons() {
+        const weapons = this.parent.items.contents.filter(item => item.type === 'weapon');
+        weapons.forEach(weapon => {
+            if (weapon.system.brokenQuantity >= weapon.system.quantity) {
+                weapon.update({ 'system.broken': true, 'system.brokenQuantity': weapon.system.quantity });
+            }
+            else {
+                weapon.update({ 'system.broken': false });
+            }
+        });
     }
 
     async getRestData() {

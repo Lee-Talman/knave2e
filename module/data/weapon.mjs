@@ -15,10 +15,12 @@ export default class Knave2eWeapon extends Knave2eItemType {
       initial: "none",
     });
     schema.attackBonus = new fields.NumberField({
-        ...requiredInteger,
-        initial: 0
+      ...requiredInteger,
+      initial: 0
     })
+    schema.breakable = new fields.BooleanField({ initial: true });
     schema.broken = new fields.BooleanField({ initial: false });
+    schema.brokenQuantity = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, step: 1});
     schema.range = new fields.NumberField({
       ...requiredInteger,
       initial: 5,
@@ -54,6 +56,25 @@ export default class Knave2eWeapon extends Knave2eItemType {
   }
 
   prepareDerivedData() {
+    this._deriveDamageRoll();
+    this._deriveBrokenState();
+  }
+
+  _deriveBrokenState() {
+    this.brokenQuantity = Math.min(this.brokenQuantity, this.quantity);
+    if (this.quantity <= 0) {
+      this.brokenQuantity = 0;
+      this.broken = false;
+    }
+    else if (this.brokenQuantity < this.quantity) {
+      this.broken = false;
+    }
+    else {
+      this.broken = true;
+    }
+  }
+
+  _deriveDamageRoll() {
     const rollDamage = new RegExp("^(\\d*)(d[1-9]\\d*)(?:([+-])(\\d+))?$", "");
     const flatDamage = new RegExp("^(\\+?|\\-?)(\\d+)$", "");
     let m;
@@ -77,5 +98,13 @@ export default class Knave2eWeapon extends Knave2eItemType {
         this.damageDiceBonus = +m[2];
       }
     }
+  }
+
+  async _preUpdate(changed, options, user) {
+    if (changed.system?.quantity !== undefined && changed.system?.quantity < this.quantity && !this.broken) {
+      const brokenDelta = this.quantity - changed.system?.quantity;
+      changed["system.brokenQuantity"] = Math.max(this.brokenQuantity - brokenDelta, 0);
+    }
+    return super._preUpdate(changed, options, user);
   }
 }
