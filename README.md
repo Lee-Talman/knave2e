@@ -1,5 +1,5 @@
 # Knave Second Edition (Unofficial) - Game System for Foundry Virtual Tabletop
-![Foundry Virtual Tabletop](https://img.shields.io/badge/foundry-v11-green)
+![Foundry Virtual Tabletop](https://img.shields.io/badge/foundry-v12-green)
 
 This game system for [Foundry Virtual Tabletop](https://foundryvtt.com/) provides character sheets and rule automation for [Knave Second Edition](https://www.kickstarter.com/projects/questingbeast/knave-rpg-second-edition) by [Ben Milton and Questing Beast LLC](https://questingbeast.substack.com/). 
 
