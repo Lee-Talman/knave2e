@@ -97,7 +97,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
         return schema;
     }
 
-    prepareBaseData() { }
+    prepareBaseData() {}
 
     prepareDerivedData() {
         this._deriveBlessings();
@@ -181,6 +181,10 @@ export default class Knave2eCharacter extends Knave2eActorType {
     }
 
     _deriveSlots() {
+        if (game.settings.get('knave2e', 'automaticSlots') === true) {
+            this.slots.max = 10 + this.abilities['constitution'].value - (this.wounds.max - this.wounds.value);
+        }
+
         const coinsPerSlot = game.settings.get('knave2e', 'coinsPerSlot');
         const arrowsPerSlot = game.settings.get('knave2e', 'arrowsPerSlot');
         const bulletsPerSlot = game.settings.get('knave2e', 'slingBulletsPerSlot');
@@ -193,21 +197,20 @@ export default class Knave2eCharacter extends Knave2eActorType {
         const bulletSlots = bulletsPerSlot === 0 ? 0 : this.ammo.bullet / bulletsPerSlot;
         const ammoSlots = arrowSlots + bulletSlots;
 
-        const sheetSlots = ammoSlots + coinSlots;
-        const usedSlots = this.deriveItemSlots() + sheetSlots;
+        const nonItemSlots = ammoSlots + coinSlots;
+        this.slots.value = nonItemSlots;
 
-        if (game.settings.get('knave2e', 'automaticSlots') === true) {
-            this.slots.max = 10 + this.abilities['constitution'].value - (this.wounds.max - this.wounds.value);
+        const itemSlots = this.deriveHeldItemSlots();
+        this.slots.value += itemSlots;
+        const remainder = itemSlots + nonItemSlots - this.slots.max;
+        if (remainder > 0) {
+            this.deriveDroppedItems(remainder);
         }
         if (game.settings.get('knave2e', 'enforceIntegerSlots') === true) {
-            this.slots.value = Math.ceil(usedSlots);
+            this.slots.value = Math.ceil(this.slots.value);
             this.slots.max = Math.ceil(this.slots.max);
         } else {
-            this.slots.value = Number(usedSlots).toPrecision(2);
-        }
-
-        if (usedSlots > this.slots.max) {
-            this.deriveDroppedItems(usedSlots - this.slots.max);
+            this.slots.value = Number(nonItemSlots).toPrecision(2);
         }
     }
 
@@ -217,11 +220,10 @@ export default class Knave2eCharacter extends Knave2eActorType {
         }
     }
 
-    deriveItemSlots() {
-        const itemUpdates = [];
+    deriveHeldItemSlots() {
+        const modifiedItems = [];
         let itemSlots = 0;
-        const items = this.parent.items.contents;
-        for (const item of items) {
+        for (const item of this.parent.items.contents) {
             item.system.held = item.system.quantity;
             if (item.system.quantity > 0) {
                 item.system.dropped = false;
@@ -229,25 +231,17 @@ export default class Knave2eCharacter extends Knave2eActorType {
                 item.system.held = 0;
                 item.system.dropped = true;
             }
-            itemUpdates.push(item);
+            modifiedItems.push(item);
             itemSlots += item.system.quantity * item.system.slots;
         }
-        this.parent.updateEmbeddedDocuments('Item', itemUpdates);
+        this.parent.updateEmbeddedDocuments('Item', modifiedItems);
         return itemSlots;
     }
 
     deriveDroppedItems(remainder) {
         const modifiedItems = [];
         const sortedItems = this.parent.items.contents.sort((a, b) => a.sort - b.sort);
-        if (this.wounds.value <= 0) {
-            for (const droppedItem of sortedItems) {
-                droppedItem.system.held === 0;
-                modifiedItems.push(droppedItem)
-            }
-            this.parent.updateEmbeddedDocuments('Item', modifiedItems);
-            return;
-        }
-        iterateRemainder: while (remainder > 0) {
+        iterateRemainder: while (remainder > 0 && sortedItems.length > 0) {
             for (const item of sortedItems) {
                 for (let i = 0; i < item.system.quantity; i++) {
                     if (item.system.dropped === false) {
@@ -267,17 +261,17 @@ export default class Knave2eCharacter extends Knave2eActorType {
                 item.system.progress = ((item.system.quantity - item.system.held) / item.system.quantity) * 100;
                 modifiedItems.push(item);
             }
+            break iterateRemainder;
         }
         this.parent.updateEmbeddedDocuments('Item', modifiedItems);
     }
 
     _deriveBrokenWeapons() {
-        const weapons = this.parent.items.contents.filter(item => item.type === 'weapon');
-        weapons.forEach(weapon => {
+        const weapons = this.parent.items.contents.filter((item) => item.type === 'weapon');
+        weapons.forEach((weapon) => {
             if (weapon.system.brokenQuantity >= weapon.system.quantity) {
                 weapon.update({ 'system.broken': true, 'system.brokenQuantity': weapon.system.quantity });
-            }
-            else {
+            } else {
                 weapon.update({ 'system.broken': false });
             }
         });
@@ -320,5 +314,3 @@ export default class Knave2eCharacter extends Knave2eActorType {
         }
     }
 }
-
-
