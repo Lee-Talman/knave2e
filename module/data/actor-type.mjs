@@ -19,6 +19,7 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
         min: 0,
       }),
     });
+    schema.initiative = new fields.NumberField({...requiredInteger, initial: 0});
     schema.level = new fields.NumberField({
       ...requiredInteger,
       initial: 1,

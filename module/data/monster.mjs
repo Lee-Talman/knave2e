@@ -32,6 +32,7 @@ export default class Knave2eRecruit extends Knave2eActorType {
   prepareDerivedData() {
     this._deriveNA();
     this._deriveHP();
+    this._deriveInitiative();
   }
 
   _deriveNA() {
@@ -62,5 +63,9 @@ export default class Knave2eRecruit extends Knave2eActorType {
       this.hitPoints.value = 0;
       this.hitPoints.progress = 0;
     }
+  }
+
+  _deriveInitiative() {
+    this.initiative = this.level;
   }
 }
