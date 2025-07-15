@@ -103,6 +103,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
         this._deriveBlessings();
         this._deriveCompanions();
         this._deriveHP();
+        this._deriveInitiative();
         this._deriveLevel();
         this._deriveSlots();
         this._deriveSpells();
@@ -180,6 +181,10 @@ export default class Knave2eCharacter extends Knave2eActorType {
         }
     }
 
+    _deriveInitiative() {
+        this.initiative = this.abilities.charisma.value;
+    }
+
     _deriveSlots() {
         if (game.settings.get('knave2e', 'automaticSlots') === true) {
             this.slots.max = 10 + this.abilities['constitution'].value - (this.wounds.max - this.wounds.value);
@@ -200,11 +205,11 @@ export default class Knave2eCharacter extends Knave2eActorType {
         const nonItemSlots = ammoSlots + coinSlots;
         this.slots.value = nonItemSlots;
 
-        const itemSlots = this.deriveHeldItemSlots();
+        const itemSlots = this._deriveHeldItemSlots();
         this.slots.value += itemSlots;
         const remainder = itemSlots + nonItemSlots - this.slots.max;
         if (remainder > 0) {
-            this.deriveDroppedItems(remainder);
+            this._deriveDroppedItems(remainder);
         }
         if (game.settings.get('knave2e', 'enforceIntegerSlots') === true) {
             this.slots.value = Math.ceil(this.slots.value);
@@ -214,13 +219,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
         }
     }
 
-    _deriveSpells() {
-        if (game.settings.get('knave2e', 'automaticSpells')) {
-            this.spells.max = this.abilities.intelligence.value;
-        }
-    }
-
-    deriveHeldItemSlots() {
+    _deriveHeldItemSlots() {
         const modifiedItems = [];
         let itemSlots = 0;
         for (const item of this.parent.items.contents) {
@@ -238,7 +237,7 @@ export default class Knave2eCharacter extends Knave2eActorType {
         return itemSlots;
     }
 
-    deriveDroppedItems(remainder) {
+    _deriveDroppedItems(remainder) {
         const modifiedItems = [];
         const sortedItems = this.parent.items.contents.sort((a, b) => a.sort - b.sort);
         iterateRemainder: while (remainder > 0 && sortedItems.length > 0) {
@@ -264,6 +263,12 @@ export default class Knave2eCharacter extends Knave2eActorType {
             break iterateRemainder;
         }
         this.parent.updateEmbeddedDocuments('Item', modifiedItems);
+    }
+
+    _deriveSpells() {
+        if (game.settings.get('knave2e', 'automaticSpells')) {
+            this.spells.max = this.abilities.intelligence.value;
+        }
     }
 
     _deriveBrokenWeapons() {
