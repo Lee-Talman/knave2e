@@ -20,12 +20,8 @@
     "verified": "12",
     "maximum": "12"
   },
-  "esmodules": [
-    "module/knave2e.mjs"
-  ],
-  "styles": [
-    "css/knave2e.css"
-  ],
+  "esmodules": ["module/knave2e.mjs"],
+  "styles": ["css/knave2e.css"],
   "languages": [
     {
       "lang": "en",

@@ -61,96 +61,95 @@
 
 // Grid offset.
 .grid-start-2 {
-  grid-column-start: 2
+  grid-column-start: 2;
 }
 
 .grid-start-3 {
-  grid-column-start: 3
+  grid-column-start: 3;
 }
 
 .grid-start-4 {
-  grid-column-start: 4
+  grid-column-start: 4;
 }
 
 .grid-start-5 {
-  grid-column-start: 5
+  grid-column-start: 5;
 }
 
 .grid-start-6 {
-  grid-column-start: 6
+  grid-column-start: 6;
 }
 
 .grid-start-7 {
-  grid-column-start: 7
+  grid-column-start: 7;
 }
 
 .grid-start-8 {
-  grid-column-start: 8
+  grid-column-start: 8;
 }
 
 .grid-start-9 {
-  grid-column-start: 9
+  grid-column-start: 9;
 }
 
 .grid-start-10 {
-  grid-column-start: 10
+  grid-column-start: 10;
 }
 
 .grid-start-11 {
-  grid-column-start: 11
+  grid-column-start: 11;
 }
 
 .grid-start-12 {
-  grid-column-start: 12
+  grid-column-start: 12;
 }
 
 .grid-span-2 {
-  grid-column-end: span 2
+  grid-column-end: span 2;
 }
 
 .grid-span-3 {
-  grid-column-end: span 3
+  grid-column-end: span 3;
 }
 
 .grid-span-4 {
-  grid-column-end: span 4
+  grid-column-end: span 4;
 }
 
 .grid-span-5 {
-  grid-column-end: span 5
+  grid-column-end: span 5;
 }
 
 .grid-span-6 {
-  grid-column-end: span 6
+  grid-column-end: span 6;
 }
 
 .grid-span-7 {
-  grid-column-end: span 7
+  grid-column-end: span 7;
 }
 
 .grid-span-8 {
-  grid-column-end: span 8
+  grid-column-end: span 8;
 }
 
 .grid-span-9 {
-  grid-column-end: span 9
+  grid-column-end: span 9;
 }
 
 .grid-span-10 {
-  grid-column-end: span 10
+  grid-column-end: span 10;
 }
 
 .grid-span-11 {
-  grid-column-end: span 11
+  grid-column-end: span 11;
 }
 
 .grid-span-12 {
-  grid-column-end: span 12
+  grid-column-end: span 12;
 }
 
 .grid-slot {
-
-  >* {
+  > * {
     display: grid;
   }
 }
@@ -251,7 +250,6 @@
         }
       }
     }
-
   }
 
   footer.footer {
@@ -260,7 +258,6 @@
     align-self: end;
     grid-area: 4 / 1 / 5 / 2;
   }
-
 }
 
 .vehicle-grid {
@@ -281,7 +278,7 @@
     .image {
       grid-area: 1 / 1 / 2 / 2;
     }
-    
+
     .info {
       grid-area: 1 / 2 / 2 / 4;
     }
@@ -309,7 +306,6 @@
     grid-area: 3 / 1 / 4 / 4;
   }
 }
-  
 
 .npc-grid {
   display: grid;
@@ -369,12 +365,10 @@
 
 .item-img {
   grid-area: 1 / 1 / 2 / 2;
-
 }
 
 .item-info {
   grid-area: 1 / 2 / 2 / 3;
-
 }
 
 // Item Body Grid
@@ -393,9 +387,7 @@
 
   .item-description {
     grid-area: 1 / 2 / 2 / 3;
-
   }
-
 }
 
 // Item Sheet Header
@@ -451,8 +443,6 @@
   min-width: 350px;
   grid-area: 1 / 2 / 2 / 3;
 }
-
-
 
 .progress-container {
   display: grid;

@@ -15,9 +15,9 @@ export default class Knave2eMonsterAttack extends Knave2eItemType {
       min: 1,
     });
     schema.attackBonus = new fields.NumberField({
-        ...requiredInteger,
-        initial: 0
-    })
+      ...requiredInteger,
+      initial: 0,
+    });
     schema.damageDiceAmount = new fields.NumberField({
       ...requiredInteger,
       initial: 1,
@@ -56,19 +56,16 @@ export default class Knave2eMonsterAttack extends Knave2eItemType {
 
       if (m[3] !== "" && m[3] !== undefined && m[3] !== null) {
         this.damageDiceBonus = m[3] === "+" ? +m[4] : +`-${m[4]}`;
-      } 
-      else {
+      } else {
         this.damageDiceBonus = 0;
       }
-    } 
-    else if ((m = flatDamage.exec(this.damageRoll)) !== null) {
+    } else if ((m = flatDamage.exec(this.damageRoll)) !== null) {
       this.damageDiceAmount = 0;
       this.damageDiceSize = "d6";
 
       if (m[1] !== "" && m[1] !== undefined && m[1] !== null) {
         this.damageDiceBonus = m[1] === "-" ? +`-${m[2]}` : +m[2];
-      } 
-      else {
+      } else {
         this.damageDiceBonus = +m[2];
       }
     }

@@ -19,7 +19,10 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
         min: 0,
       }),
     });
-    schema.initiative = new fields.NumberField({...requiredInteger, initial: 0});
+    schema.initiative = new fields.NumberField({
+      ...requiredInteger,
+      initial: 0,
+    });
     schema.level = new fields.NumberField({
       ...requiredInteger,
       initial: 1,
@@ -43,10 +46,14 @@ export default class Knave2eActorType extends foundry.abstract.TypeDataModel {
     // Reset "cast" field on each owned spellbook
     let spellbookChanges = this.parent.items
       .filter((i) => i.type === "spellbook")
-      .map((i) => ({ _id: i.id, "system.cast": false, "system.castQuantity" : 0}));
+      .map((i) => ({
+        _id: i.id,
+        "system.cast": false,
+        "system.castQuantity": 0,
+      }));
     this.parent.updateEmbeddedDocuments("Item", spellbookChanges);
 
     // Recover all HP on rest
-    return {"system.hitPoints.value" : this.hitPoints.max}
+    return { "system.hitPoints.value": this.hitPoints.max };
   }
 }

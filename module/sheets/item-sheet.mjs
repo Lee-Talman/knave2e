@@ -64,7 +64,7 @@ export default class Knave2eItemSheet extends ItemSheet {
     }
 
     context.system.enrichedHTML = await TextEditor.enrichHTML(
-      context.system.description
+      context.system.description,
     );
 
     return context;
@@ -72,7 +72,7 @@ export default class Knave2eItemSheet extends ItemSheet {
 
   _prepareWeaponData(context) {
     context.weaponCategories = this._labelOptions(
-      CONFIG.SYSTEM.WEAPON.CATEGORIES
+      CONFIG.SYSTEM.WEAPON.CATEGORIES,
     );
     context.ammoCategories = this._labelOptions(CONFIG.SYSTEM.AMMO.CATEGORIES);
     // context.damageDiceCategories = CONFIG.SYSTEM.DAMAGE_DICE_SIZES;
@@ -82,7 +82,7 @@ export default class Knave2eItemSheet extends ItemSheet {
 
   _prepareSpellbookData(context) {
     context.spellbookCategories = this._labelOptions(
-      CONFIG.SYSTEM.SPELLBOOK.CATEGORIES
+      CONFIG.SYSTEM.SPELLBOOK.CATEGORIES,
     );
 
     return context;
@@ -92,7 +92,7 @@ export default class Knave2eItemSheet extends ItemSheet {
     const systemData = context.system;
 
     context.lightSourceCategories = this._labelOptions(
-      CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES
+      CONFIG.SYSTEM.LIGHTSOURCE.CATEGORIES,
     );
 
     return context;
@@ -104,7 +104,7 @@ export default class Knave2eItemSheet extends ItemSheet {
 
   _prepareArmorData(context) {
     context.armorCategories = this._labelOptions(
-      CONFIG.SYSTEM.ARMOR.CATEGORIES
+      CONFIG.SYSTEM.ARMOR.CATEGORIES,
     );
   }
 

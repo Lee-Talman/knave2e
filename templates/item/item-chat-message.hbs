@@ -1,19 +1,23 @@
-{{title}}
+<div
+  style="font-size:12px;color:var(--color-text-dark-secondary);line-height:20px;"
+>{{flavor}}</div>
 
 {{#if data.hasDescription}}
   <hr />
-  <div class="renderedHTML" style="margin-top: 5px">
+  <div
+    class="renderedHTML"
+    style="font-size:12px;color:var(--color-text-dark-secondary);line-height:20px;"
+  >
     {{{data.description}}}
   </div>
-  <hr />
 {{/if}}
 
 {{#if data.buttons}}
   <div class="item-roll dice-roll flexcol flex-row-center">
     <div class="dice-result">
-      <div class="dice-formula">{{rolls.0.formula}}</div>
-      {{{rolls.0.toolTip}}}
-      <h4 class="dice-total flex-row-center">{{rolls.0.total}}</h4>
+      <div class="dice-formula">{{rolls.[0].formula}}</div>
+      {{{rolls.[0].toolTip}}}
+      <h4 class="dice-total flex-row-center">{{rolls.[0].total}}</h4>
     </div>
   </div>
   <div class="item-roll flexrow flex-row-center" style="margin-top: 5px;">
@@ -38,9 +42,9 @@
 {{else}}
   <div class="item-roll dice-roll flexcol flex-row-center">
     <div class="dice-result">
-      <div class="dice-formula">{{rolls.0.formula}}</div>
-      {{{rolls.0.toolTip}}}
-      <h4 class="dice-total">{{rolls.0.total}}</h4>
+      <div class="dice-formula">{{rolls.[0].formula}}</div>
+      {{{rolls.[0].toolTip}}}
+      <h4 class="dice-total">{{rolls.[0].total}}</h4>
     </div>
   </div>
 {{/if}}

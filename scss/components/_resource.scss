@@ -5,8 +5,8 @@
   // overflow: hidden;
   white-space: nowrap;
 
-  &.circle, 
-  &.shield, 
+  &.circle,
+  &.shield,
   &.rounded {
     display: grid;
     place-items: center;
@@ -17,11 +17,9 @@
   }
 
   &.aside {
-    font-size:smaller;
+    font-size: smaller;
   }
 }
-
-
 
 .circle {
   border: 2px solid black;
@@ -58,7 +56,6 @@
     align-items: center;
     justify-content: space-around;
   }
-
 }
 
 .rounded {
@@ -105,5 +102,5 @@
 //}
 
 .italic {
-  font-style:italic;
+  font-style: italic;
 }

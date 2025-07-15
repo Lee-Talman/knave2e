@@ -16,11 +16,16 @@ export default class Knave2eWeapon extends Knave2eItemType {
     });
     schema.attackBonus = new fields.NumberField({
       ...requiredInteger,
-      initial: 0
-    })
+      initial: 0,
+    });
     schema.breakable = new fields.BooleanField({ initial: true });
     schema.broken = new fields.BooleanField({ initial: false });
-    schema.brokenQuantity = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0, step: 1});
+    schema.brokenQuantity = new fields.NumberField({
+      ...requiredInteger,
+      initial: 0,
+      min: 0,
+      step: 1,
+    });
     schema.range = new fields.NumberField({
       ...requiredInteger,
       initial: 5,
@@ -65,11 +70,9 @@ export default class Knave2eWeapon extends Knave2eItemType {
     if (this.quantity <= 0) {
       this.brokenQuantity = 0;
       this.broken = false;
-    }
-    else if (this.brokenQuantity < this.quantity) {
+    } else if (this.brokenQuantity < this.quantity) {
       this.broken = false;
-    }
-    else {
+    } else {
       this.broken = true;
     }
   }
@@ -101,9 +104,16 @@ export default class Knave2eWeapon extends Knave2eItemType {
   }
 
   async _preUpdate(changed, options, user) {
-    if (changed.system?.quantity !== undefined && changed.system?.quantity < this.quantity && !this.broken) {
+    if (
+      changed.system?.quantity !== undefined &&
+      changed.system?.quantity < this.quantity &&
+      !this.broken
+    ) {
       const brokenDelta = this.quantity - changed.system?.quantity;
-      changed["system.brokenQuantity"] = Math.max(this.brokenQuantity - brokenDelta, 0);
+      changed["system.brokenQuantity"] = Math.max(
+        this.brokenQuantity - brokenDelta,
+        0,
+      );
     }
     return super._preUpdate(changed, options, user);
   }

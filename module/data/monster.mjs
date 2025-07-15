@@ -49,7 +49,7 @@ export default class Knave2eRecruit extends Knave2eActorType {
     // Extract string2 using slice
     this.numberAppearing.wilderness = combined.slice(
       openingParenIndex + 1,
-      closingParenIndex
+      closingParenIndex,
     );
   }
 
@@ -57,7 +57,7 @@ export default class Knave2eRecruit extends Knave2eActorType {
     if (this.hitPoints.value > 0) {
       this.hitPoints.value = Math.min(this.hitPoints.value, this.hitPoints.max);
       this.hitPoints.progress = Math.floor(
-        (this.hitPoints.value / this.hitPoints.max) * 100
+        (this.hitPoints.value / this.hitPoints.max) * 100,
       );
     } else {
       this.hitPoints.value = 0;

@@ -7,7 +7,14 @@
     "vehicle": {}
   },
   "Item": {
-    "types": ["armor", "equipment", "lightSource", "spellbook", "weapon", "monsterAttack"],
+    "types": [
+      "armor",
+      "equipment",
+      "lightSource",
+      "spellbook",
+      "weapon",
+      "monsterAttack"
+    ],
     "armor": {},
     "equipment": {},
     "lightSource": {},

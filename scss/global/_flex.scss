@@ -8,9 +8,8 @@
   text-align: center;
 }
 
-.flexrow, 
+.flexrow,
 .flexcol {
-
   &.no-wrap {
     flex-wrap: nowrap;
   }
@@ -20,7 +19,7 @@
   }
 
   .item-row {
-    flex-shrink: 0; 
+    flex-shrink: 0;
     overflow: hidden;
     flex-wrap: nowrap;
     text-overflow: ellipsis;
